@@ -1,5 +1,8 @@
 package com.aor.thief.gui;
 
+import com.aor.thief.model.game.menu.Position;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -10,7 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class LanternaGUI {
+public class LanternaGUI implements GUI {
     private final Screen screen;
     private final Terminal terminal;
 
@@ -27,8 +30,52 @@ public class LanternaGUI {
         screen.doResizeIfNecessary();
     }
     public void draw() throws IOException {
-        screen.clear();
-        screen.refresh();
+        clear();
+        refresh();
+    }
 
+    @Override
+    public void drawThief(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'H', "#FFD700");
+    }
+
+    @Override
+    public void drawPrize(Position position) {
+        drawCharacter(position.getX(), position.getY(), '£', "#CC0000");
+    }
+
+    @Override
+    public void drawWall(Position position) {
+        drawCharacter(position.getX(), position.getY(), '#', "#3333FF");
+    }
+
+    @Override
+    public void drawGuard(Position position) {
+        drawCharacter(position.getX(), position.getY(), '@', "#CC0000");
+    }
+
+    @Override
+    public void drawText(Position position, String text, String color) {
+
+    }
+    private void drawCharacter(int x, int y, char c, String color) {
+        TextGraphics tg = screen.newTextGraphics();
+        tg.setForegroundColor(TextColor.Factory.fromString(color));
+        tg.putString(x, y + 1, "" + c);
+    }
+
+    @Override
+    public void clear() {
+        screen.clear();
+    }
+
+    @Override
+    public void refresh() throws IOException {
+        screen.refresh();
+    }
+
+    @Override
+    public void close() throws IOException {
+        screen.close();
     }
 }

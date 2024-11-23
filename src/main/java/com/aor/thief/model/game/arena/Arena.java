@@ -68,5 +68,13 @@ public class Arena {
                 return true;
         return false;
     }
+
+    public Prize getPrize() {
+        return prize;
+    }
+
+    public void setPrize(Prize prize) {
+        this.prize = prize;
+    }
 }
 
