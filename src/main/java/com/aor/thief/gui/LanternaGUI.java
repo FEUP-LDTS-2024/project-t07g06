@@ -33,12 +33,12 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawThief(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'H', "#FFD700");
+        drawCharacter(position.getX(), position.getY(), 'T', "#FFD700");
     }
 
     @Override
     public void drawPrize(Position position) {
-        drawCharacter(position.getX(), position.getY(), '£', "#CC0000");
+        drawCharacter(position.getX(), position.getY(), '£', "#FFD700");
     }
 
     @Override

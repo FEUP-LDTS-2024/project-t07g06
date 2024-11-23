@@ -35,15 +35,15 @@ public class Arena {
         return thief;
     }
 
-    public void setHero(Thief thief) {
+    public void setThief(Thief thief) {
         this.thief = thief;
     }
 
-    public List<Guard> getMonsters() {
+    public List<Guard> getGuards() {
         return guards;
     }
 
-    public void setMonsters(List<Guard> guards) {
+    public void setGuards(List<Guard> guards) {
         this.guards = guards;
     }
 

@@ -10,6 +10,10 @@ import com.aor.thief.model.game.elements.Wall;
 public abstract class ArenaBuilder {
     public Arena createArena() {
         Arena arena = new Arena(getWidth(), getHeight());
+        arena.setGuards(createGuard());
+        arena.setThief(createThief());
+        arena.setPrize(createPrize());
+        arena.setWalls(createWalls());
         return arena;
     }
 

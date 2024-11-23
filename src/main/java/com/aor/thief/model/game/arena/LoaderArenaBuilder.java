@@ -27,8 +27,10 @@ public class LoaderArenaBuilder extends ArenaBuilder {
 
     private List<String> readLines(BufferedReader br) throws IOException {
         List<String> lines = new ArrayList<>();
-        for (String line; (line = br.readLine()) != null; )
+        for (String line; (line = br.readLine()) != null; ) {
+            System.out.println(line);
             lines.add(line);
+        }
         return lines;
     }
 

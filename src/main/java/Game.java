@@ -1,6 +1,7 @@
 import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.arena.LoaderArenaBuilder;
+import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.states.GameState;
 import com.aor.thief.states.State;
 import com.googlecode.lanterna.input.KeyStroke;
