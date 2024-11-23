@@ -1,5 +1,10 @@
 package com.aor.thief.model.game.arena;
 
+import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.game.elements.Prize;
+import com.aor.thief.model.game.elements.Thief;
+import com.aor.thief.model.game.elements.Wall;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,5 +43,50 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     @Override
     protected int getHeight() {
         return lines.size();
+    }
+
+    @Override
+    protected List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == '#') walls.add(new Wall(x, y));
+        }
+
+        return walls;
+    }
+
+    @Override
+    protected List<Guard> createGuard() {
+        List<Guard> monsters = new ArrayList<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'G') monsters.add(new Guard(x, y));
+        }
+
+        return monsters;
+    }
+
+    @Override
+    protected Thief createThief() {
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'T') return new Thief(x, y);
+        }
+        return null;
+    }
+    @Override
+    protected Prize createPrize() {
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'P') return new Prize(x, y);
+        }
+        return null;
     }
 }
