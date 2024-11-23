@@ -20,7 +20,7 @@ public class Game {
 
     public Game() throws FontFormatException, IOException, URISyntaxException {
         this.gui = new LanternaGUI(35, 20);
-        this.state = new GameState(new LoaderArenaBuilder(1).createArena());
+        this.state = new GameState(new LoaderArenaBuilder(1).createArena()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
         new Game().start();

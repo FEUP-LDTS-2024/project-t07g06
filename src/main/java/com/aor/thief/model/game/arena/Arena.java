@@ -55,14 +55,14 @@ public class Arena {
         this.walls = walls;
     }
 
-    public boolean isEmpty(Position position) {
+    public boolean canThiefmove(Position position) {
         for (Wall wall : walls)
             if (wall.getPosition().equals(position))
                 return false;
         return true;
     }
 
-    public boolean isGuard(Position position) { //Maybe wont be necessary, guards will have to check the space infront, temos de falar decidir quanto vem, se só para a frente etc.
+    public boolean isCaught(Position position) { //Maybe wont be necessary, guards will have to check the space infront, temos de falar decidir quanto vem, se só para a frente etc.
         for (Guard guard : guards)
             if (guard.getPosition().equals(position))
                 return true;
@@ -76,5 +76,12 @@ public class Arena {
     public void setPrize(Prize prize) {
         this.prize = prize;
     }
+    public boolean pickedupPrize(Position position) {
+        if (getPrize().getPosition().equals(position)){
+            return true;
+        }
+        return false;
+    }
+
 }
 
