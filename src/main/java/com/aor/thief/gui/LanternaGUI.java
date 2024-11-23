@@ -17,6 +17,7 @@ public class LanternaGUI implements GUI {
     private final Screen screen;
     private final Terminal terminal;
 
+
     public LanternaGUI(Screen screen, Terminal terminal) {
         this.screen = screen;
         this.terminal = terminal;
@@ -28,10 +29,6 @@ public class LanternaGUI implements GUI {
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary();
-    }
-    public void draw() throws IOException {
-        clear();
-        refresh();
     }
 
     @Override
