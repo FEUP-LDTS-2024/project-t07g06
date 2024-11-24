@@ -24,7 +24,7 @@ public class GuardController extends GameController{
         int index =0;
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
-                 cur_dir= guard.getDirection();
+                cur_dir= guard.getDirection();
                 while (!getModel().isntWall(guard.getPosition().movingpattern(cur_dir))) {
                     cur_dir++;
                     if (cur_dir>3) cur_dir=0;
@@ -80,6 +80,6 @@ public class GuardController extends GameController{
                 FOV.add(possiblyCanSee);
             }
         }
-    return FOV;
+        return FOV;
     }
 }
