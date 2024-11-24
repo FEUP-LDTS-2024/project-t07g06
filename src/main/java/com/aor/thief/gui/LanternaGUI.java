@@ -1,6 +1,7 @@
 package com.aor.thief.gui;
 
 import com.aor.thief.model.game.menu.Position;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -15,20 +16,34 @@ import java.net.URISyntaxException;
 
 public class LanternaGUI implements GUI {
     private final Screen screen;
-    private final Terminal terminal;
+
 
 
     public LanternaGUI(Screen screen, Terminal terminal) {
         this.screen = screen;
-        this.terminal = terminal;
     }
 
     public LanternaGUI(int width, int height) throws IOException, FontFormatException, URISyntaxException {
-        terminal = new DefaultTerminalFactory().createTerminal();
+        Terminal terminal = createTerminal(width, height);
+        this.screen = createScreen(terminal);
+    }
+
+    private Screen createScreen(Terminal terminal) throws IOException {
+        final Screen screen;
         screen = new TerminalScreen(terminal);
-        screen.setCursorPosition(null); // we don't need a cursor
-        screen.startScreen(); // screens must be started
+
+        screen.setCursorPosition(null);
+        screen.startScreen();
         screen.doResizeIfNecessary();
+        return screen;
+    }
+
+    private Terminal createTerminal(int width, int height) throws IOException {
+        TerminalSize terminalSize = new TerminalSize(width, height + 1);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
+                .setInitialTerminalSize(terminalSize);
+        Terminal terminal = terminalFactory.createTerminal();
+        return terminal;
     }
 
     @Override
