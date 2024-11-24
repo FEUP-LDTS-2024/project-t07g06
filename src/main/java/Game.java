@@ -3,7 +3,9 @@ import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.arena.LoaderArenaBuilder;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.GameState;
+import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -21,7 +23,7 @@ public class Game {
 
     public Game() throws FontFormatException, IOException, URISyntaxException {
         this.gui = new LanternaGUI(35, 20);
-        this.state = new GameState(new LoaderArenaBuilder(1).createArena()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
+        this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
         new Game().start();
