@@ -36,8 +36,14 @@ public class ThiefController extends GameController{
                 getModel().getThief().prize_collected();
                 getModel().getPrize().removeFirst();
             }
+        }else {
+            if (getModel().atDoor(position)) {
+                //getModel().game.setState(null);
+
+            }
         }
     }
+
 
     @Override
     public void step(Game game, GUI.ACTION action,long time) throws IOException {
@@ -45,5 +51,6 @@ public class ThiefController extends GameController{
         if(action == GUI.ACTION.DOWN) moveThiefDown();
         if(action == GUI.ACTION.LEFT) moveThiefLeft();
         if(action == GUI.ACTION.RIGHT) moveThiefRight();
+
     }
 }

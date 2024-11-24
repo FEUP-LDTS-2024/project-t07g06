@@ -15,6 +15,8 @@ public interface GUI {
 
     void drawGuard(Position position);
 
+    void drawDoor(Position position);
+
     void drawText(Position position, String text, String color);
 
     void clear();

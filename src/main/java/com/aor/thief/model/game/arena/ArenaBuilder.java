@@ -2,10 +2,7 @@ package com.aor.thief.model.game.arena;
 
 import java.util.List;
 
-import com.aor.thief.model.game.elements.Prize;
-import com.aor.thief.model.game.elements.Thief;
-import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Wall;
+import com.aor.thief.model.game.elements.*;
 
 public abstract class ArenaBuilder {
     public Arena createArena() {
@@ -14,6 +11,7 @@ public abstract class ArenaBuilder {
         arena.setThief(createThief());
         arena.setPrize(createPrize());
         arena.setWalls(createWalls());
+        arena.setDoor(createDoor());
         return arena;
     }
 
@@ -29,4 +27,5 @@ public abstract class ArenaBuilder {
 
     protected abstract List<Prize> createPrize();
 
+    protected abstract Door createDoor();
 }

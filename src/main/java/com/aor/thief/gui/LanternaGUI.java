@@ -100,6 +100,9 @@ public class LanternaGUI implements GUI {
         tg.setForegroundColor(TextColor.Factory.fromString(color));
         tg.putString(x, y + 1, "" + c);
     }
+    @Override
+    public void drawDoor(Position position){drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
+    }
 
     @Override
     public void clear() {

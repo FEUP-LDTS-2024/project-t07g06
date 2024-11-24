@@ -1,9 +1,6 @@
 package com.aor.thief.model.game.arena;
 
-import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Prize;
-import com.aor.thief.model.game.elements.Thief;
-import com.aor.thief.model.game.elements.Wall;
+import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.Position;
 
 import java.util.List;
@@ -12,6 +9,10 @@ public class Arena {
     private final int width;
     private final int height;
     private Thief thief;
+
+
+
+    private Door door;
     private List<Prize> prize;
 
     private List<Guard> guards;
@@ -85,6 +86,19 @@ public class Arena {
         return false;
     }
 
+    public boolean atDoor(Position position) {
+        if (getDoor().getPosition().equals(position)){
+            return true;
+        }
+        return false;
+    }
+    public Door getDoor() {
+        return door;
+    }
+
+    public void setDoor(Door door) {
+        this.door = door;
+    }
 
 }
 
