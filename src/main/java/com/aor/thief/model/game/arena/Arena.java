@@ -55,7 +55,7 @@ public class Arena {
         this.walls = walls;
     }
 
-    public boolean canThiefmove(Position position) {
+    public boolean canElementmove(Position position) {
         for (Wall wall : walls)
             if (wall.getPosition().equals(position))
                 return false;

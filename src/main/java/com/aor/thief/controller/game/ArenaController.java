@@ -18,12 +18,12 @@ public class ArenaController extends Controller {
         this.guardController = new GuardController(arena);
     }
 
-    public void step(Game game, GUI.ACTION action) throws IOException {
+    public void step(Game game, GUI.ACTION action,long time) throws IOException {
         //if (action == GUI.ACTION.QUIT)
             //game.setState(new MenuState(new Menu()));
         //else {
-            thiefController.step(game, action);
-            guardController.step(game, action);
+            thiefController.step(game, action, time);
+            guardController.step(game, action,time);
        // }
     }
 }

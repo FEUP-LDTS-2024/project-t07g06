@@ -28,14 +28,14 @@ public class ThiefController extends GameController{
     }
 
     private void moveThief(Position position){
-        if (getModel().canThiefmove(position)) {
+        if (getModel().canElementmove(position)) {
             getModel().getThief().setPosition(position);
 
         }
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action) throws IOException {
+    public void step(Game game, GUI.ACTION action,long time) throws IOException {
         if(action == GUI.ACTION.UP) moveThiefUp();
         if(action == GUI.ACTION.DOWN) moveThiefDown();
         if(action == GUI.ACTION.LEFT) moveThiefLeft();

@@ -33,6 +33,21 @@ public class Position {
         return new Position(x, y + 1);
     }
 
+    public Position movingpattern(int direction){
+        switch (direction){
+            case(0)://down
+                return new Position(x, y + 1);
+            case(1)://left
+                return new Position(x - 1, y);
+            case(2)://up
+                return new Position(x, y - 1);
+            case(3)://right
+                return new Position(x + 1, y);
+            default:
+                return new Position(x, y);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
