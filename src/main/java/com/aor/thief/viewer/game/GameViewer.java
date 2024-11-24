@@ -4,7 +4,7 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Element;
 import com.aor.thief.model.Position;
-import com.aor.thief.viewer.menu.Viewer;
+import com.aor.thief.viewer.Viewer;
 
 import java.util.List;
 

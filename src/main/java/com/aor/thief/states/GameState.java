@@ -4,7 +4,7 @@ import com.aor.thief.controller.Controller;
 import com.aor.thief.controller.game.ArenaController;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.viewer.game.GameViewer;
-import com.aor.thief.viewer.menu.Viewer;
+import com.aor.thief.viewer.Viewer;
 
 public class GameState extends State<Arena> {
     public GameState(Arena arena) {

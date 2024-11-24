@@ -2,7 +2,7 @@ package com.aor.thief.states;
 import com.aor.thief.Game;
 import com.aor.thief.controller.Controller;
 import com.aor.thief.gui.GUI;
-import com.aor.thief.viewer.menu.Viewer;
+import com.aor.thief.viewer.Viewer;
 
 import java.io.IOException;
 

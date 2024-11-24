@@ -1,4 +1,4 @@
-package com.aor.thief.viewer.menu;
+package com.aor.thief.viewer;
 
 import com.aor.thief.gui.GUI;
 
@@ -23,3 +23,4 @@ public abstract class Viewer<T> {
 
     protected abstract void drawElements(GUI gui);
 }
+
