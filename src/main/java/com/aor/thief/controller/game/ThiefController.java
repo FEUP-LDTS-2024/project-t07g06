@@ -30,7 +30,12 @@ public class ThiefController extends GameController{
     private void moveThief(Position position){
         if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
-
+        }
+        if(!getModel().getPrize().isEmpty()) {
+            if (getModel().pickedupPrize(position)) {
+                getModel().getThief().prize_collected();
+                getModel().getPrize().removeFirst();
+            }
         }
     }
 

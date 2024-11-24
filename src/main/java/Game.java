@@ -37,12 +37,21 @@ public class Game {
     private void start() throws IOException {
         int FPS = 10;
         int frameTime = 1000 / FPS;
-        while(this.state!=null){
+
+        while (this.state != null) {
             long startTime = System.currentTimeMillis();
-            state.step(this, gui,startTime);
+
+            state.step(this, gui, startTime);
+
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            long sleepTime = frameTime - elapsedTime;
+
+            try {
+                if (sleepTime > 0) Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+            }
         }
-
-
+        gui.close();
     }
 }
 

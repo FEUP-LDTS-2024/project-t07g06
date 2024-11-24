@@ -77,17 +77,18 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'T') return new Thief(x, y);
+                if (line.charAt(x) == 'T') return new Thief(x, y,0);
         }
         return null;
     }
     @Override
-    protected Prize createPrize() {
+    protected List<Prize> createPrize() {
+        List<Prize> prize = new ArrayList<>();
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'P') return new Prize(x, y);
+                if (line.charAt(x) == 'P') prize.add( new Prize(x, y));
         }
-        return null;
+        return prize;
     }
 }

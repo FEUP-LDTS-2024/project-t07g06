@@ -27,6 +27,6 @@ public abstract class ArenaBuilder {
 
     protected abstract Thief createThief();
 
-    protected abstract Prize createPrize();
+    protected abstract List<Prize> createPrize();
 
 }

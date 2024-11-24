@@ -12,7 +12,7 @@ public class Arena {
     private final int width;
     private final int height;
     private Thief thief;
-    private Prize prize;
+    private List<Prize> prize;
 
     private List<Guard> guards;
     private List<Wall> walls;
@@ -71,20 +71,20 @@ public class Arena {
 
 
 
-    public Prize getPrize() {
+    public List<Prize> getPrize() {
         return prize;
     }
 
-    public void setPrize(Prize prize) {
+    public void setPrize(List<Prize> prize) {
         this.prize = prize;
     }
-
     public boolean pickedupPrize(Position position) {
-        if (getPrize().getPosition().equals(position)){
+        if (getPrize().getFirst().getPosition().equals(position)){
             return true;
         }
         return false;
     }
+
 
 }
 
