@@ -1,3 +1,4 @@
+package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.arena.LoaderArenaBuilder;
@@ -26,8 +27,15 @@ public class Game {
         new Game().start();
 
     }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     private void start() throws IOException {
-        state.step(gui);
+        while(this.state!=null){
+            state.step(this, gui);
+        }
 
 
     }

@@ -1,4 +1,6 @@
 package com.aor.thief.controller;
+import com.aor.thief.Game;
+import com.aor.thief.gui.GUI;
 
 import java.io.IOException;
 
@@ -12,5 +14,7 @@ public abstract class Controller<T> {
     public T getModel() {
         return model;
     }
+
+    public abstract void step(Game game, GUI.ACTION action) throws IOException;
 
 }
