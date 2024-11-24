@@ -55,7 +55,7 @@ public class Arena {
         this.walls = walls;
     }
 
-    public boolean canElementmove(Position position) {
+    public boolean isntWall(Position position) {
         for (Wall wall : walls)
             if (wall.getPosition().equals(position))
                 return false;
@@ -69,6 +69,8 @@ public class Arena {
         return false;
     }
 
+
+
     public Prize getPrize() {
         return prize;
     }
@@ -76,6 +78,7 @@ public class Arena {
     public void setPrize(Prize prize) {
         this.prize = prize;
     }
+
     public boolean pickedupPrize(Position position) {
         if (getPrize().getPosition().equals(position)){
             return true;

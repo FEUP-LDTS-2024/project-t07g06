@@ -28,7 +28,7 @@ public class ThiefController extends GameController{
     }
 
     private void moveThief(Position position){
-        if (getModel().canElementmove(position)) {
+        if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
 
         }
