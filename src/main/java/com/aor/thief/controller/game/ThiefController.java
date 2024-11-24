@@ -30,7 +30,7 @@ public class ThiefController extends GameController{
     }
 
     public boolean canThiefEscape(){
-        return getModel().getThief().getPosition().equals(getModel().getDoor().getPosition());}
+        return getModel().getThief().getPosition().equals(getModel().getDoor().getPosition()) && getModel().getPrize().isEmpty();}
 
     private void moveThief(Position position){
         if (getModel().isntWall(position)) {
