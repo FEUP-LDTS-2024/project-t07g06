@@ -1,6 +1,7 @@
 package com.aor.thief.states;
 
 import com.aor.thief.controller.Controller;
+import com.aor.thief.controller.game.ArenaController;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.viewer.game.GameViewer;
 import com.aor.thief.viewer.menu.Viewer;
@@ -17,7 +18,7 @@ public class GameState extends State<Arena> {
 
     @Override
     protected Controller<Arena> getController() {
-        return null;
+        return new ArenaController(getModel());
     }
 
 }

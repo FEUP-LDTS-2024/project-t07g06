@@ -1,10 +1,12 @@
 package com.aor.thief.gui;
 
-import com.aor.thief.model.game.menu.Position;
+import com.aor.thief.model.Position;
 
 import java.io.IOException;
 
 public interface GUI {
+    ACTION getNextAction() throws IOException;
+
     void drawThief(Position position);
 
     void drawPrize(Position position);
@@ -20,4 +22,6 @@ public interface GUI {
     void refresh() throws IOException;
 
     void close() throws IOException;
+
+    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT}
 }

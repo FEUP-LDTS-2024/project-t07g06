@@ -1,6 +1,6 @@
 package com.aor.thief.model.game.elements;
 
-import com.aor.thief.model.game.menu.Position;
+import com.aor.thief.model.Position;
 
 public class Element {
     private Position position;

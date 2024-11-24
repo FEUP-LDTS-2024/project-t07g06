@@ -1,5 +1,5 @@
 package com.aor.thief.states;
-
+import com.aor.thief.Game;
 import com.aor.thief.controller.Controller;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.viewer.menu.Viewer;
@@ -8,13 +8,13 @@ import java.io.IOException;
 
 public abstract class State<T> {
     private final T model;
-    //private final Controller<T> controller;
+    private final Controller<T> controller;
     private final Viewer<T> viewer;
 
     public State(T model) {
         this.model = model;
         this.viewer = getViewer();
-        //this.controller = getController();
+        this.controller = getController();
     }
 
     protected abstract Viewer<T> getViewer();
@@ -25,7 +25,10 @@ public abstract class State<T> {
         return model;
     }
 
-    public void step( GUI gui) throws IOException {
+    public void step(Game game, GUI gui) throws IOException {
+        GUI.ACTION action = gui.getNextAction();
+        controller.step(game,action);
+
         viewer.draw(gui);
     }
 }
