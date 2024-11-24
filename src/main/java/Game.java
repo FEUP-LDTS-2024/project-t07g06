@@ -35,7 +35,7 @@ public class Game {
     }
 
     private void start() throws IOException {
-        int FPS = 60;
+        int FPS = 30;
         int frameTime = 1000 / FPS;
 
         while (this.state != null) {
