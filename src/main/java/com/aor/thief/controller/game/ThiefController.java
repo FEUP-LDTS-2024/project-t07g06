@@ -3,6 +3,8 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.menu.Menu;
+import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
 
@@ -26,6 +28,9 @@ public class ThiefController extends GameController{
     public void moveThiefDown(){
         moveThief(getModel().getThief().getPosition().getDown());
     }
+
+    public boolean canThiefEscape(){
+        return getModel().getThief().getPosition().equals(getModel().getDoor().getPosition()) && getModel().getPrize().isEmpty();}
 
     private void moveThief(Position position){
         if (getModel().isntWall(position)) {
@@ -51,6 +56,9 @@ public class ThiefController extends GameController{
         if(action == GUI.ACTION.DOWN) moveThiefDown();
         if(action == GUI.ACTION.LEFT) moveThiefLeft();
         if(action == GUI.ACTION.RIGHT) moveThiefRight();
-
+        if(action == GUI.ACTION.ESCAPE) {
+            if(canThiefEscape()){
+                game.setState(new MenuState(new Menu()));}
+        }
     }
 }
