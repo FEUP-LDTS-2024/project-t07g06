@@ -1,4 +1,4 @@
-package com.aor.thief.model.game.menu;
+package com.aor.thief.model;
 
 public class Position {
     private final int x;

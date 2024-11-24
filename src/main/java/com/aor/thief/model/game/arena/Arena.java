@@ -4,7 +4,7 @@ import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Prize;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.game.elements.Wall;
-import com.aor.thief.model.game.menu.Position;
+import com.aor.thief.model.Position;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.aor.thief.gui;
 
-import com.aor.thief.model.game.menu.Position;
+import com.aor.thief.model.Position;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
