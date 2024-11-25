@@ -28,10 +28,13 @@ public class GuardController extends GameController {
             game.setState(new MenuState(new Menu()));}
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
-                cur_dir = guard.getDirection();
+                int cur_dir = guard.getDirection();
+                int counting_dir=cur_dir;
                 while (!getModel().isntWall(guard.getPosition().movingpattern(cur_dir))) {
                     cur_dir++;
+                    counting_dir++;
                     if (cur_dir > 3) cur_dir = 0;
+                    if(counting_dir>cur_dir+9) break;
                 }
                 guard.setDirection(cur_dir);
                 moveGuard(index, guard.getPosition().movingpattern(cur_dir));
