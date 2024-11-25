@@ -22,7 +22,7 @@ public class LanternaGUI implements GUI {
 
 
 
-    public LanternaGUI(Screen screen, Terminal terminal) {
+    public LanternaGUI(Screen screen) {
         this.screen = screen;
     }
 
