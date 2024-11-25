@@ -3,10 +3,7 @@ package com.aor.thief.viewer;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
-import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Prize;
-import com.aor.thief.model.game.elements.Thief;
-import com.aor.thief.model.game.elements.Wall;
+import com.aor.thief.model.game.elements.*;
 import com.aor.thief.viewer.game.GameViewer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +27,7 @@ public class ArenaViewerTest{
         arena.setGuards(Arrays.asList(new Guard(4, 5, 0), new Guard(5, 6, 0)));
         arena.setPrize(Arrays.asList(new Prize(7, 7)));
         arena.setThief(new Thief(5, 8, 0, 0));
+        arena.setDoor(new Door(6,8));
     }
 
 
@@ -61,10 +59,19 @@ public class ArenaViewerTest{
     }
 
     @Test
+    void drawDoor()throws IOException{
+        arena.setPrize(Arrays.asList());
+        viewer.draw(gui);
+        Mockito.verify(gui, Mockito.times(1)).drawDoor(new Position(6, 8));
+        Mockito.verify(gui, Mockito.times(1)).drawThief(Mockito.any(Position.class));
+    }
+
+    @Test
     void refreshAndClear() throws IOException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).clear();
         Mockito.verify(gui, Mockito.times(1)).refresh();
     }
+
 }

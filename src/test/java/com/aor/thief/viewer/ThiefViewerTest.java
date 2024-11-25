@@ -18,7 +18,6 @@ public class ThiefViewerTest {
         viewer = new ThiefViewer();
         gui = Mockito.mock(GUI.class);
     }
-
     @Test
     void drawElement() {
         viewer.draw(thief, gui);
