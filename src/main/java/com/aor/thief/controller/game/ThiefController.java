@@ -3,6 +3,7 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
@@ -40,11 +41,6 @@ public class ThiefController extends GameController{
             if (getModel().pickedupPrize(position)) {
                 getModel().getThief().prize_collected();
                 getModel().getPrize().removeFirst();
-            }
-        }else {
-            if (getModel().atDoor(position)) {
-                //getModel().game.setState(null);
-
             }
         }
     }

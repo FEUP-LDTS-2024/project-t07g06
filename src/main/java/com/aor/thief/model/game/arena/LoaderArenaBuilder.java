@@ -1,5 +1,6 @@
 package com.aor.thief.model.game.arena;
 
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.*;
 
 import java.io.BufferedReader;
@@ -98,4 +99,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         }
         return null;
     }
+
+
 }
