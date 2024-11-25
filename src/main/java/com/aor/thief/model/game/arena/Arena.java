@@ -104,6 +104,50 @@ public class Arena {
         }
         return FOV;
     }
+
+    public List<Position> kill_range(Thief thief) {
+        List<Position> kill_range = new ArrayList<>();
+        Position thiefCurrentPosition = thief.getPosition();
+        int sight = 6;
+
+        int dirx = 0, diry = 0;
+
+        switch (thief.getDirection()) {
+            case 0:
+                dirx = 0;
+                diry = 1;
+                break;
+            case 1:
+                dirx = -1;
+                diry = 0;
+                break;
+            case 2:
+                dirx = 0;
+                diry = -1;
+                break;
+            case 3:
+                dirx = 1;
+                diry = 0;
+                break;
+
+        }
+        boolean flag=true;
+        for (int i = 0; i <= sight &&flag; i++) {
+            //for (int j = -i; j <= i; j++) {
+            int fovx = thiefCurrentPosition.getX() + dirx * i  ;//*j
+            int fovy = thiefCurrentPosition.getY() + diry * i ;//* j
+            Position possiblyCanSee = new Position(fovx, fovy);
+
+            if (isntWall(possiblyCanSee)) {
+                kill_range.add(possiblyCanSee);
+            } else {
+                flag = false;
+                break;
+                //}
+            }
+        }
+        return kill_range;
+    }
     public List<Prize> getPrize() {
         return prize;
     }
