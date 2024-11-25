@@ -3,14 +3,13 @@ package com.aor.thief.model.game.arena;
 import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
     private final int width;
     private final int height;
     private Thief thief;
-
-
 
     private Door door;
     private List<Prize> prize;
@@ -62,16 +61,93 @@ public class Arena {
                 return false;
         return true;
     }
+    public List<Position> fov(Guard guard) {
+        List<Position> FOV = new ArrayList<>();
+        Position guardCurrentPosition = guard.getPosition();
+        int sight = 3;
 
-    public boolean isCaught(Position position) { //Maybe wont be necessary, guards will have to check the space infront, temos de falar decidir quanto vem, se só para a frente etc.
-        for (Guard guard : guards)
-            if (guard.getPosition().equals(position))
-                return true;
-        return false;
+        int dirx = 0, diry = 0;
+
+        switch (guard.getDirection()) {
+            case 0:
+                dirx = 0;
+                diry = 1;
+                break;
+            case 1:
+                dirx = -1;
+                diry = 0;
+                break;
+            case 2:
+                dirx = 0;
+                diry = -1;
+                break;
+            case 3:
+                dirx = 1;
+                diry = 0;
+                break;
+
+        }
+        boolean flag=Boolean.TRUE;
+        for (int i = 0; i <= sight &&flag; i++) {
+            //for (int j = -i; j <= i; j++) {
+                int fovx = guardCurrentPosition.getX() + dirx * i  ;//*j
+                int fovy = guardCurrentPosition.getY() + diry * i ;//* j
+                Position possiblyCanSee = new Position(fovx, fovy);
+
+                if (isntWall(possiblyCanSee)) {
+                    FOV.add(possiblyCanSee);
+                } else {
+                    flag = Boolean.FALSE;
+                    break;
+                //}
+            }
+        }
+        return FOV;
     }
 
+    public List<Position> kill_range(Thief thief) {
+        List<Position> kill_range = new ArrayList<>();
+        Position thiefCurrentPosition = thief.getPosition();
+        int sight = 6;
 
+        int dirx = 0, diry = 0;
 
+        switch (thief.getDirection()) {
+            case 0:
+                dirx = 0;
+                diry = 1;
+                break;
+            case 1:
+                dirx = -1;
+                diry = 0;
+                break;
+            case 2:
+                dirx = 0;
+                diry = -1;
+                break;
+            case 3:
+                dirx = 1;
+                diry = 0;
+                break;
+
+        }
+        boolean flag=true;
+        for (int i = 0; i <= sight &&flag; i++) {
+            //for (int j = -i; j <= i; j++) {
+            int fovx = thiefCurrentPosition.getX() + dirx * i  ;//*j
+            int fovy = thiefCurrentPosition.getY() + diry * i ;//* j
+            Position possiblyCanSee = new Position(fovx, fovy);
+
+            if (isntWall(possiblyCanSee)) {
+                kill_range.add(possiblyCanSee);
+            } else {
+                flag = false;
+                break;
+                //}
+            }
+        }
+        return kill_range;
+    }
     public List<Prize> getPrize() {
         return prize;
     }
@@ -81,13 +157,6 @@ public class Arena {
     }
     public boolean pickedupPrize(Position position) {
         if (getPrize().getFirst().getPosition().equals(position)){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean atDoor(Position position) {
-        if (getDoor().getPosition().equals(position)){
             return true;
         }
         return false;

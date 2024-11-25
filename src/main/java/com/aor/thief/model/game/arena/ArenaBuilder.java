@@ -21,6 +21,7 @@ public abstract class ArenaBuilder {
 
     protected abstract List<Wall> createWalls();
 
+
     protected abstract List<Guard> createGuard();
 
     protected abstract Thief createThief();

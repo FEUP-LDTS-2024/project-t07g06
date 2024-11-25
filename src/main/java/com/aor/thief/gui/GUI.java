@@ -3,6 +3,7 @@ package com.aor.thief.gui;
 import com.aor.thief.model.Position;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface GUI {
     ACTION getNextAction() throws IOException;
@@ -17,6 +18,8 @@ public interface GUI {
 
     void drawDoor(Position position);
 
+    //void drawVision(Position positions);
+
     void drawText(Position position, String text, String color);
 
     void clear();
@@ -25,5 +28,5 @@ public interface GUI {
 
     void close() throws IOException;
 
-    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, ESCAPE}
+    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, ESCAPE,KILL}
 }

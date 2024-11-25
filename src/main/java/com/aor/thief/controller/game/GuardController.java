@@ -5,6 +5,8 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.menu.Menu;
+import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class GuardController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
+        if(isCaught()){
+            game.setState(new MenuState(new Menu()));}
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
                 cur_dir = guard.getDirection();
@@ -35,53 +39,22 @@ public class GuardController extends GameController {
             }
             this.lastMovement = time;
             index = 0;
+            if(isCaught()){
+                game.setState(new MenuState(new Menu()));}
         }
     }
-
+    public boolean isCaught() {
+        for (Guard guard : getModel().getGuards()) {
+            for (Position caught : getModel().fov(guard)){
+                if (caught.equals(getModel().getThief().getPosition())){return true;}
+            }
+        }
+        return false;
+    }
     private void moveGuard(int index, Position position) {
         if (getModel().isntWall(position)) {
             getModel().getGuards().get(index).setPosition(position);
         }
     }
 
-    private List<Position> fov(int index, Position position) {
-        List<Position> FOV = new ArrayList<>();
-        Position guardCurrentPosition = getModel().getGuards().get(index).getPosition();
-        int sight = 3;
-
-        int dirx = 0, diry = 0;
-
-        switch (cur_dir) {
-            case 0:
-                dirx = 0;
-                diry = 1;
-                break;
-            case 1:
-                dirx = -1;
-                diry = 0;
-                break;
-            case 2:
-                dirx = 0;
-                diry = -1;
-                break;
-            case 3:
-                dirx = 1;
-                diry = 0;
-                break;
-
-        }
-
-        for (int i = 0; i <= sight; i++) {
-            for (int j = -i; j <= i; j++) {
-                int fovx = guardCurrentPosition.getX() + dirx * i + diry * j;
-                int fovy = guardCurrentPosition.getY() + diry * i + dirx * j;
-                Position possiblyCanSee = new Position(fovx, fovy);
-
-                if (getModel().isntWall(possiblyCanSee)) {
-                    FOV.add(possiblyCanSee);
-                }
-            }
-        }
-        return FOV;
-    }
 }

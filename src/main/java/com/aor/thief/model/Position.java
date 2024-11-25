@@ -1,6 +1,8 @@
 package com.aor.thief.model;
 
-public class Position {
+import com.aor.thief.model.game.elements.Element;
+
+public class Position  {
     private final int x;
     private final int y;
 
