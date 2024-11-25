@@ -88,8 +88,8 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
-            if (canKill()) {
-            }
+             canKill();
+
         }
     }
 }
