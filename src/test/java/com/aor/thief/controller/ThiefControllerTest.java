@@ -44,6 +44,44 @@ public class ThiefControllerTest {
         controller.moveThiefRight();
         assertEquals(new Position(5, 5), thief.getPosition());
     }
+    @Test
+    void moveThiefLeftEmpty() {
+        controller.moveThiefLeft();
+        assertEquals(new Position(4, 5), thief.getPosition());
+    }
+
+    @Test
+    void moveHeroLeftNotEmpty() {
+        arena.setWalls(Arrays.asList(new Wall(4, 5)));
+        controller.moveThiefLeft();
+        assertEquals(new Position(5, 5), thief.getPosition());
+    }
+    @Test
+    void moveThiefUpEmpty() {
+        controller.moveThiefUp();
+        assertEquals(new Position(5, 4), thief.getPosition());
+    }
+
+    @Test
+    void moveThiefUpNotEmpty() {
+        arena.setWalls(Arrays.asList(new Wall(5, 4)));
+        controller.moveThiefUp();
+        assertEquals(new Position(5, 5), thief.getPosition());
+    }
+
+    @Test
+    void moveThiefDownEmpty() {
+        controller.moveThiefDown();
+        assertEquals(new Position(5, 6), thief.getPosition());
+    }
+
+    @Test
+    void moveHeroDownNotEmpty() {
+        arena.setWalls(Arrays.asList(new Wall(5, 6)));
+        controller.moveThiefDown();
+        assertEquals(new Position(5, 5), thief.getPosition());
+    }
+
 
     @Test
     void canThiefEscape() {
