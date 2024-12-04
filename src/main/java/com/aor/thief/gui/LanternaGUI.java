@@ -3,6 +3,7 @@ package com.aor.thief.gui;
 
 import com.aor.thief.model.Position;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -13,7 +14,10 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -106,6 +110,29 @@ public class LanternaGUI implements GUI {
     //public void drawVision(Position position){drawCharacter(position.getX(), position.getY(), 'S', "#FF0000");}
     @Override
     public void drawDoor(Position position){drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
+    }
+
+    @Override
+    public void drawImage(Position position, String imagePath) throws IOException {
+        BufferedImage image = ImageIO.read(new File(imagePath));
+        TextGraphics graphics = screen.newTextGraphics();
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                int pixelColor = image.getRGB(x, y);
+                int alpha = (pixelColor >> 24) & 0xFF;
+
+                if (alpha == 0) continue;
+
+                int r = (pixelColor >> 16) & 0xFF;
+                int g = (pixelColor >> 8) & 0xFF;
+                int b = pixelColor & 0xFF;
+
+                TextCharacter pixelChar = new TextCharacter(' ', new TextColor.RGB(r, g, b), new TextColor.RGB(r,g,b));
+
+                graphics.setCharacter(position.getX() + x, position.getY() + y, pixelChar);
+            }
+        }
+
     }
 
 

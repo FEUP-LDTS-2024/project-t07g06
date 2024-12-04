@@ -18,7 +18,7 @@ public interface GUI {
 
     void drawDoor(Position position);
 
-    //void drawVision(Position positions);
+    void drawImage(Position positions,String filename) throws IOException;
 
     void drawText(Position position, String text, String color);
 
