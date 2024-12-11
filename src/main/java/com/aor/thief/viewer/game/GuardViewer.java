@@ -8,18 +8,19 @@ public class GuardViewer implements ElementViewer<Guard> {
     @Override
     public void draw(Guard guard, GUI gui) {
 
-        switch (guard.getDirection()){
-            case(0):
-                gui.drawImage(thief.getPosition(),"down");
+        switch (guard.getDirection()) {
+            case (0):
+                gui.drawImage(guard.getPosition(), "down");
                 break;
-            case(1):
-                gui.drawImage(thief.getPosition(),"left");
+            case (1):
+                gui.drawImage(guard.getPosition(), "left");
                 break;
-            case(2):
-                gui.drawImage(thief.getPosition(),"up");
+            case (2):
+                gui.drawImage(guard.getPosition(), "up");
                 break;
-            case(3):
-                gui.drawImage(thief.getPosition(),"right");
+            case (3):
+                gui.drawImage(guard.getPosition(), "right");
                 break;
         }
+    }
 }

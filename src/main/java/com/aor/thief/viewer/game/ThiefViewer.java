@@ -21,7 +21,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
                         feet--;
                         break;
                 }
-                if(gui.getNextAction()==ACTION.KILL) {
+                if(gui.getNextAction()==GUI.ACTION.KILL) {
                     gui.drawImage(thief.getPosition(),"down_shoting");
                     Thread.sleep(1000);
                     gui.drawImage(thief.getPosition(),"down");
@@ -38,7 +38,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
                         feet--;
                         break;
                 }
-                if(gui.getNextAction()==ACTION.KILL) {
+                if(gui.getNextAction()==GUI.ACTION.KILL) {
                     //have to include a thread so that it will draw each image timed
                     gui.drawImage(thief.getPosition(), "left_shoting");
                     Thread.sleep(1000);
@@ -56,7 +56,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
                         feet--;
                         break;
                 }
-                if(gui.getNextAction()==ACTION.KILL) {
+                if(gui.getNextAction()==GUI.ACTION.KILL) {
                     //have to include a thread so that it will draw each image timed
                     gui.drawImage(thief.getPosition(), "up_shoting");
                     Thread.sleep(1000);
@@ -74,7 +74,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
                         feet--;
                         break;
                 }
-                if(gui.getNextAction()==ACTION.KILL) {
+                if(gui.getNextAction()==GUI.ACTION.KILL) {
                     //have to include a thread so that it will draw each image timed
                     gui.drawImage(thief.getPosition(), "right_shoting");
                     Thread.sleep(1000);
