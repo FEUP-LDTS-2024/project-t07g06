@@ -7,6 +7,6 @@ import com.aor.thief.model.game.elements.Wall;
 public class PrizeViewer implements ElementViewer<Prize>{
     @Override
     public void draw(Prize prize, GUI gui) {
-        gui.drawPrize(prize.getPosition());
+        gui.drawImage(prize.getPosition());
     }
 }

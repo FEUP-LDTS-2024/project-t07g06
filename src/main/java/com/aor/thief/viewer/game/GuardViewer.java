@@ -7,6 +7,6 @@ import com.aor.thief.model.game.elements.Wall;
 public class GuardViewer implements ElementViewer<Guard> {
     @Override
     public void draw(Guard guard, GUI gui) {
-        gui.drawGuard(guard.getPosition());
+        gui.drawImage(guard.getPosition());
     }
 }

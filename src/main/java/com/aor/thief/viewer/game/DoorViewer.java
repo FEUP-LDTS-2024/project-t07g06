@@ -9,6 +9,6 @@ import com.aor.thief.viewer.Viewer;
 public class DoorViewer implements ElementViewer<Door> {
     @Override
     public void draw(Door door, GUI gui) {
-        gui.drawDoor(door.getPosition());
+        gui.drawImage(door.getPosition());
     }
 }

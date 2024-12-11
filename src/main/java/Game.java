@@ -22,7 +22,7 @@ public class Game {
     private State state;
 
     public Game() throws FontFormatException, IOException, URISyntaxException {
-        this.gui = new LanternaGUI(35, 20);
+        this.gui = new LanternaGUI(160, 90);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
