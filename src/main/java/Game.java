@@ -1,19 +1,11 @@
 package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
-import com.aor.thief.model.game.arena.Arena;
-import com.aor.thief.model.game.arena.LoaderArenaBuilder;
-import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.sound.BackgroundSoundPlayer;
+import com.aor.thief.sound.GuardDeathSoundPlayer;
 import com.aor.thief.sound.SoundLoader;
-import com.aor.thief.states.GameState;
 import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
 
 import javax.sound.sampled.AudioSystem;
 import java.awt.*;
@@ -27,10 +19,12 @@ public class Game {
     private final BackgroundSoundPlayer backgroundSoundPlayer;
 
 
+
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
         this.gui = new LanternaGUI(35, 20);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
-        this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/1st.wav"))), AudioSystem.getClip()));
+        this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
+
 
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
