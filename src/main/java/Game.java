@@ -17,14 +17,14 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     private final BackgroundSoundPlayer backgroundSoundPlayer;
-
+    private final GuardDeathSoundPlayer guarddeathSoundPlayer;
 
 
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
         this.gui = new LanternaGUI(35, 20);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
-
+        this.guarddeathSoundPlayer= new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
 
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
@@ -34,6 +34,10 @@ public class Game {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void playGuardDeathSound(){
+        guarddeathSoundPlayer.start();
     }
 
     private void start() throws IOException {

@@ -88,7 +88,7 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
-             canKill();
+             if(canKill()) game.playGuardDeathSound();
 
         }
     }
