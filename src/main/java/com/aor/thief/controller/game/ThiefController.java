@@ -42,12 +42,7 @@ public class ThiefController extends GameController {
         if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
         }
-        if (!getModel().getPrize().isEmpty()) {
-            if (getModel().pickedupPrize(position)) {
-                getModel().getThief().prize_collected();
-                getModel().getPrize().removeFirst();
-            }
-        }
+
     }
 
     public boolean canKill() {
@@ -69,19 +64,47 @@ public class ThiefController extends GameController {
         if (action == GUI.ACTION.UP) {
             game.playFootStepSound();
             moveThiefUp();
-
+            if (!getModel().getPrize().isEmpty()) {
+                if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                    getModel().getThief().prize_collected();
+                    game.playItemPickupSound();
+                    getModel().getPrize().removeFirst();
+                }
+            }
         }
+
         if (action == GUI.ACTION.DOWN) {
             game.playFootStepSound();
             moveThiefDown();
+            if (!getModel().getPrize().isEmpty()) {
+                if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                    getModel().getThief().prize_collected();
+                    game.playItemPickupSound();
+                    getModel().getPrize().removeFirst();
+                }
+            }
         }
         if (action == GUI.ACTION.LEFT) {
             game.playFootStepSound();
             moveThiefLeft();
+            if (!getModel().getPrize().isEmpty()) {
+                if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                    getModel().getThief().prize_collected();
+                    game.playItemPickupSound();
+                    getModel().getPrize().removeFirst();
+                }
+            }
         }
         if (action == GUI.ACTION.RIGHT) {
             game.playFootStepSound();
             moveThiefRight();
+            if (!getModel().getPrize().isEmpty()) {
+                if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                    getModel().getThief().prize_collected();
+                    game.playItemPickupSound();
+                    getModel().getPrize().removeFirst();
+                }
+            }
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {

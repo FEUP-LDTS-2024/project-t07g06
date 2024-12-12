@@ -1,10 +1,7 @@
 package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.menu.Menu;
-import com.aor.thief.sound.BackgroundSoundPlayer;
-import com.aor.thief.sound.FootStepSound;
-import com.aor.thief.sound.GuardDeathSoundPlayer;
-import com.aor.thief.sound.SoundLoader;
+import com.aor.thief.sound.*;
 import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
 
@@ -20,6 +17,7 @@ public class Game {
     private final BackgroundSoundPlayer backgroundSoundPlayer;
     private final GuardDeathSoundPlayer guarddeathSoundPlayer;
     private final FootStepSound footStepSound;
+    private final ItemPickupSound itemPickupSound;
 
 
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
@@ -28,6 +26,7 @@ public class Game {
         this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
         this.guarddeathSoundPlayer= new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
         this.footStepSound= new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
+        this.itemPickupSound= new ItemPickupSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/itempickup.wav"))), AudioSystem.getClip()));
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
         new Game().start();
@@ -44,6 +43,10 @@ public class Game {
 
     public void playFootStepSound(){
         footStepSound.start();
+    }
+
+    public void playItemPickupSound(){
+        itemPickupSound.start();
     }
 
     private void start() throws IOException {
