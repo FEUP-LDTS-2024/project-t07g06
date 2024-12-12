@@ -40,4 +40,20 @@ public class Thief extends Element{
     public void toggleFeet() {
         feet = (feet + 1) % 2;
     }
+    public void move(String direction){
+        switch (direction){
+            case("down"):
+                setDirection(0);
+                break;
+            case("left"):
+                setDirection(1);
+                break;
+            case("up"):
+                setDirection(2);
+                break;
+            case("right"):
+                setDirection(3);
+                break;
+        }
+    }
 }

@@ -12,6 +12,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
     public void draw(Thief thief, GUI gui) throws InterruptedException, IOException {
         String path = "src/main/resources/sprites/thief/";
         //de momento sempre que se chamar ele vai desenhar o caso 0 porque isto aqui sempre que
+        if(gui.getNextAction() != GUI.ACTION.NONE || gui.getNextAction() != GUI.ACTION.KILL) Thread.sleep(75);
         switch (gui.getNextAction()){
             case GUI.ACTION.KILL:
                 path += "shoot_";
@@ -21,23 +22,21 @@ public class ThiefViewer implements ElementViewer<Thief> {
                 break;
             default:
                 path += (thief.getFeet() == 0) ? "rightleg_" : "leftleg_";
-                System.out.println(thief.getFeet());
         }
         switch (thief.getDirection()) {
             case 0:
-                path += "down.png";
+                gui.drawImage(thief.getPosition(), path + "down.png");
                 break;
             case 1:
-                path += "left.png";
+                gui.drawImage(thief.getPosition(), path + "left.png");
                 break;
             case 2:
-                path += "up.png";
+                gui.drawImage(thief.getPosition(), path + "up.png");
                 break;
             case 3:
-                path += "right.png";
+                gui.drawImage(thief.getPosition(), path + "right.png");
                 break;
         }
-        gui.drawImage(thief.getPosition(), path);
 
     }
 }

@@ -15,22 +15,18 @@ public class ThiefController extends GameController {
     }
 
     public void moveThiefLeft() {
-        getModel().getThief().setDirection(1);
         moveThief(getModel().getThief().getPosition().getLeft());
     }
 
     public void moveThiefUp() {
-        getModel().getThief().setDirection(2);
         moveThief(getModel().getThief().getPosition().getUp());
     }
 
     public void moveThiefRight() {
-        getModel().getThief().setDirection(3);
         moveThief(getModel().getThief().getPosition().getRight());
     }
 
     public void moveThiefDown() {
-        getModel().getThief().setDirection(0);
         moveThief(getModel().getThief().getPosition().getDown());
     }
 
@@ -49,6 +45,7 @@ public class ThiefController extends GameController {
             }
         }
         getModel().getThief().toggleFeet();
+        System.out.println(getModel().getThief().getDirection());
     }
 
     public boolean canKill() {
@@ -68,18 +65,20 @@ public class ThiefController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if (action == GUI.ACTION.UP) {
+            if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
+
             moveThiefUp();
         }
         if (action == GUI.ACTION.DOWN) {
-
+            if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
             moveThiefDown();
         }
         if (action == GUI.ACTION.LEFT) {
-
+            if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
         }
         if (action == GUI.ACTION.RIGHT) {
-
+            if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
         }
         if (action == GUI.ACTION.ESCAPE) {
