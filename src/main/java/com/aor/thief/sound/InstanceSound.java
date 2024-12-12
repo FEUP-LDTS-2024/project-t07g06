@@ -2,10 +2,10 @@ package com.aor.thief.sound;
 
 import javax.sound.sampled.Clip;
 
-public class BackgroundSoundPlayer implements SoundPlayer{
+public class InstanceSound implements SoundPlayer{
     private Clip sound;
 
-    public BackgroundSoundPlayer(Clip sound) {
+    public InstanceSound(Clip sound) {
         this.sound = sound;
     }
 
@@ -13,7 +13,7 @@ public class BackgroundSoundPlayer implements SoundPlayer{
     public void start() {
         sound.setMicrosecondPosition(0);
         sound.start();
-        sound.loop(Clip.LOOP_CONTINUOUSLY);
+
     }
 
     @Override

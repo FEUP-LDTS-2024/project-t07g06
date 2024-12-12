@@ -14,23 +14,31 @@ public class SoundFactory {
         }
     }
 
-    public BackgroundSoundPlayer createBackgroundSound(){
-        return new BackgroundSoundPlayer(loadFile("sounds/background.wav"));
+    public LoopedSoundPlayer createBackgroundSound(){
+        return new LoopedSoundPlayer(loadFile("sounds/background.wav"));
     }
 
-    public ItemPickupSound createItemPickupSound(){
-        return new ItemPickupSound(loadFile("sounds/itempickup.wav"));
+    public InstanceSound createItemPickupSound(){
+        return new InstanceSound(loadFile("sounds/itempickup.wav"));
     }
 
-    public FootStepSound createFootStepSound(){
-        return new FootStepSound(loadFile("sounds/footstep.wav"));
+    public InstanceSound createFootStepSound(){
+        return new InstanceSound(loadFile("sounds/footstep.wav"));
     }
 
-    public GunShot createGunShotSound(){
-        return new GunShot(loadFile("sounds/gunshot.wav"));
+    public InstanceSound createGunShotSound(){
+        return new InstanceSound(loadFile("sounds/gunshot.wav"));
     }
 
-    public GuardDeathSoundPlayer createGuardDeathSound(){
-        return new GuardDeathSoundPlayer(loadFile("sounds/guarddeathsound.wav"));
+    public InstanceSound createGuardDeathSound(){
+        return new InstanceSound(loadFile("sounds/guarddeathsound.wav"));
+    }
+
+    public InstanceSound createMenuChangeSound(){
+        return new InstanceSound(loadFile("sounds/menuchange.wav"));
+    }
+
+    public InstanceSound createMenuSelectSound(){
+        return new InstanceSound(loadFile("sounds/menuselect.wav"));
     }
 }

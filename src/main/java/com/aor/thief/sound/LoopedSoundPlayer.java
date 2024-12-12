@@ -2,10 +2,10 @@ package com.aor.thief.sound;
 
 import javax.sound.sampled.Clip;
 
-public class ItemPickupSound implements SoundPlayer{
+public class LoopedSoundPlayer implements SoundPlayer{
     private Clip sound;
 
-    public ItemPickupSound(Clip sound) {
+    public LoopedSoundPlayer(Clip sound) {
         this.sound = sound;
     }
 
@@ -13,7 +13,7 @@ public class ItemPickupSound implements SoundPlayer{
     public void start() {
         sound.setMicrosecondPosition(0);
         sound.start();
-
+        sound.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     @Override
@@ -30,5 +30,4 @@ public class ItemPickupSound implements SoundPlayer{
     public Clip getSound() {
         return sound;
     }
-
 }
