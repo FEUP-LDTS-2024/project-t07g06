@@ -22,7 +22,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
         }else{
             System.out.println(path + action + direction + ".png");
             gui.drawImage(thief.getPosition(), path + action + direction + ".png");
-            Thread.sleep(75);
+            Thread.sleep(50);
             action ="still_";
             System.out.println(path + action + direction + ".png");
             gui.drawImage(thief.getPosition(), path + action + direction + ".png");
