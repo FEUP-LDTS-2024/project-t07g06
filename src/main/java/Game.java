@@ -16,7 +16,6 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     private final BackgroundSoundPlayer backgroundSoundPlayer;
-    private final GuardDeathSoundPlayer guarddeathSoundPlayer;
     private final ItemPickupSound itemPickupSound;
 
 
@@ -24,7 +23,6 @@ public class Game {
         this.gui = new LanternaGUI(35, 20);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
-        this.guarddeathSoundPlayer= new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
         this.itemPickupSound= new ItemPickupSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/itempickup.wav"))), AudioSystem.getClip()));
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
@@ -36,15 +34,29 @@ public class Game {
         this.state = state;
     }
 
-    public void playGuardDeathSound(){
-        guarddeathSoundPlayer.stop();
-        guarddeathSoundPlayer.start();
-    }
 
     public synchronized void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
         try {
             FootStepSound footStepSound = new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
             footStepSound.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void playGunShot() {
+        try {
+            GunShot gunShot = new GunShot(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/gunshot.wav"))), AudioSystem.getClip()));
+            gunShot.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void playGuardDeathSound() {
+        try {
+            GuardDeathSoundPlayer guardDeathSoundPlayer = new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
+            guardDeathSoundPlayer.start();
         } catch (Exception e) {
             e.printStackTrace();
         }

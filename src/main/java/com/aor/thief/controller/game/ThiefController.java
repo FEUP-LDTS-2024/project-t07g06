@@ -100,6 +100,7 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
+            game.playGunShot();
              if(canKill()) game.playGuardDeathSound();
 
         }
