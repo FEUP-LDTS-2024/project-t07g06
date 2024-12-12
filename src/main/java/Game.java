@@ -6,6 +6,7 @@ import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
 
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,7 +17,6 @@ public class Game {
     private State state;
     private final BackgroundSoundPlayer backgroundSoundPlayer;
     private final GuardDeathSoundPlayer guarddeathSoundPlayer;
-    private final FootStepSound footStepSound;
     private final ItemPickupSound itemPickupSound;
 
 
@@ -25,7 +25,6 @@ public class Game {
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
         this.guarddeathSoundPlayer= new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
-        this.footStepSound= new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
         this.itemPickupSound= new ItemPickupSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/itempickup.wav"))), AudioSystem.getClip()));
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
@@ -38,16 +37,25 @@ public class Game {
     }
 
     public void playGuardDeathSound(){
+        guarddeathSoundPlayer.stop();
         guarddeathSoundPlayer.start();
     }
 
-    public void playFootStepSound(){
-        footStepSound.start();
+    public synchronized void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+        try {
+            FootStepSound footStepSound = new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
+            footStepSound.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public void playItemPickupSound(){
         itemPickupSound.start();
     }
+
+
 
     private void start() throws IOException {
         int FPS = 30;
