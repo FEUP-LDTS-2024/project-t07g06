@@ -1,4 +1,4 @@
-package com.aor.thief;
+ package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.arena.LoaderArenaBuilder;
