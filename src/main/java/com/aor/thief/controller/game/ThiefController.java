@@ -48,6 +48,7 @@ public class ThiefController extends GameController {
                 getModel().getPrize().removeFirst();
             }
         }
+        getModel().getThief().toggleFeet();
     }
 
     public boolean canKill() {

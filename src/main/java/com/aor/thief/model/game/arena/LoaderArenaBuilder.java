@@ -75,7 +75,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'T') return new Thief(x, y,0,0);
+                if (line.charAt(x) == 'T') return new Thief(x, y,0,0,0);
         }
         return null;
     }

@@ -29,7 +29,7 @@ public class GuardControllerTest {
     void setUp() {
         arena = new Arena(10, 10);
 
-        thief = new Thief(6, 5,0,0);
+        thief = new Thief(6, 5,0,0,0);
         arena.setThief(thief);
 
         arena.setWalls(Arrays.asList());

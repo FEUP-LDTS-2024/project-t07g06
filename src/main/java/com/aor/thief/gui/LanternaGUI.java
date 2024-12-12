@@ -112,7 +112,6 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawImage(Position position, String imagePath) throws IOException {
-        System.out.println( imagePath);
         BufferedImage image = ImageIO.read(new File(imagePath));
         TextGraphics graphics = screen.newTextGraphics();
         for (int x = 0; x < image.getWidth(); x++) {
