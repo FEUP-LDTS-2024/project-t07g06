@@ -2,6 +2,7 @@ package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.sound.BackgroundSoundPlayer;
+import com.aor.thief.sound.FootStepSound;
 import com.aor.thief.sound.GuardDeathSoundPlayer;
 import com.aor.thief.sound.SoundLoader;
 import com.aor.thief.states.MenuState;
@@ -18,6 +19,7 @@ public class Game {
     private State state;
     private final BackgroundSoundPlayer backgroundSoundPlayer;
     private final GuardDeathSoundPlayer guarddeathSoundPlayer;
+    private final FootStepSound footStepSound;
 
 
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
@@ -25,7 +27,7 @@ public class Game {
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.backgroundSoundPlayer = new BackgroundSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/background.wav"))), AudioSystem.getClip()));
         this.guarddeathSoundPlayer= new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
-
+        this.footStepSound= new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
         new Game().start();
@@ -38,6 +40,10 @@ public class Game {
 
     public void playGuardDeathSound(){
         guarddeathSoundPlayer.start();
+    }
+
+    public void playFootStepSound(){
+        footStepSound.start();
     }
 
     private void start() throws IOException {

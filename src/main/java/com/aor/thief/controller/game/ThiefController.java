@@ -67,19 +67,20 @@ public class ThiefController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if (action == GUI.ACTION.UP) {
-
+            game.playFootStepSound();
             moveThiefUp();
+
         }
         if (action == GUI.ACTION.DOWN) {
-
+            game.playFootStepSound();
             moveThiefDown();
         }
         if (action == GUI.ACTION.LEFT) {
-
+            game.playFootStepSound();
             moveThiefLeft();
         }
         if (action == GUI.ACTION.RIGHT) {
-
+            game.playFootStepSound();
             moveThiefRight();
         }
         if (action == GUI.ACTION.ESCAPE) {
