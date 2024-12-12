@@ -35,7 +35,7 @@ public class Game {
     }
 
 
-    public synchronized void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
         try {
             FootStepSound footStepSound = new FootStepSound(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/footstep.wav"))), AudioSystem.getClip()));
             footStepSound.start();
@@ -44,7 +44,7 @@ public class Game {
         }
     }
 
-    public synchronized void playGunShot() {
+    public  void playGunShot() {
         try {
             GunShot gunShot = new GunShot(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/gunshot.wav"))), AudioSystem.getClip()));
             gunShot.start();
@@ -53,7 +53,7 @@ public class Game {
         }
     }
 
-    public synchronized void playGuardDeathSound() {
+    public  void playGuardDeathSound() {
         try {
             GuardDeathSoundPlayer guardDeathSoundPlayer = new GuardDeathSoundPlayer(new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource("sounds/guarddeathsound.wav"))), AudioSystem.getClip()));
             guardDeathSoundPlayer.start();
