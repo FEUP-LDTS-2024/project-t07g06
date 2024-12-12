@@ -25,7 +25,7 @@ public class Game {
         this.gui = new LanternaGUI(160, 90);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
     }
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
+    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,InterruptedException {
         new Game().start();
     }
 
@@ -33,7 +33,7 @@ public class Game {
         this.state = state;
     }
 
-    private void start() throws IOException {
+    private void start() throws IOException,InterruptedException {
         int FPS = 30;
         int frameTime = 1000 / FPS;
 

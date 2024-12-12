@@ -14,7 +14,7 @@ public class GameViewer extends Viewer<Arena> {
     }
 
     @Override
-    public void drawElements(GUI gui) {
+    public void drawElements(GUI gui) throws InterruptedException{
         drawElements(gui, getModel().getWalls(), new WallViewer());
         drawElements(gui, getModel().getGuards(), new GuardViewer());
         drawElement(gui, getModel().getThief(), new ThiefViewer());
@@ -22,12 +22,12 @@ public class GameViewer extends Viewer<Arena> {
         if(getModel().getPrize().isEmpty())drawElement(gui, getModel().getDoor(), new DoorViewer());
     }
 
-    private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) {
+    private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) throws  InterruptedException {
         for (T element : elements)
             drawElement(gui, element, viewer);
     }
 
-    private <T extends Element> void drawElement(GUI gui, T element, ElementViewer<T> viewer) {
+    private <T extends Element> void drawElement(GUI gui, T element, ElementViewer<T> viewer) throws InterruptedException {
         viewer.draw(element, gui);
     }
 }
