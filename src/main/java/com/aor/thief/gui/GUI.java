@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface GUI {
-    ACTION getNextAction() throws IOException;
+    ACTION getNextAction() throws IOException, InterruptedException;
 
     void drawThief(Position position);
 

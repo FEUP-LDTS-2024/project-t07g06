@@ -45,7 +45,9 @@ public class ThiefController extends GameController {
             }
         }
         getModel().getThief().toggleFeet();
-        System.out.println(getModel().getThief().getDirection());
+        //System.out.println(getModel().getThief().getDirection());
+        System.out.println(getModel().getThief().getFeet());
+
     }
 
     public boolean canKill() {

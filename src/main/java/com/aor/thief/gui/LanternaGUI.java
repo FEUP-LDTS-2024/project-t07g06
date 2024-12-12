@@ -51,7 +51,7 @@ public class LanternaGUI implements GUI {
         return terminal;
     }
 
-    public ACTION getNextAction() throws IOException {
+    public ACTION getNextAction() throws IOException, InterruptedException {
         KeyStroke keyStroke = screen.pollInput();
         if (keyStroke == null) return ACTION.NONE;
 

@@ -1,42 +1,53 @@
 package com.aor.thief.viewer.game;
 
 import com.aor.thief.gui.GUI;
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.game.elements.Wall;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThiefViewer implements ElementViewer<Thief> {
-    //tentar resolver, não sei se vai, se calhar meter o pé onde se chama o thiefviewer
+    private final String path = "src/main/resources/sprites/thief/";
+   // Time when the current action started
     @Override
     public void draw(Thief thief, GUI gui) throws InterruptedException, IOException {
-        String path = "src/main/resources/sprites/thief/";
-        //de momento sempre que se chamar ele vai desenhar o caso 0 porque isto aqui sempre que
-        if(gui.getNextAction() != GUI.ACTION.NONE || gui.getNextAction() != GUI.ACTION.KILL) Thread.sleep(75);
-        switch (gui.getNextAction()){
-            case GUI.ACTION.KILL:
-                path += "shoot_";
-                break;
-            case GUI.ACTION.NONE:
-                path += "still_";
-                break;
-            default:
-                path += (thief.getFeet() == 0) ? "rightleg_" : "leftleg_";
-        }
-        switch (thief.getDirection()) {
-            case 0:
-                gui.drawImage(thief.getPosition(), path + "down.png");
-                break;
-            case 1:
-                gui.drawImage(thief.getPosition(), path + "left.png");
-                break;
-            case 2:
-                gui.drawImage(thief.getPosition(), path + "up.png");
-                break;
-            case 3:
-                gui.drawImage(thief.getPosition(), path + "right.png");
-                break;
+        String action = getAction(gui,thief);
+        String direction = getDirection(thief.getDirection());
+        if(action.equals("rightleg_")||action.equals("leftleg_")) {
+            System.out.println(path + action + direction + ".png");
+            gui.drawImage(thief.getPosition(), path + action + direction + ".png");
+        }else{
+            System.out.println(path + action + direction + ".png");
+            gui.drawImage(thief.getPosition(), path + action + direction + ".png");
+            Thread.sleep(75);
+            action ="still_";
+            System.out.println(path + action + direction + ".png");
+            gui.drawImage(thief.getPosition(), path + action + direction + ".png");
         }
 
+    }
+    private String getAction(GUI gui,Thief thief) throws IOException, InterruptedException {
+        switch (gui.getNextAction()) {
+            case GUI.ACTION.KILL:
+                return "shoot_";
+            default:
+                // Use leftleg or rightleg based on thief's foot state
+                String leg = (thief.getFeet() == 0) ? "rightleg_" : "leftleg_";
+                return leg;
+        }
+    }
+
+    private String getDirection(int direction) {
+        // Return the appropriate direction string based on the thief's direction
+        switch (direction) {
+            case 0: return "down";  // Down
+            case 1: return "left";  // Left
+            case 2: return "up";    // Up
+            case 3: return "right"; // Right
+            default: return "down"; // Default to down if something goes wrong
+        }
     }
 }
