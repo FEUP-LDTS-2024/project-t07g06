@@ -96,7 +96,7 @@ public class ThiefControllerTest {
     }
 
     @Test
-    void canKill(){
+    void canKill() throws InterruptedException {
         List<Guard> guards = new ArrayList<>();
         guards.add(new Guard(5, 6, 0)); // Adicionando um guard
         arena.setGuards(guards);
@@ -104,7 +104,7 @@ public class ThiefControllerTest {
     }
 
     @Test
-    void cantKill(){
+    void cantKill() throws InterruptedException {
         List<Guard> guards = new ArrayList<>();
         guards.add(new Guard(7, 7, 0)); // Adicionando um guard
         arena.setGuards(guards);
