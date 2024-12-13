@@ -17,15 +17,12 @@ public class ThiefViewer implements ElementViewer<Thief> {
         String action = getAction(gui,thief);
         String direction = getDirection(thief.getDirection());
         if(action.equals("rightleg_")||action.equals("leftleg_")) {
-            System.out.println(path + action + direction + ".png");
             gui.drawImage(thief.getPosition(), path + action + direction + ".png");
+            Thread.sleep(25);
         }else{
-            System.out.println(path + action + direction + ".png");
             gui.drawImage(thief.getPosition(), path + action + direction + ".png");
-            Thread.sleep(50);
+            Thread.sleep(100);
             action ="still_";
-            System.out.println(path + action + direction + ".png");
-            gui.drawImage(thief.getPosition(), path + action + direction + ".png");
         }
 
     }
@@ -34,20 +31,18 @@ public class ThiefViewer implements ElementViewer<Thief> {
             case GUI.ACTION.KILL:
                 return "shoot_";
             default:
-                // Use leftleg or rightleg based on thief's foot state
                 String leg = (thief.getFeet() == 0) ? "rightleg_" : "leftleg_";
                 return leg;
         }
     }
 
     private String getDirection(int direction) {
-        // Return the appropriate direction string based on the thief's direction
         switch (direction) {
-            case 0: return "down";  // Down
-            case 1: return "left";  // Left
-            case 2: return "up";    // Up
-            case 3: return "right"; // Right
-            default: return "down"; // Default to down if something goes wrong
+            case 0: return "down";
+            case 1: return "left";
+            case 2: return "up";
+            case 3: return "right";
+            default: return "down";
         }
     }
 }

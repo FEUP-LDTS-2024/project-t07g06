@@ -38,6 +38,7 @@ public class GuardController extends GameController {
                 }
                 guard.setDirection(cur_dir);
                 moveGuard(index, guard.getPosition().movingpattern(cur_dir));
+                //System.out.println("Guard: " + guard.getPosition().getX() + " " + guard.getPosition().getY());
                 index++;
             }
             this.lastMovement = time;

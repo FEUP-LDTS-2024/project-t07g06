@@ -46,15 +46,16 @@ public class ThiefController extends GameController {
         }
         getModel().getThief().toggleFeet();
         //System.out.println(getModel().getThief().getDirection());
-        System.out.println(getModel().getThief().getFeet());
+        //System.out.println("Thief: " + getModel().getThief().getPosition().getX() + " " + getModel().getThief().getPosition().getY());
 
     }
 
-    public boolean canKill() {
+    public boolean canKill() throws InterruptedException {
         int index = 0;
         for (Guard guard : getModel().getGuards()) {
             for (Position kill : getModel().kill_range(getModel().getThief())) {
                 if (kill.equals(guard.getPosition())) {
+                    Thread.sleep(1000);
                     getModel().getGuards().remove(index);
                     return true;
                 }
@@ -65,7 +66,7 @@ public class ThiefController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+    public void step(Game game, GUI.ACTION action, long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.UP) {
             if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
 
