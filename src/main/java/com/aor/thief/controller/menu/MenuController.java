@@ -22,13 +22,15 @@ public class MenuController extends Controller<Menu> {
         switch (action){
             case UP:
                 getModel().previousEntry();
+                game.playMenuChange();
                 break;
             case DOWN:
                 getModel().nextEntry();
+                game.playMenuChange();
                 break;
             case SELECT:
-                if (getModel().isSelectedExit()) game.setState(null);
-                if (getModel().isSelectedStart()) game.setState(new GameState(new LoaderArenaBuilder(1).createArena()));
+                if (getModel().isSelectedExit())  game.setState(null);
+                if (getModel().isSelectedStart()){game.playMenuSelect(); game.setState(new GameState(new LoaderArenaBuilder(1).createArena()));}
         }
     }
 }

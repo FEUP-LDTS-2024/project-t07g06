@@ -1,17 +1,9 @@
 package com.aor.thief;
 import com.aor.thief.gui.LanternaGUI;
-import com.aor.thief.model.game.arena.Arena;
-import com.aor.thief.model.game.arena.LoaderArenaBuilder;
-import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.menu.Menu;
-import com.aor.thief.states.GameState;
+import com.aor.thief.sound.*;
 import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
 
 import java.awt.*;
 import java.io.IOException;
@@ -20,23 +12,62 @@ import java.net.URISyntaxException;
 public class Game {
     private final LanternaGUI gui;
     private State state;
+    private final LoopedSoundPlayer loopedSoundPlayer;
+    private final InstanceSound itemPickupSound;
 
-    public Game() throws FontFormatException, IOException, URISyntaxException {
+
+    public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
         this.gui = new LanternaGUI(35, 20);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
+        this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
+        this.itemPickupSound= new SoundFactory().createItemPickupSound();
     }
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
+    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
         new Game().start();
+
     }
 
     public void setState(State state) {
         this.state = state;
     }
 
+
+    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+        InstanceSound footStepSound = new SoundFactory().createFootStepSound();
+        footStepSound.start();
+    }
+
+    public  void playGunShot() {
+        InstanceSound gunShot = new SoundFactory().createGunShotSound();
+        gunShot.start();
+    }
+
+    public  void playGuardDeathSound() {
+        InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
+        guardDeathSound.start();
+    }
+
+
+    public void playItemPickupSound(){
+        itemPickupSound.start();
+    }
+
+    public void playMenuChange(){
+        InstanceSound menuChange = new SoundFactory().createMenuChangeSound();
+        menuChange.start();
+    }
+
+    public void playMenuSelect(){
+        InstanceSound menuSelect = new SoundFactory().createMenuSelectSound();
+        menuSelect.start();
+    }
+
+
+
     private void start() throws IOException {
         int FPS = 30;
         int frameTime = 1000 / FPS;
-
+        loopedSoundPlayer.start();
         while (this.state != null) {
             long startTime = System.currentTimeMillis();
 

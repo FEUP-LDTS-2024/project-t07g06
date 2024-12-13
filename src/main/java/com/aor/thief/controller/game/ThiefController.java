@@ -42,12 +42,7 @@ public class ThiefController extends GameController {
         if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
         }
-        if (!getModel().getPrize().isEmpty()) {
-            if (getModel().pickedupPrize(position)) {
-                getModel().getThief().prize_collected();
-                getModel().getPrize().removeFirst();
-            }
-        }
+
     }
 
     public boolean canKill() {
@@ -64,23 +59,40 @@ public class ThiefController extends GameController {
         return false;
     }
 
+    public void PickedUpPrize(Game game){
+        if (!getModel().getPrize().isEmpty()) {
+            if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                getModel().getThief().prize_collected();
+                game.playItemPickupSound();
+                getModel().getPrize().removeFirst();
+            }
+        }
+    }
+
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+
         if (action == GUI.ACTION.UP) {
-
+            game.playFootStepSound();
             moveThiefUp();
+            PickedUpPrize(game);
         }
+
         if (action == GUI.ACTION.DOWN) {
-
+            game.playFootStepSound();
             moveThiefDown();
+            PickedUpPrize(game);
         }
-        if (action == GUI.ACTION.LEFT) {
 
+        if (action == GUI.ACTION.LEFT) {
+            game.playFootStepSound();
             moveThiefLeft();
+            PickedUpPrize(game);
         }
         if (action == GUI.ACTION.RIGHT) {
-
+            game.playFootStepSound();
             moveThiefRight();
+            PickedUpPrize(game);
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
@@ -88,7 +100,8 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
-             canKill();
+            game.playGunShot();
+             if(canKill()) game.playGuardDeathSound();
 
         }
     }
