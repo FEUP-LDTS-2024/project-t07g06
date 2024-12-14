@@ -7,7 +7,8 @@ import java.util.Objects;
 public class SoundFactory {
     public Clip loadFile(String filePath){
         try {
-            return new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getClassLoader().getResource(filePath))), AudioSystem.getClip());
+            return new SoundLoader().loadSound(AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().
+                            getClassLoader().getResource(filePath))), AudioSystem.getClip());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
