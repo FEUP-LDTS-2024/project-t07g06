@@ -4,29 +4,36 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
 
 public class ThiefController extends GameController {
+    Thread moveAnimation;
+    Thread attackAnimation;
     public ThiefController(Arena arena) {
         super(arena);
     }
 
     public void moveThiefLeft() {
+        getModel().getThief().setDirection(1);
         moveThief(getModel().getThief().getPosition().getLeft());
     }
 
     public void moveThiefUp() {
+        getModel().getThief().setDirection(2);
         moveThief(getModel().getThief().getPosition().getUp());
     }
 
     public void moveThiefRight() {
+        getModel().getThief().setDirection(3);
         moveThief(getModel().getThief().getPosition().getRight());
     }
 
     public void moveThiefDown() {
+        getModel().getThief().setDirection(0);
         moveThief(getModel().getThief().getPosition().getDown());
     }
 
@@ -35,6 +42,7 @@ public class ThiefController extends GameController {
     }
 
     private void moveThief(Position position) {
+        getModel().getThief().toggleFeet();
         if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
         }
@@ -44,9 +52,6 @@ public class ThiefController extends GameController {
                 getModel().getPrize().removeFirst();
             }
         }
-        getModel().getThief().toggleFeet();
-        //System.out.println(getModel().getThief().getDirection());
-        //System.out.println("Thief: " + getModel().getThief().getPosition().getX() + " " + getModel().getThief().getPosition().getY());
 
     }
 
@@ -55,7 +60,6 @@ public class ThiefController extends GameController {
         for (Guard guard : getModel().getGuards()) {
             for (Position kill : getModel().kill_range(getModel().getThief())) {
                 if (kill.equals(guard.getPosition())) {
-                    Thread.sleep(1000);
                     getModel().getGuards().remove(index);
                     return true;
                 }
@@ -64,23 +68,96 @@ public class ThiefController extends GameController {
         }
         return false;
     }
+    private synchronized void startMoveAnimation(Thief thief)  {
+        String direction = "";
+        switch (thief.getDirection()){
+            case 0: direction = "down"; break;
+            case 1: direction = "left"; break;
+            case 2: direction = "up"; break;
+            case 3: direction = "right"; break;
+        }
+        System.out.println( direction);
+        if (moveAnimation == null || !moveAnimation.isAlive()) {
+            String finalDirection = direction;
+            moveAnimation = new Thread(() -> {
+                try {
+                    if(getModel().getThief().getFeet()==0) {
+                        thief.setDraw("rightleg_" + finalDirection + ".png");
+                        Thread.sleep(250);
+                    }else {
+                        thief.setDraw("leftleg_" + finalDirection + ".png");
+                        Thread.sleep(250);
+                    }
+                    thief.toggleFeet();
+                    thief.setDraw("still_" + finalDirection + ".png");
+                    Thread.sleep(75);
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            moveAnimation.start();
+        }
+    }
+
+    private synchronized void startAttackAnimation(Thief thief)  {
+        String direction = "";
+        switch (thief.getDirection()) {
+            case 0:
+                direction = "down";
+                break;
+            case 1:
+                direction = "left";
+                break;
+            case 2:
+                direction = "up";
+                break;
+            case 3:
+                direction = "right";
+                break;
+        }
+        if (attackAnimation == null || !attackAnimation.isAlive()) {
+            String finalDirection = direction;
+            attackAnimation = new Thread(() -> {
+                try {
+                    String shoot = "shoot_" + finalDirection + ".png";
+
+                    thief.setDraw(shoot);
+                    Thread.sleep(75);
+
+                    String still = "still_" + finalDirection + ".png";
+                    thief.setDraw(still);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    attackAnimation = null;
+                }
+            });
+            attackAnimation.start();
+        }
+    }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.UP) {
+            startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
 
             moveThiefUp();
         }
         if (action == GUI.ACTION.DOWN) {
+            startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
             moveThiefDown();
         }
         if (action == GUI.ACTION.LEFT) {
+            startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
         }
         if (action == GUI.ACTION.RIGHT) {
+            startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
         }
@@ -90,6 +167,7 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
+            startAttackAnimation(getModel().getThief());
              canKill();
 
         }

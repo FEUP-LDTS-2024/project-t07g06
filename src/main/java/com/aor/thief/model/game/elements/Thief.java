@@ -4,12 +4,15 @@ public class Thief extends Element{
     int prize;
     int direction;
     int feet;
+    String draw;
 
-    public Thief(int x, int y, int prize,int direction,int feet) {
+    public Thief(int x, int y, int prize,int direction,int feet,String draw) {
         super(x, y);
         this.prize = prize;
         this.direction=direction;
         this.feet=feet;
+        this.draw = draw;
+
     }
 
     public int getPrize() {
@@ -55,5 +58,13 @@ public class Thief extends Element{
                 setDirection(3);
                 break;
         }
+    }
+
+    public String getDraw() {
+        return draw;
+    }
+
+    public void setDraw(String draw) {
+        this.draw = draw;
     }
 }
