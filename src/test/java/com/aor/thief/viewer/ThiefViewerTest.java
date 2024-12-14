@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
+
 public class ThiefViewerTest {
     private Thief thief;
     private ThiefViewer viewer;
@@ -19,7 +21,7 @@ public class ThiefViewerTest {
         gui = Mockito.mock(GUI.class);
     }
     @Test
-    void drawElement() {
+    void drawElement() throws IOException, InterruptedException {
         viewer.draw(thief, gui);
         Mockito.verify(gui, Mockito.times(1)).drawThief(thief.getPosition());
     }

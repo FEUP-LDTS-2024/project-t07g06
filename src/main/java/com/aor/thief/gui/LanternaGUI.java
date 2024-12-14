@@ -53,7 +53,6 @@ public class LanternaGUI implements GUI {
 
     public ACTION getNextAction() throws IOException, InterruptedException {
         KeyStroke keyStroke = screen.pollInput();
-        Thread.sleep(5);
         if (keyStroke == null) return ACTION.NONE;
 
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ')  return ACTION.KILL;
@@ -70,7 +69,6 @@ public class LanternaGUI implements GUI {
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
         if (keyStroke.getKeyType() == KeyType.EOF) System.exit(0);
         if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
-
         return ACTION.NONE;
     }
 

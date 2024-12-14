@@ -32,7 +32,7 @@ public class ArenaViewerTest{
 
 
     @Test
-    void drawWalls() throws IOException {
+    void drawWalls() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawWall(new Position(1, 2));
@@ -42,7 +42,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawGuards() throws IOException {
+    void drawGuards() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawGuard(new Position(4, 5));
@@ -51,7 +51,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawThief() throws IOException {
+    void drawThief() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawThief(new Position(5, 8));
@@ -59,7 +59,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawDoor()throws IOException{
+    void drawDoor() throws IOException, InterruptedException {
         arena.setPrize(Arrays.asList());
         viewer.draw(gui);
         Mockito.verify(gui, Mockito.times(1)).drawDoor(new Position(6, 8));
@@ -67,7 +67,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void refreshAndClear() throws IOException {
+    void refreshAndClear() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).clear();
