@@ -4,7 +4,9 @@ import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.Position;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Arena {
     private final int width;
@@ -63,8 +65,9 @@ public class Arena {
     }
     public List<Position> fov(Guard guard) {
         List<Position> FOV = new ArrayList<>();
+        HashSet<Integer> intSet = new HashSet<>();
         Position guardCurrentPosition = guard.getPosition();
-        int sight = 3;
+        int sight = 2;
 
         int dirx = 0, diry = 0;
 
@@ -87,19 +90,18 @@ public class Arena {
                 break;
 
         }
-        boolean flag=Boolean.TRUE;
-        for (int i = 0; i <= sight &&flag; i++) {
-            //for (int j = -i; j <= i; j++) {
-                int fovx = guardCurrentPosition.getX() + dirx * i  ;//*j
-                int fovy = guardCurrentPosition.getY() + diry * i ;//* j
+
+        for (int i = 0; i <= sight; i++) {
+            for (int j = -i ; j <= i ; j++){
+                int fovx = guardCurrentPosition.getX() + dirx * i + diry * j;
+                int fovy = guardCurrentPosition.getY() + diry * i + dirx * j;
                 Position possiblyCanSee = new Position(fovx, fovy);
 
-                if (isntWall(possiblyCanSee)) {
+                if (isntWall(possiblyCanSee) && !intSet.contains(j)) {
                     FOV.add(possiblyCanSee);
                 } else {
-                    flag = Boolean.FALSE;
-                    break;
-                //}
+                    intSet.add(j);
+                }
             }
         }
         return FOV;
