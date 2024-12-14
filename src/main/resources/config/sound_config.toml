@@ -1,0 +1,10 @@
+GUNSHOT_DIR_FILE_NAME="sounds/gunshot.wav"
+ITEMPICKUP_DIR_FILE_NAME= "sounds/itempickup.wav"
+MENUSELECT_DIR_FILE_NAME="sounds/menuselect.wav"
+MENUCHANGE_DIR_FILE_NAME="sounds/menuchange.wav"
+GUARDDEATH_DIR_FILE_NAME="sounds/guarddeathsound.wav"
+FOOTSTEP_DIR_FILE_NAME="sounds/footstep.wav"
+BACKGROUND_DIR_FILE_NAME="sounds/background.wav"
+
+
+
