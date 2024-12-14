@@ -46,13 +46,6 @@ public class ThiefController extends GameController {
         if (getModel().isntWall(position)) {
             getModel().getThief().setPosition(position);
         }
-        if (!getModel().getPrize().isEmpty()) {
-            if (getModel().pickedupPrize(position)) {
-                getModel().getThief().prize_collected();
-                getModel().getPrize().removeFirst();
-            }
-        }
-
     }
 
     public boolean canKill() throws InterruptedException {
@@ -138,28 +131,52 @@ public class ThiefController extends GameController {
         }
     }
 
+    public void PickedUpPrize(Game game){
+        if (!getModel().getPrize().isEmpty()) {
+            if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
+                getModel().getThief().prize_collected();
+                game.playItemPickupSound();
+                getModel().getPrize().removeFirst();
+            }
+        }
+    }
+
     @Override
+
     public void step(Game game, GUI.ACTION action, long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.UP) {
+            game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
-
             moveThiefUp();
+            PickedUpPrize(game);
         }
+
         if (action == GUI.ACTION.DOWN) {
+            game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
+
+
+
             moveThiefDown();
+            PickedUpPrize(game);
         }
+
         if (action == GUI.ACTION.LEFT) {
+            game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
+            PickedUpPrize(game);
         }
         if (action == GUI.ACTION.RIGHT) {
+
+            game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
+            PickedUpPrize(game);
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
@@ -167,8 +184,14 @@ public class ThiefController extends GameController {
             }
         }
         if (action == GUI.ACTION.KILL) {
+
             startAttackAnimation(getModel().getThief());
-             canKill();
+            game.playGunShot();
+            if(canKill()) game.playGuardDeathSound();
+
+            game.playGunShot();
+
+
 
         }
     }
