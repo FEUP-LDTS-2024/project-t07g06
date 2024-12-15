@@ -75,10 +75,10 @@ public class ThiefController extends GameController {
                 try {
                     if(getModel().getThief().getFeet()==0) {
                         thief.setDraw("rightleg_" + finalDirection + ".png");
-                        Thread.sleep(100);
+                        Thread.sleep(150);
                     }else {
                         thief.setDraw("leftleg_" + finalDirection + ".png");
-                        Thread.sleep(100);
+                        Thread.sleep(150);
                     }
                     thief.toggleFeet();
 
