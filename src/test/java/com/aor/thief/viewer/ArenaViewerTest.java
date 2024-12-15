@@ -24,7 +24,7 @@ public class ArenaViewerTest{
         viewer = new GameViewer(arena);
 
         arena.setWalls(Arrays.asList(new Wall(1, 2), new Wall(2, 3), new Wall(3, 4)));
-        arena.setGuards(Arrays.asList(new Guard(4, 5, 0, ), new Guard(5, 6, 0, )));
+        arena.setGuards(Arrays.asList(new Guard(4, 5, 0,false ), new Guard(5, 6, 0,false )));
         arena.setPrize(Arrays.asList(new Prize(7, 7)));
         arena.setThief(new Thief(5, 8, 0, 0));
         arena.setDoor(new Door(6,8));
