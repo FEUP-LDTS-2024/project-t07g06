@@ -15,6 +15,7 @@ public class Arena {
     private List<Prize> prize;
 
     private List<Guard> guards;
+    private List<Camera> cameras;
     private List<Wall> walls;
 
 
@@ -45,6 +46,12 @@ public class Arena {
 
     public void setGuards(List<Guard> guards) {
         this.guards = guards;
+    }
+
+    public List<Camera> getCamera() {return cameras;}
+
+    public void setCameras(List<Camera> cameras){
+        this.cameras = cameras;
     }
 
     public List<Wall> getWalls() {
@@ -169,5 +176,9 @@ public class Arena {
         this.door = door;
     }
 
+// fazerrrrrrrrrr
+    public Position[] camFieldVision(Camera camera) {
+
+    }
 }
 

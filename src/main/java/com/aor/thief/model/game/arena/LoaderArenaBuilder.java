@@ -100,5 +100,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         return null;
     }
 
+    @Override
+    protected List<Camera> createCamera(){
+        List<Camera> cam = new ArrayList<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'C') cam.add(new Camera(x, y,0));
+        }
+
+        return cam;
+
+    }
+
 
 }
