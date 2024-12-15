@@ -69,21 +69,18 @@ public class ThiefController extends GameController {
             case 2: direction = "up"; break;
             case 3: direction = "right"; break;
         }
-        System.out.println( direction);
         if (moveAnimation == null || !moveAnimation.isAlive()) {
             String finalDirection = direction;
             moveAnimation = new Thread(() -> {
                 try {
                     if(getModel().getThief().getFeet()==0) {
                         thief.setDraw("rightleg_" + finalDirection + ".png");
-                        Thread.sleep(250);
+                        Thread.sleep(100);
                     }else {
                         thief.setDraw("leftleg_" + finalDirection + ".png");
-                        Thread.sleep(250);
+                        Thread.sleep(100);
                     }
                     thief.toggleFeet();
-                    thief.setDraw("still_" + finalDirection + ".png");
-                    Thread.sleep(75);
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -117,8 +114,7 @@ public class ThiefController extends GameController {
                     String shoot = "shoot_" + finalDirection + ".png";
 
                     thief.setDraw(shoot);
-                    Thread.sleep(75);
-
+                    Thread.sleep(100);
                     String still = "still_" + finalDirection + ".png";
                     thief.setDraw(still);
                 } catch (InterruptedException e) {
