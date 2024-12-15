@@ -16,7 +16,7 @@ public class ThiefViewerTest {
 
     @BeforeEach
     void setUp() {
-        thief = new Thief(10, 10,0,0,0);
+        thief = new Thief(10, 10,0,0,0,"");
         viewer = new ThiefViewer();
         gui = Mockito.mock(GUI.class);
     }

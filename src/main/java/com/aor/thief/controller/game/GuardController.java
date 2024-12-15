@@ -5,6 +5,7 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class GuardController extends GameController {
     private long lastMovement;
     private int cur_dir;
+    private Thread moveAnimation;
 
     public GuardController(Arena arena) {
         super(arena);
@@ -28,6 +30,9 @@ public class GuardController extends GameController {
             game.setState(new MenuState(new Menu()));}
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
+                System.out.println("Animation started");
+                startMoveAnimation(guard);
+                System.out.println("Animation finished");
                 int cur_dir = guard.getDirection();
                 int counting_dir=cur_dir;
                 while (!getModel().isntWall(guard.getPosition().movingpattern(cur_dir))) {
@@ -58,6 +63,41 @@ public class GuardController extends GameController {
     private void moveGuard(int index, Position position) {
         if (getModel().isntWall(position)) {
             getModel().getGuards().get(index).setPosition(position);
+        }
+        getModel().getGuards().get(index).toggleFeet();
+    }
+    private synchronized void startMoveAnimation(Guard guard) {
+        String direction = "";
+        switch (guard.getDirection()) {
+            case 0:
+                direction = "down";
+                break;
+            case 1:
+                direction = "left";
+                break;
+            case 2:
+                direction = "up";
+                break;
+            case 3:
+                direction = "right";
+                break;
+        }
+        System.out.println(direction);
+        if (moveAnimation == null || !moveAnimation.isAlive()) {
+            String finalDirection = direction;
+            moveAnimation = new Thread(() -> {
+                try {
+                    guard.setDraw("rightleg_" + finalDirection + ".png");
+                    Thread.sleep(250);
+                    guard.setDraw("leftleg_" + finalDirection + ".png");
+                    Thread.sleep(250);
+                    guard.setDraw("still_" + finalDirection + ".png");
+                    Thread.sleep(75);
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 

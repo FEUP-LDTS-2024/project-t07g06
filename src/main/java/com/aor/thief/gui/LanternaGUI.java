@@ -105,7 +105,7 @@ public class LanternaGUI implements GUI {
     }
 
     //@Override
-    //public void drawVision(Position position){drawCharacter(position.getX(), position.getY(), 'S', "#FF0000");}
+    //public void drawVision(Position position){drawCharacter(position.getX(), position.getY(), ' ', "#FF0000");}
     @Override
     public void drawDoor(Position position){drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
     }
@@ -118,15 +118,11 @@ public class LanternaGUI implements GUI {
             for (int y = 0; y < image.getHeight(); y++) {
                 int pixelColor = image.getRGB(x, y);
                 int alpha = (pixelColor >> 24) & 0xFF;
-
                 if (alpha == 0) continue;
-
                 int r = (pixelColor >> 16) & 0xFF;
                 int g = (pixelColor >> 8) & 0xFF;
                 int b = pixelColor & 0xFF;
-
                 TextCharacter pixelChar = new TextCharacter(' ', new TextColor.RGB(r, g, b), new TextColor.RGB(r,g,b));
-
                 graphics.setCharacter(position.getX() + x, position.getY() + y, pixelChar);
             }
         }

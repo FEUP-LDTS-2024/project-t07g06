@@ -35,7 +35,7 @@ public class LanternaGUITest {
     }
     @Test
     void drawImage() throws IOException {
-        Thief thief = new Thief(1,1,0,0,0);
+        Thief thief = new Thief(1,1,0,0,0,"");
         gui.drawImage(thief.getPosition(),"src/main/resources/sprites/thief/rightleg_down.png");
         Mockito.verify(tg, Mockito.times(44)).putString(1, 2, "T");
     }

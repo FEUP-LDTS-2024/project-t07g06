@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThiefViewer implements ElementViewer<Thief> {
-    private String path = "src/main/resources/sprites/thief/";
+    private String path = "src/main/resources/sprites/guard/";
    // Time when the current action started
     @Override
     public void draw(Thief thief, GUI gui) throws InterruptedException, IOException {
