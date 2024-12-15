@@ -6,11 +6,11 @@ import com.aor.thief.model.game.elements.Wall;
 import java.io.IOException;
 
 public class WallViewer implements ElementViewer<Wall> {
-    private final String path = "src/main/resources/sprites/thief/";
+    private final String path = "src/main/resources/sprites/wall/";
     @Override
     public void draw(Wall wall, GUI gui) throws IOException {
       //  gui.drawImage(wall.getPosition(),"");
-        gui.drawImage(wall.getPosition(), path+"still_down.png");
+        gui.drawImage(wall.getPosition(), path +"wall.png");
     }
 
 }

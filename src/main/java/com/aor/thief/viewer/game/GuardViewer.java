@@ -2,7 +2,6 @@ package com.aor.thief.viewer.game;
 
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Wall;
 
 import java.io.IOException;
 
@@ -11,8 +10,24 @@ public class GuardViewer implements ElementViewer<Guard> {
     @Override
     public void draw(Guard guard, GUI gui) throws IOException {
         if(guard.getDraw().isEmpty()){
-            gui.drawImage(guard.getPosition(), path + "still_down.png");}
-        else
-            gui.drawImage(guard.getPosition(), path + guard.getDraw());
+            guard.setDraw("still_" + getDirection(guard) + ".png");}
+        gui.drawImage(guard.getPosition(), path + guard.getDraw());
     }
+
+    public String getDirection(Guard guard) {
+        switch (guard.getDirection()) {
+            case (0):
+                return "down";
+            case (1):
+                return "left";
+            case (2):
+                return "up";
+            case (3):
+                return "right";
+            default:
+                return "down";
+        }
+    }
+
+
 }

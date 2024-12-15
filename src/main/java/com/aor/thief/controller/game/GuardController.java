@@ -15,7 +15,6 @@ import java.util.List;
 
 public class GuardController extends GameController {
     private long lastMovement;
-    private int cur_dir;
     private Thread moveAnimation;
 
     public GuardController(Arena arena) {
@@ -30,9 +29,7 @@ public class GuardController extends GameController {
             game.setState(new MenuState(new Menu()));}
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
-                System.out.println("Animation started");
                 startMoveAnimation(guard);
-                System.out.println("Animation finished");
                 int cur_dir = guard.getDirection();
                 int counting_dir=cur_dir;
                 while (!getModel().isntWall(guard.getPosition().movingpattern(cur_dir))) {
@@ -43,11 +40,10 @@ public class GuardController extends GameController {
                 }
                 guard.setDirection(cur_dir);
                 moveGuard(index, guard.getPosition().movingpattern(cur_dir));
-                //System.out.println("Guard: " + guard.getPosition().getX() + " " + guard.getPosition().getY());
+                System.out.println(cur_dir);
                 index++;
             }
             this.lastMovement = time;
-            index = 0;
             if(isCaught()){
                 game.setState(new MenuState(new Menu()));}
         }
