@@ -101,6 +101,10 @@ public class Arena {
                     FOV.add(possiblyCanSee);
                 } else {
                     intSet.add(j);
+                    if(j<i+0.5){for(int o=-sight;o<j;o++){intSet.add(o);}}
+                    if(j>i+0.5){for(int o=j;o<=sight;o++){intSet.add(o);}}
+
+
                 }
             }
         }
