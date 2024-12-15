@@ -41,7 +41,6 @@ public class GuardControllerTest {
     @Test
     void moveGuardClosed() throws IOException {
         Guard guard = new Guard(5, 5,0,false );
-        Guard guard = new Guard(5, 5,0, false);
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
                 new Wall(4, 5),
@@ -59,7 +58,6 @@ public class GuardControllerTest {
     @Test
     void moveGuardsGap() throws IOException {
         Guard guard = new Guard(5, 5,0, false);
-        Guard guard = new Guard(5, 5,0,false );
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
                 new Wall(5, 4),
