@@ -8,7 +8,6 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.game.elements.Wall;
-import jdk.dynalink.linker.support.Guards;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -41,7 +40,7 @@ public class GuardControllerTest {
     }
     @Test
     void moveGuardClosed() throws IOException {
-        Guard guard = new Guard(5, 5,0);
+        Guard guard = new Guard(5, 5,0, );
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
                 new Wall(4, 5),
@@ -58,7 +57,7 @@ public class GuardControllerTest {
 
     @Test
     void moveGuardsGap() throws IOException {
-        Guard guard = new Guard(5, 5,0);
+        Guard guard = new Guard(5, 5,0, );
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
                 new Wall(5, 4),
