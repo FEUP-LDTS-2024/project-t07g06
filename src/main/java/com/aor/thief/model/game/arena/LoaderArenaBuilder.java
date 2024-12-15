@@ -63,7 +63,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'G') guards.add(new Guard(x, y,0 ));
+                if (line.charAt(x) == 'G') guards.add(new Guard(x, y,0,false ));
         }
 
         return guards;

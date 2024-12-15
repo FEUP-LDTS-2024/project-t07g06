@@ -5,6 +5,7 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
@@ -40,7 +41,6 @@ public class GuardController extends GameController {
                     index++;
                 }
                 this.lastMovement = time;
-                index = 0;
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
@@ -48,6 +48,14 @@ public class GuardController extends GameController {
                     //game.setState(new MenuState(new Menu()));}
                 }
             }else {
+                for (Guard guard : getModel().getGuards()) {
+                    pursuit(guard, getModel().getThief(), index);
+                    if(guard.getPosition().equals(getModel().getThief().getPosition())) {
+                        game.setState(new MenuState(new Menu()));
+                    }
+                    index++;
+                    this.lastMovement = time;
+                }
 
             }
         }
@@ -65,5 +73,23 @@ public class GuardController extends GameController {
             getModel().getGuards().get(index).setPosition(position);
         }
     }
+    public void pursuit(Guard guard, Thief thief, int guard_index) {
+        List<Position> path = new ArrayList<>();
+        int min_dist=Integer.MAX_VALUE;
+        int index=0;
+        int x=guard.getPosition().getX();
+        int y=guard.getPosition().getY();
+        if(getModel().isntWall(new Position(x,y-1))) path.add(new Position(x,y-1));
+        if(getModel().isntWall(new Position(x-1,y))) path.add(new Position(x-1,y));
+        if(getModel().isntWall(new Position(x,y+1)))path.add(new Position(x,y+1));
+        if(getModel().isntWall(new Position(x+1,y)))path.add(new Position(x+1,y));
+        for (int i = 0; i < path.size(); i++) {
+            if(path.get(i).distance(thief.getPosition())<min_dist){
+                min_dist=path.get(i).distance(thief.getPosition());
+                index=i;
 
+            }
+        }
+        moveGuard(guard_index,path.get(index));
+    }
 }
