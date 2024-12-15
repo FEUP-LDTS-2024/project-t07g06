@@ -8,9 +8,10 @@ import java.io.IOException;
 public class GuardViewer implements ElementViewer<Guard> {
     private final String path = "src/main/resources/sprites/guards/";
     @Override
-    public void draw(Guard guard, GUI gui) throws IOException {
+    public void draw(Guard guard, GUI gui) throws IOException, InterruptedException {
         if(guard.getDraw().isEmpty()){
             guard.setDraw("still_" + getDirection(guard) + ".png");}
+        Thread.sleep(100);
         gui.drawImage(guard.getPosition(), path + guard.getDraw());
     }
 

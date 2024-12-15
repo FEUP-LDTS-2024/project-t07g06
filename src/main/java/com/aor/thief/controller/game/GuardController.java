@@ -21,6 +21,55 @@ public class GuardController extends GameController {
         super(arena);
         this.lastMovement = 0;
     }
+    private synchronized void startMoveAnimation(Guard guard) {
+        String direction = "";
+        switch (guard.getDirection()) {
+            case 0:
+                direction = "down";
+                break;
+            case 1:
+                direction = "left";
+                break;
+            case 2:
+                direction = "up";
+                break;
+            case 3:
+                direction = "right";
+                break;
+        }
+        if (moveAnimation == null || !moveAnimation.isAlive()) {
+            String finalDirection = direction;
+            moveAnimation = new Thread(() -> {
+                try {
+                    if(guard.getFeet()==0) {
+                        guard.setDraw("rightleg_" + finalDirection + ".png");
+                    }else {
+                        guard.setDraw("leftleg_" + finalDirection + ".png");
+                    }
+                    Thread.sleep(500);
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            moveAnimation.start();
+        }
+    }
+
+    public boolean isCaught() {
+        for (Guard guard : getModel().getGuards()) {
+            for (Position caught : getModel().fov(guard)){
+                if (caught.equals(getModel().getThief().getPosition())){return true;}
+            }
+        }
+        return false;
+    }
+    private void moveGuard(int index, Position position) {
+        if (getModel().isntWall(position)) {
+            getModel().getGuards().get(index).setPosition(position);
+        }
+        getModel().getGuards().get(index).toggleFeet();
+    }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
@@ -40,7 +89,6 @@ public class GuardController extends GameController {
                 }
                 guard.setDirection(cur_dir);
                 moveGuard(index, guard.getPosition().movingpattern(cur_dir));
-                System.out.println(cur_dir);
                 index++;
             }
             this.lastMovement = time;
@@ -48,53 +96,7 @@ public class GuardController extends GameController {
                 game.setState(new MenuState(new Menu()));}
         }
     }
-    public boolean isCaught() {
-        for (Guard guard : getModel().getGuards()) {
-            for (Position caught : getModel().fov(guard)){
-                if (caught.equals(getModel().getThief().getPosition())){return true;}
-            }
-        }
-        return false;
-    }
-    private void moveGuard(int index, Position position) {
-        if (getModel().isntWall(position)) {
-            getModel().getGuards().get(index).setPosition(position);
-        }
-        getModel().getGuards().get(index).toggleFeet();
-    }
-    private synchronized void startMoveAnimation(Guard guard) {
-        String direction = "";
-        switch (guard.getDirection()) {
-            case 0:
-                direction = "down";
-                break;
-            case 1:
-                direction = "left";
-                break;
-            case 2:
-                direction = "up";
-                break;
-            case 3:
-                direction = "right";
-                break;
-        }
-        System.out.println(direction);
-        if (moveAnimation == null || !moveAnimation.isAlive()) {
-            String finalDirection = direction;
-            moveAnimation = new Thread(() -> {
-                try {
-                    guard.setDraw("rightleg_" + finalDirection + ".png");
-                    Thread.sleep(250);
-                    guard.setDraw("leftleg_" + finalDirection + ".png");
-                    Thread.sleep(250);
-                    guard.setDraw("still_" + finalDirection + ".png");
-                    Thread.sleep(75);
 
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
-    }
+
 
 }
