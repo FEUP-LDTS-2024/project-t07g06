@@ -9,10 +9,10 @@ import com.aor.thief.viewer.Viewer;
 import java.io.IOException;
 
 public class DoorViewer implements ElementViewer<Door> {
-    private final String path = "src/main/resources/sprites/thief/";
+    private final String path = "src/main/resources/sprites/door/";
     @Override
     public void draw(Door door, GUI gui) throws IOException {
         //gui.drawImage(door.getPosition(),"");
-        gui.drawImage(door.getPosition(), path+"still_down.png");
+        gui.drawImage(door.getPosition(), path+"closed.png");
     }
 }
