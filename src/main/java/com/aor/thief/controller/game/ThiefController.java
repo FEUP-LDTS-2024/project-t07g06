@@ -48,7 +48,7 @@ public class ThiefController extends GameController {
     public boolean canKill() {
         int index = 0;
         for (Guard guard : getModel().getGuards()) {
-            for (Position kill : getModel().kill_range(getModel().getThief())) {
+            for (Position kill : getModel().fov(getModel().getThief())) {
                 if (kill.equals(guard.getPosition())) {
                     getModel().getGuards().remove(index);
                     return true;

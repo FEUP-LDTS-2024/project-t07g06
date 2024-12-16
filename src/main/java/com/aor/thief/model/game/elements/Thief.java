@@ -1,13 +1,19 @@
 package com.aor.thief.model.game.elements;
 
-public class Thief extends Element{
+public class Thief extends HasFov{
     int prize;
-    int direction;
+
 
     public Thief(int x, int y, int prize,int direction) {
-        super(x, y);
+        super(x, y,direction);
         this.prize = prize;
-        this.direction=direction;
+
+
+    }
+
+    @Override
+    public int getSight() {
+        return 6;
     }
 
     public int getPrize() {
@@ -21,11 +27,5 @@ public class Thief extends Element{
         prize=1;
     }
 
-    public int getDirection() {
-        return direction;
-    }
 
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
 }
