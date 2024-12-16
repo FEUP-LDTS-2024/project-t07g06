@@ -48,9 +48,11 @@ public class Arena {
         this.guards = guards;
     }
 
-    public List<Camera> getCamera() {return cameras;}
+    public List<Camera> getCamera() {
+        return cameras;
+    }
 
-    public void setCameras(List<Camera> cameras){
+    public void setCameras(List<Camera> cameras) {
         this.cameras = cameras;
     }
 
@@ -68,6 +70,7 @@ public class Arena {
                 return false;
         return true;
     }
+
     public List<Position> fov(Guard guard) {
         List<Position> FOV = new ArrayList<>();
         Position guardCurrentPosition = guard.getPosition();
@@ -94,18 +97,18 @@ public class Arena {
                 break;
 
         }
-        boolean flag=Boolean.TRUE;
-        for (int i = 0; i <= sight &&flag; i++) {
+        boolean flag = Boolean.TRUE;
+        for (int i = 0; i <= sight && flag; i++) {
             //for (int j = -i; j <= i; j++) {
-                int fovx = guardCurrentPosition.getX() + dirx * i  ;//*j
-                int fovy = guardCurrentPosition.getY() + diry * i ;//* j
-                Position possiblyCanSee = new Position(fovx, fovy);
+            int fovx = guardCurrentPosition.getX() + dirx * i;//*j
+            int fovy = guardCurrentPosition.getY() + diry * i;//* j
+            Position possiblyCanSee = new Position(fovx, fovy);
 
-                if (isntWall(possiblyCanSee)) {
-                    FOV.add(possiblyCanSee);
-                } else {
-                    flag = Boolean.FALSE;
-                    break;
+            if (isntWall(possiblyCanSee)) {
+                FOV.add(possiblyCanSee);
+            } else {
+                flag = Boolean.FALSE;
+                break;
                 //}
             }
         }
@@ -138,11 +141,11 @@ public class Arena {
                 break;
 
         }
-        boolean flag=true;
-        for (int i = 0; i <= sight &&flag; i++) {
+        boolean flag = true;
+        for (int i = 0; i <= sight && flag; i++) {
             //for (int j = -i; j <= i; j++) {
-            int fovx = thiefCurrentPosition.getX() + dirx * i  ;//*j
-            int fovy = thiefCurrentPosition.getY() + diry * i ;//* j
+            int fovx = thiefCurrentPosition.getX() + dirx * i;//*j
+            int fovy = thiefCurrentPosition.getY() + diry * i;//* j
             Position possiblyCanSee = new Position(fovx, fovy);
 
             if (isntWall(possiblyCanSee)) {
@@ -155,6 +158,7 @@ public class Arena {
         }
         return kill_range;
     }
+
     public List<Prize> getPrize() {
         return prize;
     }
@@ -162,12 +166,14 @@ public class Arena {
     public void setPrize(List<Prize> prize) {
         this.prize = prize;
     }
+
     public boolean pickedupPrize(Position position) {
-        if (getPrize().getFirst().getPosition().equals(position)){
+        if (getPrize().getFirst().getPosition().equals(position)) {
             return true;
         }
         return false;
     }
+
     public Door getDoor() {
         return door;
     }
@@ -175,10 +181,6 @@ public class Arena {
     public void setDoor(Door door) {
         this.door = door;
     }
-
-// fazerrrrrrrrrr
-    public Position[] camFieldVision(Camera camera) {
-
-    }
 }
+
 
