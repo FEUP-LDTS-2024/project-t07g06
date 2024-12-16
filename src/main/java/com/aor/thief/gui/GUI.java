@@ -14,6 +14,8 @@ public interface GUI {
 
     void drawWall(Position position);
 
+    void drawDeadBody(Position position);
+
     void drawGuard(Position position);
 
     void drawDoor(Position position);

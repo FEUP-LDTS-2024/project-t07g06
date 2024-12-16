@@ -110,6 +110,9 @@ public class Arena {
     public void setDeads(List<DeadBody> deads) {
         this.deads = deads;
     }
+    public void addDead(DeadBody dead){
+        deads.add(dead);
+    }
 }
 
 

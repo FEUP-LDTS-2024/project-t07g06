@@ -11,7 +11,6 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 import java.awt.*;
 import java.io.IOException;
@@ -85,8 +84,9 @@ public class LanternaGUI implements GUI {
         drawCharacter(position.getX(), position.getY(), '#', "#3333FF");
     }
 
-    //@Override
-    //public void drawDeadBody(Position positions) {drawCharacter(position.getX(), position.getY(), 'D', "#CC0000" }
+    @Override
+    public void drawDeadBody(Position position) {drawCharacter(position.getX(), position.getY(), 'D', "#CC0000");
+    }
 
     @Override
     public void drawGuard(Position position) {
