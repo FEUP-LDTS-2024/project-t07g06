@@ -15,7 +15,7 @@ public class ConeFov extends HasFov{
 
     @Override
     public int getSight() {
-        return 2;
+        return 3;
     }
 
     @Override

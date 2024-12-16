@@ -7,25 +7,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Guard extends ConeFov {
-    private boolean found;
+public class Guard extends ConeEnemy {
 
     public Guard(int x, int y, int direction, boolean found) {
-        super(x, y,direction);
-        this.found = found;
+        super(x, y, direction, found);
     }
-
-
-
-    public boolean isFound() {
-        return found;
-    }
-
-    public void setFound(boolean found) {
-        this.found = found;
-    }
-
-
-
-
 }
+
+
+
+
+
