@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Guard extends HasFov {
+public class Guard extends ConeFov {
     private boolean found;
 
     public Guard(int x, int y, int direction, boolean found) {
@@ -15,10 +15,7 @@ public class Guard extends HasFov {
         this.found = found;
     }
 
-    @Override
-    public int getSight() {
-        return 3;
-    }
+
 
     public boolean isFound() {
         return found;

@@ -1,6 +1,6 @@
 package com.aor.thief.model.game.elements;
 
-public class Thief extends HasFov{
+public class Thief extends OnlyFrontFov{
     int prize;
 
 
@@ -11,10 +11,7 @@ public class Thief extends HasFov{
 
     }
 
-    @Override
-    public int getSight() {
-        return 6;
-    }
+
 
     public int getPrize() {
         return prize;
