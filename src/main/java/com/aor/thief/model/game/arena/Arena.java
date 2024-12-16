@@ -19,6 +19,7 @@ public class Arena {
     private List<Guard> guards;
     private List<Camera> cameras;
     private List<Wall> walls;
+    private List<DeadBody> deads;
 
 
     public Arena(int width, int height) {
@@ -100,6 +101,14 @@ public class Arena {
 
     public void setDoor(Door door) {
         this.door = door;
+    }
+
+    public List<DeadBody> getDeads() {
+        return deads;
+    }
+
+    public void setDeads(List<DeadBody> deads) {
+        this.deads = deads;
     }
 }
 

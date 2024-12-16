@@ -57,6 +57,11 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
+    protected List<DeadBody> createDeads() {
+        return List.of();
+    }
+
+    @Override
     protected List<Guard> createGuard() {
         List<Guard> guards = new ArrayList<>();
 

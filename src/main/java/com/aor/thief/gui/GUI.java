@@ -18,7 +18,7 @@ public interface GUI {
 
     void drawDoor(Position position);
 
-    //void drawVision(Position positions);
+    void drawDeadBody(Position positions);
 
     void drawText(Position position, String text, String color);
 

@@ -86,6 +86,9 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
+    public void drawDeadBody(Position positions) {drawCharacter(position.getX(), position.getY(), 'D', "#CC0000" }
+
+    @Override
     public void drawGuard(Position position) {
         drawCharacter(position.getX(), position.getY(), '@', "#CC0000");
     }
