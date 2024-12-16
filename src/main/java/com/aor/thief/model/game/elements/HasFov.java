@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class HasFov extends Element{
     protected List<Position> fov;
-    private Arena arena;
+
 
     public HasFov(int x, int y) {
         super(x, y);
