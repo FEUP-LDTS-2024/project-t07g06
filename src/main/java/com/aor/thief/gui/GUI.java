@@ -18,6 +18,8 @@ public interface GUI {
 
     void drawDoor(Position position);
 
+    void drawCamera(Position position);
+
     //void drawVision(Position positions);
 
     void drawText(Position position, String text, String color);
@@ -27,6 +29,7 @@ public interface GUI {
     void refresh() throws IOException;
 
     void close() throws IOException;
+
 
     enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, ESCAPE,KILL}
 }
