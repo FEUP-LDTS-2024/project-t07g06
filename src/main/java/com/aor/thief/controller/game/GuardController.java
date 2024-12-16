@@ -10,8 +10,7 @@ import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GuardController extends GameController {
     private long lastMovement;
@@ -27,6 +26,11 @@ public class GuardController extends GameController {
         int index = 0;
         if (time - lastMovement > 500) {
             if (!getModel().getGuards().isEmpty()) {
+                if (isCaught()) {
+                    for (Guard guard : getModel().getGuards()) {
+                        guard.setFound(true);
+                    }
+                }
                 if (!getModel().getGuards().getFirst().isFound()) {
                     for (Guard guard : getModel().getGuards()) {
                         int cur_dir = guard.getDirection();
@@ -50,7 +54,8 @@ public class GuardController extends GameController {
                     }
                 } else {
                     for (Guard guard : getModel().getGuards()) {
-                        pursuit(guard, getModel().getThief(), index);
+                        Map<Position, Boolean> path = new HashMap<>();
+                        pursuit(guard, getModel().getThief(),index);
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
                             game.setState(new MenuState(new Menu()));
                         }
@@ -62,36 +67,71 @@ public class GuardController extends GameController {
             }
         }
     }
+
     public boolean isCaught() {
         for (Guard guard : getModel().getGuards()) {
-            for (Position caught : getModel().fov(guard)){
-                if (caught.equals(getModel().getThief().getPosition())){return true;}
+            for (Position caught : getModel().fov(guard)) {
+                if (caught.equals(getModel().getThief().getPosition())) {
+                    return true;
+                }
             }
         }
         return false;
     }
+
     private void moveGuard(int index, Position position) {
         if (getModel().isntWall(position)) {
             getModel().getGuards().get(index).setPosition(position);
         }
     }
-    public void pursuit(Guard guard, Thief thief, int guard_index) {
-        List<Position> path = new ArrayList<>();
-        int min_dist=Integer.MAX_VALUE;
-        int index=0;
-        int x=guard.getPosition().getX();
-        int y=guard.getPosition().getY();
-        if(getModel().isntWall(new Position(x,y-1))) path.add(new Position(x,y-1));
-        if(getModel().isntWall(new Position(x-1,y))) path.add(new Position(x-1,y));
-        if(getModel().isntWall(new Position(x,y+1)))path.add(new Position(x,y+1));
-        if(getModel().isntWall(new Position(x+1,y)))path.add(new Position(x+1,y));
-        for (int i = 0; i < path.size(); i++) {
-            if(path.get(i).distance(thief.getPosition())<min_dist){
-                min_dist=path.get(i).distance(thief.getPosition());
-                index=i;
 
+
+
+    List<Position> getNeighbors(Position p) {
+        List<Position> neighbors = new ArrayList<>();
+        int x = p.getX();
+        int y = p.getY();
+        neighbors.add(new Position(x - 1, y));
+        neighbors.add(new Position(x + 1, y));
+        neighbors.add(new Position(x, y - 1));
+        neighbors.add(new Position(x, y + 1));
+        return neighbors;
+    }
+
+
+    Position pursuit(Map<Position, Boolean> path, Guard guard, Thief thief) {
+        int w = 160, h = 90;
+        Queue<Position> q = new LinkedList<>();
+        Map<Position, Position> previous = new HashMap<>();
+        path.put(guard.getPosition(), true);
+        q.offer(guard.getPosition());
+        while (!q.isEmpty()) {
+            Position current = q.poll();
+            if (current.equals(thief.getPosition())) {
+                Position neighbor = previous.get(current);
+                while (neighbor != null && !neighbor.equals(guard.getPosition())) {
+                    neighbor = previous.get(neighbor);
+                }
+                return neighbor;
+            }
+            for (Position neighbor : getNeighbors(current)) {
+                if (neighbor.getX() >= -w && neighbor.getX() < w && neighbor.getY() >= -h && neighbor.getY() < h) {
+                    if (getModel().isntWall(neighbor) ) {
+                        path.put(neighbor, true);
+                        previous.put(neighbor, current);
+                        q.offer(neighbor);
+                    }
+                }
             }
         }
-        moveGuard(guard_index,path.get(index));
+        return null;
     }
+
+//    public void pursuit(Guard guard, Thief thief, int guard_index) {
+//        int x = guard.getPosition().getX();
+//        int y = guard.getPosition().getY();
+//        x += ((thief.getPosition().getX()<x)? -1 : (thief.getPosition().getX()>x) ? 1 : 0 );
+//        y += ((thief.getPosition().getY()<y)? -1 : (thief.getPosition().getY()>y) ? 1 : 0 );
+//        moveGuard(guard_index, new Position(x,y));
+//    }
 }
