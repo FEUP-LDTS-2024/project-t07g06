@@ -99,39 +99,13 @@ public class GuardController extends GameController {
     }
 
 
-    Position pursuit(Map<Position, Boolean> path, Guard guard, Thief thief) {
-        int w = 160, h = 90;
-        Queue<Position> q = new LinkedList<>();
-        Map<Position, Position> previous = new HashMap<>();
-        path.put(guard.getPosition(), true);
-        q.offer(guard.getPosition());
-        while (!q.isEmpty()) {
-            Position current = q.poll();
-            if (current.equals(thief.getPosition())) {
-                Position neighbor = previous.get(current);
-                while (neighbor != null && !neighbor.equals(guard.getPosition())) {
-                    neighbor = previous.get(neighbor);
-                }
-                return neighbor;
-            }
-            for (Position neighbor : getNeighbors(current)) {
-                if (neighbor.getX() >= -w && neighbor.getX() < w && neighbor.getY() >= -h && neighbor.getY() < h) {
-                    if (getModel().isntWall(neighbor) ) {
-                        path.put(neighbor, true);
-                        previous.put(neighbor, current);
-                        q.offer(neighbor);
-                    }
-                }
-            }
-        }
-        return null;
-    }
 
-//    public void pursuit(Guard guard, Thief thief, int guard_index) {
-//        int x = guard.getPosition().getX();
-//        int y = guard.getPosition().getY();
-//        x += ((thief.getPosition().getX()<x)? -1 : (thief.getPosition().getX()>x) ? 1 : 0 );
-//        y += ((thief.getPosition().getY()<y)? -1 : (thief.getPosition().getY()>y) ? 1 : 0 );
-//        moveGuard(guard_index, new Position(x,y));
-//    }
+
+    public void pursuit(Guard guard, Thief thief, int guard_index) {
+        int x = guard.getPosition().getX();
+        int y = guard.getPosition().getY();
+        x += ((thief.getPosition().getX()<x)? -1 : (thief.getPosition().getX()>x) ? 1 : 0 );
+        y += ((thief.getPosition().getY()<y)? -1 : (thief.getPosition().getY()>y) ? 1 : 0 );
+        moveGuard(guard_index, new Position(x,y));
+    }
 }
