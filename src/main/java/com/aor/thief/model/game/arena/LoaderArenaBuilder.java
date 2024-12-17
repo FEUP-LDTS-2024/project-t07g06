@@ -183,12 +183,36 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    cam.add(new Camera(x, y,0, false ,hitbox));
+                    cam.add(new Camera(x, y,0, false ,hitbox, new ArrayList<>()));
                 }
         }
 
         return cam;
 
+    }
+    @Override
+    protected List<CameraStill> createStillCameras() {
+        List<CameraStill> cam = new ArrayList<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'S') {
+                    List<Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x, y));
+                    hitbox.add(new Position(x + 1, y));
+                    hitbox.add(new Position(x + 1, y + 1));
+                    hitbox.add(new Position(x, y + 1));
+                    hitbox.add(new Position(x - 1, y + 1));
+                    hitbox.add(new Position(x - 1, y));
+                    hitbox.add(new Position(x - 1, y - 1));
+                    hitbox.add(new Position(x, y - 1));
+                    hitbox.add(new Position(x + 1, y - 1));
+                    cam.add(new Camera(x, y, 0, false, hitbox, new ArrayList<>()));
+                }
+        }
+
+        return cam;
     }
     @Override
     protected List<Cop> createCop() {

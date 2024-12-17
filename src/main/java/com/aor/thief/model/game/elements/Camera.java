@@ -5,12 +5,11 @@ import com.aor.thief.model.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Camera extends ConeEnemy {
+public class Camera extends CameraStill {
     boolean isDown=false;
-    List<Integer> corner= new ArrayList<>();
     int current_pos;
-    public Camera(int x, int y, int direction, boolean found, List<Position> hitbox) {
-        super(x, y, direction, found, hitbox);
+    public Camera(int x, int y, int direction, boolean found, List<Position> hitbox,List<Integer> corner) {
+        super(x, y, direction, found, hitbox,corner);
     }
 
     public boolean isDown() {

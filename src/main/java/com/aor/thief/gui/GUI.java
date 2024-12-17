@@ -25,6 +25,8 @@ public interface GUI {
 
     void drawCamera(Position position);
 
+    void drawStillCamera(Position position);
+
 
 
     void drawText(Position position, String text, String color);

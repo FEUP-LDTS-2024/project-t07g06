@@ -16,7 +16,6 @@ import java.util.*;
 
 public class CameraController extends GameController {
     private long lastMovement;
-    private int cur_dir;
 
     public CameraController(Arena arena) {
         super(arena);
@@ -25,8 +24,16 @@ public class CameraController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        if (isCaught()) {
+            for (Guard guard : getModel().getGuards()) {
+                guard.setFound(true);
+            }
+            for (Cop cop : getModel().getCops()) {
+                cop.setFound(true);
+            }
+        }
         if (time - lastMovement > 2000) {
-            if (!getModel().getGuards().isEmpty()) {
+            if (!getModel().getCamera().isEmpty()) {
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
@@ -66,6 +73,7 @@ public class CameraController extends GameController {
                     return true;
                 }
             }
+
         }
         return false;
     }

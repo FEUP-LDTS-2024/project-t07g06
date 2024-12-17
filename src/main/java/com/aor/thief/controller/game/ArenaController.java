@@ -4,6 +4,7 @@ import com.aor.thief.Game;
 import com.aor.thief.controller.Controller;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.game.elements.CameraStill;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
@@ -13,6 +14,7 @@ public class ArenaController extends Controller {
     private final ThiefController thiefController;
     private final GuardController guardController;
     private final CopController copController;
+    private final CameraStillController cameraStillController;
 
     private final CameraController cameraController;
     public ArenaController(Arena arena) {
@@ -23,6 +25,8 @@ public class ArenaController extends Controller {
         this.copController = new CopController(arena);
 
         this.cameraController = new CameraController(arena);
+
+        this.cameraStillController=  new CameraStillController(arena);
 
     }
 
@@ -37,6 +41,7 @@ public class ArenaController extends Controller {
 
             cameraController.step(game, action,time);
 
+            cameraStillController.step(game, action,time);
         }
     }
 }
