@@ -17,7 +17,9 @@ public class Arena {
     private List<Prize> prize;
 
     private List<Guard> guards;
+    private List<Camera> cameras;
     private List<Wall> walls;
+    private List<DeadBody> deads;
 
 
     public Arena(int width, int height) {
@@ -49,6 +51,14 @@ public class Arena {
         this.guards = guards;
     }
 
+    public List<Camera> getCamera() {
+        return cameras;
+    }
+
+    public void setCameras(List<Camera> cameras) {
+        this.cameras = cameras;
+    }
+
     public List<Wall> getWalls() {
         return walls;
     }
@@ -63,97 +73,13 @@ public class Arena {
                 return false;
         return true;
     }
-    public List<Position> fov(Guard guard) {
-        List<Position> FOV = new ArrayList<>();
-        HashSet<Integer> intSet = new HashSet<>();
-        Position guardCurrentPosition = guard.getPosition();
-        int sight = 2;
 
-        int dirx = 0, diry = 0;
-
-        switch (guard.getDirection()) {
-            case 0:
-                dirx = 0;
-                diry = 1;
-                break;
-            case 1:
-                dirx = -1;
-                diry = 0;
-                break;
-            case 2:
-                dirx = 0;
-                diry = -1;
-                break;
-            case 3:
-                dirx = 1;
-                diry = 0;
-                break;
-
-        }
-
-        for (int i = 0; i <= sight; i++) {
-            for (int j = -i ; j <= i ; j++){
-                int fovx = guardCurrentPosition.getX() + dirx * i + diry * j;
-                int fovy = guardCurrentPosition.getY() + diry * i + dirx * j;
-                Position possiblyCanSee = new Position(fovx, fovy);
-
-                if (isntWall(possiblyCanSee) && !intSet.contains(j)) {
-                    FOV.add(possiblyCanSee);
-                } else {
-                    intSet.add(j);
-                    if(j<i+0.5){for(int o=-sight;o<j;o++){intSet.add(o);}}
-                    if(j>i+0.5){for(int o=j;o<=sight;o++){intSet.add(o);}}
-
-
-                }
-            }
-        }
-        return FOV;
+    public List<Position> fov(HasFov hasfov) {
+        hasfov.defineFov(this,hasfov.getSight());
+        return hasfov.getFov();
     }
 
-    public List<Position> kill_range(Thief thief) {
-        List<Position> kill_range = new ArrayList<>();
-        Position thiefCurrentPosition = thief.getPosition();
-        int sight = 6;
 
-        int dirx = 0, diry = 0;
-
-        switch (thief.getDirection()) {
-            case 0:
-                dirx = 0;
-                diry = 1;
-                break;
-            case 1:
-                dirx = -1;
-                diry = 0;
-                break;
-            case 2:
-                dirx = 0;
-                diry = -1;
-                break;
-            case 3:
-                dirx = 1;
-                diry = 0;
-                break;
-
-        }
-        boolean flag=true;
-        for (int i = 0; i <= sight &&flag; i++) {
-            //for (int j = -i; j <= i; j++) {
-            int fovx = thiefCurrentPosition.getX() + dirx * i  ;//*j
-            int fovy = thiefCurrentPosition.getY() + diry * i ;//* j
-            Position possiblyCanSee = new Position(fovx, fovy);
-
-            if (isntWall(possiblyCanSee)) {
-                kill_range.add(possiblyCanSee);
-            } else {
-                flag = false;
-                break;
-                //}
-            }
-        }
-        return kill_range;
-    }
     public List<Prize> getPrize() {
         return prize;
     }
@@ -161,12 +87,14 @@ public class Arena {
     public void setPrize(List<Prize> prize) {
         this.prize = prize;
     }
+
     public boolean pickedupPrize(Position position) {
-        if (getPrize().getFirst().getPosition().equals(position)){
+        if (getPrize().getFirst().getPosition().equals(position)) {
             return true;
         }
         return false;
     }
+
     public Door getDoor() {
         return door;
     }
@@ -175,5 +103,16 @@ public class Arena {
         this.door = door;
     }
 
+    public List<DeadBody> getDeads() {
+        return deads;
+    }
+
+    public void setDeads(List<DeadBody> deads) {
+        this.deads = deads;
+    }
+    public void addDead(DeadBody dead){
+        deads.add(dead);
+    }
 }
+
 

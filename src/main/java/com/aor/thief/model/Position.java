@@ -49,6 +49,9 @@ public class Position  {
                 return new Position(x, y);
         }
     }
+    public int distance(Position position){
+        return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
+    }
 
     @Override
     public boolean equals(Object o) {

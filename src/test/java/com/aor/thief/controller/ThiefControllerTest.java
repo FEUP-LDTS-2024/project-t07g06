@@ -98,7 +98,7 @@ public class ThiefControllerTest {
     @Test
     void canKill(){
         List<Guard> guards = new ArrayList<>();
-        guards.add(new Guard(5, 6, 0)); // Adicionando um guard
+        guards.add(new Guard(5, 6, 0, false)); // Adicionando um guard
         arena.setGuards(guards);
         assertEquals(true,controller.canKill());
     }
@@ -106,7 +106,7 @@ public class ThiefControllerTest {
     @Test
     void cantKill(){
         List<Guard> guards = new ArrayList<>();
-        guards.add(new Guard(7, 7, 0)); // Adicionando um guard
+        guards.add(new Guard(4, 4, 0, false)); // Adicionando um guard
         arena.setGuards(guards);
         assertEquals(false,controller.canKill());
     }

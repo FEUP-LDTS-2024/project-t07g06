@@ -1,18 +1,20 @@
 package com.aor.thief.model.game.elements;
 
-public class Guard extends Element {
-    private int direction;
+import com.aor.thief.model.Position;
+import com.aor.thief.model.game.arena.Arena;
 
-    public Guard(int x, int y, int direction) {
-        super(x, y);
-        this.direction = direction;
-    }
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
-    public int getDirection() {
-        return direction;
-    }
+public class Guard extends ConeEnemy {
 
-    public void setDirection(int direction) {
-        this.direction = direction;
+    public Guard(int x, int y, int direction, boolean found) {
+        super(x, y, direction, found);
     }
 }
+
+
+
+
+

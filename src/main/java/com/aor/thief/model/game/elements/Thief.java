@@ -1,14 +1,17 @@
 package com.aor.thief.model.game.elements;
 
-public class Thief extends Element{
+public class Thief extends OnlyFrontFov{
     int prize;
-    int direction;
+
 
     public Thief(int x, int y, int prize,int direction) {
-        super(x, y);
+        super(x, y,direction);
         this.prize = prize;
-        this.direction=direction;
+
+
     }
+
+
 
     public int getPrize() {
         return prize;
@@ -21,11 +24,5 @@ public class Thief extends Element{
         prize=1;
     }
 
-    public int getDirection() {
-        return direction;
-    }
 
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
 }

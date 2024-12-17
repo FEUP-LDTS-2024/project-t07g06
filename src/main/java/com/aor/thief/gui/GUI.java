@@ -14,11 +14,13 @@ public interface GUI {
 
     void drawWall(Position position);
 
+    void drawDeadBody(Position position);
+
     void drawGuard(Position position);
 
     void drawDoor(Position position);
 
-    //void drawVision(Position positions);
+    //void drawDeadBody(Position positions);
 
     void drawText(Position position, String text, String color);
 

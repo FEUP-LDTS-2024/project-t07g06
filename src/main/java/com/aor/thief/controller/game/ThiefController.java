@@ -3,11 +3,14 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThiefController extends GameController {
     public ThiefController(Arena arena) {
@@ -48,8 +51,9 @@ public class ThiefController extends GameController {
     public boolean canKill() {
         int index = 0;
         for (Guard guard : getModel().getGuards()) {
-            for (Position kill : getModel().kill_range(getModel().getThief())) {
+            for (Position kill : getModel().fov(getModel().getThief())) {
                 if (kill.equals(guard.getPosition())) {
+                    getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY()));
                     getModel().getGuards().remove(index);
                     return true;
                 }

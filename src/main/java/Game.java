@@ -17,7 +17,7 @@ public class Game {
 
 
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
-        this.gui = new LanternaGUI(35, 20);
+        this.gui = new LanternaGUI(160, 90);
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
         this.itemPickupSound= new SoundFactory().createItemPickupSound();
@@ -65,7 +65,7 @@ public class Game {
 
 
     private void start() throws IOException {
-        int FPS = 30;
+        int FPS = 20;
         int frameTime = 1000 / FPS;
         loopedSoundPlayer.start();
         while (this.state != null) {

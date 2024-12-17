@@ -1,6 +1,5 @@
 package com.aor.thief.model.game.arena;
 
-import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.*;
 
 import java.io.BufferedReader;
@@ -58,16 +57,21 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
+    protected List<DeadBody> createDeads() {
+        return new ArrayList<>();
+    }
+
+    @Override
     protected List<Guard> createGuard() {
-        List<Guard> monsters = new ArrayList<>();
+        List<Guard> guards = new ArrayList<>();
 
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'G') monsters.add(new Guard(x, y,0));
+                if (line.charAt(x) == 'G') guards.add(new Guard(x, y,0,false ));
         }
 
-        return monsters;
+        return guards;
     }
 
     @Override
@@ -98,6 +102,20 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                 if (line.charAt(x) == 'T') return new Door(x, y);
         }
         return null;
+    }
+
+    @Override
+    protected List<Camera> createCamera(){
+        List<Camera> cam = new ArrayList<>();
+
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'C') cam.add(new Camera(x, y,0));
+        }
+
+        return cam;
+
     }
 
 

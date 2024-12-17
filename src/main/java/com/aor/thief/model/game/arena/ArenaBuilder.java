@@ -12,8 +12,11 @@ public abstract class ArenaBuilder {
         arena.setPrize(createPrize());
         arena.setWalls(createWalls());
         arena.setDoor(createDoor());
+        arena.setCameras(createCamera());
+        arena.setDeads(createDeads());
         return arena;
     }
+
 
     protected abstract int getWidth();
 
@@ -21,6 +24,7 @@ public abstract class ArenaBuilder {
 
     protected abstract List<Wall> createWalls();
 
+    protected abstract List<DeadBody> createDeads();
 
     protected abstract List<Guard> createGuard();
 
@@ -29,4 +33,8 @@ public abstract class ArenaBuilder {
     protected abstract List<Prize> createPrize();
 
     protected abstract Door createDoor();
+
+    protected abstract List<Camera> createCamera();
+
 }
+

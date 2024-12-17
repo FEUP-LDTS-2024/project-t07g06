@@ -15,7 +15,6 @@ public class ArenaController extends Controller {
 
     public ArenaController(Arena arena) {
         super(arena);
-
         this.thiefController = new ThiefController(arena);
         this.guardController = new GuardController(arena);
     }
