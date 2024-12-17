@@ -25,7 +25,7 @@ public class CameraController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        if (time - lastMovement > 1000) {
+        if (time - lastMovement > 2000) {
             if (!getModel().getGuards().isEmpty()) {
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
