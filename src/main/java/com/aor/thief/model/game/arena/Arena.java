@@ -89,7 +89,7 @@ public class Arena {
     }
 
     public boolean pickedupPrize(Position position) {
-        if (getPrize().getFirst().getPosition().equals(position)) {
+        if (getPrize().getFirst().getHitbox().contains(position)) {
             return true;
         }
         return false;
