@@ -6,7 +6,6 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.game.arena.LoaderArenaBuilder;
 import com.aor.thief.model.gameover.GameOver;
 import com.aor.thief.model.menu.Menu;
-import com.aor.thief.states.GameOverState;
 import com.aor.thief.states.GameState;
 import com.aor.thief.states.MenuState;
 

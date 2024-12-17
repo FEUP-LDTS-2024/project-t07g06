@@ -6,12 +6,11 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.menu.Menu;
-import com.aor.thief.states.MenuState;
+import com.aor.thief.model.win.Win;
+
+import com.aor.thief.states.WinState;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ThiefController extends GameController {
     public ThiefController(Arena arena) {
@@ -130,7 +129,7 @@ public class ThiefController extends GameController {
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
-                game.setState(new MenuState(new Menu()));
+                game.setState(new WinState(new Win()));
             }
         }
         if (action == GUI.ACTION.KILL) {
