@@ -114,7 +114,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'P') prize.add( new Prize(x, y));
+                if (line.charAt(x) == 'P') {
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    prize.add( new Prize(x, y,hitbox));
+                }
         }
         return prize;
     }

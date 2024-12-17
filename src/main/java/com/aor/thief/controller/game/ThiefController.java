@@ -71,10 +71,12 @@ public class ThiefController extends GameController {
 
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
-            if (getModel().pickedupPrize(getModel().getThief().getPosition())) {
-                getModel().getThief().prize_collected();
-                game.playItemPickupSound();
-                getModel().getPrize().removeFirst();
+            for (Position p : getModel().getThief().getHitbox()) {
+                if (getModel().pickedupPrize(p)) {
+                    getModel().getThief().prize_collected();
+                    game.playItemPickupSound();
+                    getModel().getPrize().removeFirst();
+                }
             }
         }
     }
