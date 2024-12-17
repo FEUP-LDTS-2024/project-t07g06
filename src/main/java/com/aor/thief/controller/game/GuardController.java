@@ -4,6 +4,7 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
@@ -31,6 +32,9 @@ public class GuardController extends GameController {
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }
+                        for (Cop cop : getModel().getCops()) {
+                            cop.setFound(true);
+                        }
                     }
                     if (!getModel().getGuards().getFirst().isFound()) {
                         for (Guard guard : getModel().getGuards()) {
@@ -55,7 +59,9 @@ public class GuardController extends GameController {
                             for (Guard guard : getModel().getGuards()) {
                                 guard.setFound(true);
                             }
-                            //game.setState(new MenuState(new Menu()));}
+                            for (Cop cop : getModel().getCops()) {
+                                cop.setFound(true);
+                            }
                         }
                     } else {
                         for (Guard guard : getModel().getGuards()) {

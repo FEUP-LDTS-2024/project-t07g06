@@ -5,6 +5,7 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Cop;
+import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
@@ -27,6 +28,9 @@ public class CopController extends GameController {
         if(!getModel().getCops().isEmpty()) {
             if (time - lastMovement > 500) {
                 if (isCaught()) {
+                    for (Guard guard : getModel().getGuards()) {
+                        guard.setFound(true);
+                    }
                     for (Cop cop : getModel().getCops()) {
                         cop.setFound(true);
                     }
@@ -60,11 +64,12 @@ public class CopController extends GameController {
                     }
                     this.lastMovement = time;
                     if (isCaught()) {
+                        for (Guard guard : getModel().getGuards()) {
+                            guard.setFound(true);
+                        }
                         for (Cop cop : getModel().getCops()) {
-
                             cop.setFound(true);
                         }
-                        //game.setState(new MenuState(new Menu()));}
                     }
                 } else {
                     for (Cop cop : getModel().getCops()) {
