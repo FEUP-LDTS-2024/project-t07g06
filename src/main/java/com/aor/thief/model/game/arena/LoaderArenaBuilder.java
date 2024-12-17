@@ -197,7 +197,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'O') {
-                    System.out.println("cop");
                     List<Position> hitbox = new ArrayList<>();
                     hitbox.add(new Position(x, y));
                     hitbox.add(new Position(x + 1, y));

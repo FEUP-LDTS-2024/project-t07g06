@@ -72,7 +72,6 @@ public class ThiefController extends GameController {
             for (Cop cop : getModel().getCops()) {
                 for (Position kill : getModel().fov(getModel().getThief())) {
                     if (cop.getHitbox().contains(kill)) {
-                        System.out.println("Kill Cop");
                         killCop(cop);
                         return true;
                     }
