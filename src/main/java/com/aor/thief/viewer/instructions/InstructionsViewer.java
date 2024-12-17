@@ -14,14 +14,14 @@ public class InstructionsViewer extends Viewer<Instructions>{
     @Override
     public void drawElements(GUI gui) {
         gui.drawText(new Position(5, 5), "INSTRUCTIONS", "#FFFFFF");
-        gui.drawText(new Position(5, 6), "to move use: awsd or the arrows", "#FFFFFF");
-        gui.drawText(new Position(5, 7), "to shoot use: space", "#FFFFFF");
-        gui.drawText(new Position(5, 8), "to leave the room use: E", "#FFFFFF");
-
+        gui.drawText(new Position(5, 7), "to move use: wasd or arrows", "#FFFFFF");
+        gui.drawText(new Position(5, 8), "to shoot use: space", "#FFFFFF");
+        gui.drawText(new Position(5, 9), "to leave through the door use: E", "#FFFFFF");
+        gui.drawText(new Position(5, 10), "to quit use: Q", "#FFFFFF");
 
         for (int i = 0; i < getModel().getNumberEntries(); i++)
             gui.drawText(
-                    new Position(5 , 10+i),
+                    new Position(5 , 12+i),
                     getModel().getEntry(i),
                     getModel().isSelected(i) ? "#FFD700" : "#FFFFFF");
     }
