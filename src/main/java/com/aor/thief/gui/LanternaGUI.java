@@ -98,6 +98,11 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
+    public void drawCamera(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'C', "#D3D3D3");
+    }
+
+    @Override
     public void drawText(Position position, String text, String color) {
         TextGraphics tg = screen.newTextGraphics();
         tg.setForegroundColor(TextColor.Factory.fromString(color));
@@ -109,8 +114,6 @@ public class LanternaGUI implements GUI {
         tg.putString(x, y + 1, "" + c);
     }
 
-    //@Override
-    //public void drawVision(Position position){drawCharacter(position.getX(), position.getY(), 'S', "#FF0000");}
     @Override
     public void drawDoor(Position position){drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
     }
