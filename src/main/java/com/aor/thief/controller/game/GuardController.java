@@ -5,7 +5,9 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
+import com.aor.thief.model.gameover.GameOver;
 import com.aor.thief.model.menu.Menu;
+import com.aor.thief.states.GameOverState;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class GuardController extends GameController {
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
         if(isCaught()){
-            game.setState(new MenuState(new Menu()));}
+            game.setState(new GameOverState(new GameOver()));}
         if (time - lastMovement > 500) {
             for (Guard guard : getModel().getGuards()) {
                 int cur_dir = guard.getDirection();
@@ -43,7 +45,7 @@ public class GuardController extends GameController {
             this.lastMovement = time;
             index = 0;
             if(isCaught()){
-                game.setState(new MenuState(new Menu()));}
+                game.setState(new GameOverState(new GameOver()));}
         }
     }
     public boolean isCaught() {

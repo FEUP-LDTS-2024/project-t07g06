@@ -18,11 +18,11 @@ public class GameOverController extends Controller<GameOver> {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
           switch (action){
-              case LEFT:
+              case UP:
                 getModel().previousEntry();
                 game.playMenuChange();
                 break;
-              case RIGHT:
+              case DOWN:
                 getModel().nextEntry();
                 game.playMenuChange();
                 break;
