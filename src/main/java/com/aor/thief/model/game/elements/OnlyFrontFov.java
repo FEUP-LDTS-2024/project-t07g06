@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class OnlyFrontFov extends HasFov{
-    public OnlyFrontFov(int x, int y, int direction) {
-        super(x, y, direction);
+    public OnlyFrontFov(int x, int y, int direction, List<Position> hitbox) {
+        super(x, y, direction, hitbox);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class ThiefController extends GameController {
         for (Guard guard : getModel().getGuards()) {
             for (Position kill : getModel().fov(getModel().getThief())) {
                     if(guard.getHitbox().contains(kill)){
-                        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY()));
+                        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox()));
                         getModel().getGuards().remove(index);
                         return true;
                    }

@@ -11,8 +11,8 @@ public abstract class HasFov extends Element{
     protected List<Position> fov;
     int direction;
 
-    public HasFov(int x, int y,int direction) {
-        super(x, y);
+    public HasFov(int x, int y,int direction, List<Position> hitbox) {
+        super(x, y, hitbox);
         this.direction=direction;
 
     }

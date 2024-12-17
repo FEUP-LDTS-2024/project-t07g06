@@ -7,13 +7,12 @@ import java.util.List;
 
 public class Thief extends OnlyFrontFov{
     int prize;
-    List<Position> hitbox;
 
 
     public Thief(int x, int y, int prize,int direction, List<Position> hitbox) {
-        super(x,y,direction);
+        super(x,y,direction,hitbox);
         this.prize = prize;
-        this.hitbox = hitbox;
+
 
 
     }
@@ -29,12 +28,4 @@ public class Thief extends OnlyFrontFov{
         prize=1;
     }
 
-
-    public List<Position> getHitbox() {
-        return hitbox;
-    }
-
-    public void setHitbox(List<Position> hitbox) {
-        this.hitbox = hitbox;
-    }
 }

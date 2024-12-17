@@ -1,10 +1,14 @@
 package com.aor.thief.model.game.elements;
 
+import com.aor.thief.model.Position;
+
+import java.util.List;
+
 public class ConeEnemy extends ConeFov{
     private boolean found;
 
-    public ConeEnemy(int x, int y, int direction, boolean found) {
-        super(x, y,direction);
+    public ConeEnemy(int x, int y, int direction, boolean found, List<Position> hitbox) {
+        super(x, y,direction, hitbox);
         this.found = found;
     }
 

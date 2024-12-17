@@ -69,8 +69,11 @@ public class Arena {
 
     public boolean isntWall(Position position) {
         for (Wall wall : walls)
-            if (wall.getPosition().equals(position))
+            if(wall.getPosition().equals(position)) {
                 return false;
+            }
+//            if (wall.getHitbox().contains(position))
+//                return false;
         return true;
     }
 

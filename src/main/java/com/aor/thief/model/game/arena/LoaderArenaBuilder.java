@@ -51,7 +51,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == '#') walls.add(new Wall(x, y));
+                if (line.charAt(x) == '#'){
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    walls.add(new Wall(x, y,hitbox));
+                }
         }
 
         return walls;
@@ -136,7 +148,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'T') return new Door(x, y);
+                if (line.charAt(x) == 'T'){
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    return new Door(x, y,hitbox);
+                }
         }
         return null;
     }
@@ -148,7 +172,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'C') cam.add(new Camera(x, y,0));
+                if (line.charAt(x) == 'C') {
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    cam.add(new Camera(x, y,0,hitbox));
+                }
         }
 
         return cam;

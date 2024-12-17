@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public class ConeFov extends HasFov{
-    public ConeFov(int x, int y, int direction) {
-        super(x, y, direction);
+    public ConeFov(int x, int y, int direction, List<Position> hitbox) {
+        super(x, y, direction,hitbox);
     }
 
     @Override
