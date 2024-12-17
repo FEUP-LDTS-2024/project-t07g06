@@ -69,7 +69,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'G') guards.add(new Guard(x, y,0,false ));
+                if (line.charAt(x) == 'G') {
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    guards.add(new Guard(x, y, 0, false,hitbox));
+                }
         }
 
         return guards;

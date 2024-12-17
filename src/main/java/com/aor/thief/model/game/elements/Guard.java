@@ -8,10 +8,21 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Guard extends ConeEnemy {
+    private List<Position> hitbox;
 
-    public Guard(int x, int y, int direction, boolean found) {
+    public Guard(int x, int y, int direction, boolean found, List<Position> hitbox) {
         super(x, y, direction, found);
+        this.hitbox = hitbox;
     }
+
+    public List<Position> getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(List<Position> hitbox) {
+        this.hitbox = hitbox;
+    }
+
 }
 
 

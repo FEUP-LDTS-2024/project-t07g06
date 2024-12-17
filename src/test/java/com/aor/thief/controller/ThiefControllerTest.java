@@ -20,8 +20,8 @@ public class ThiefControllerTest {
     @BeforeEach
     void setUp(){
         arena= new Arena(10, 10);
-
-        thief= new Thief(5,5,0,0);
+        Position position = new Position(5, 5);
+        thief= new Thief(5,5,0,0,position.updatehitbox_());
         arena.setThief(thief);
 
         arena.setWalls(Arrays.asList());

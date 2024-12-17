@@ -1,6 +1,7 @@
 package com.aor.thief.viewer;
 
 import com.aor.thief.gui.GUI;
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.viewer.game.ThiefViewer;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,8 @@ public class ThiefViewerTest {
 
     @BeforeEach
     void setUp() {
-        thief = new Thief(10, 10,0,0);
+        Position position = new Position(10, 10);
+        thief = new Thief(10, 10,0,0,position.updatehitbox_());
         viewer = new ThiefViewer();
         gui = Mockito.mock(GUI.class);
     }

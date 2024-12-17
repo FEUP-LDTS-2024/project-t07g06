@@ -65,7 +65,7 @@ public class Game {
 
 
     private void start() throws IOException {
-        int FPS = 20;
+        int FPS = 15;
         int frameTime = 1000 / FPS;
         loopedSoundPlayer.start();
         while (this.state != null) {

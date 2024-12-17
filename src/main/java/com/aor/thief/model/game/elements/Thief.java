@@ -11,7 +11,7 @@ public class Thief extends OnlyFrontFov{
 
 
     public Thief(int x, int y, int prize,int direction, List<Position> hitbox) {
-        super(x, y,direction);
+        super(x,y,direction);
         this.prize = prize;
         this.hitbox = hitbox;
 

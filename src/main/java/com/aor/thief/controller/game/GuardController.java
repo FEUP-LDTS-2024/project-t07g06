@@ -35,11 +35,15 @@ public class GuardController extends GameController {
                     for (Guard guard : getModel().getGuards()) {
                         int cur_dir = guard.getDirection();
                         int counting_dir = cur_dir;
-                        while (!getModel().isntWall(guard.getPosition().movingpattern(cur_dir))) {
-                            cur_dir++;
-                            counting_dir++;
-                            if (cur_dir > 3) cur_dir = 0;
-                            if (counting_dir > cur_dir + 9) break;
+                        if(!guard.getHitbox().isEmpty()) {
+                            for (Position position : guard.getHitbox()) {
+                                while (!getModel().isntWall(position.movingpattern(cur_dir))) {
+                                    cur_dir++;
+                                    counting_dir++;
+                                    if (cur_dir > 3) cur_dir = 0;
+                                    if (counting_dir > cur_dir + 9) break;
+                                }
+                            }
                         }
                         guard.setDirection(cur_dir);
                         moveGuard(index, guard.getPosition().movingpattern(cur_dir));
@@ -71,8 +75,10 @@ public class GuardController extends GameController {
     public boolean isCaught() {
         for (Guard guard : getModel().getGuards()) {
             for (Position caught : getModel().fov(guard)) {
-                if (caught.equals(getModel().getThief().getPosition())) {
-                    return true;
+                for(Position p: getModel().getThief().getHitbox()) {
+                    if (caught.equals(p)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -80,8 +86,15 @@ public class GuardController extends GameController {
     }
 
     private void moveGuard(int index, Position position) {
-        if (getModel().isntWall(position)) {
+        boolean flag = true;
+        for(Position p: position.updatehitbox_()) {
+            if (!getModel().isntWall(p)) {
+                flag = false;
+            }
+        }
+        if (flag) {
             getModel().getGuards().get(index).setPosition(position);
+            getModel().getGuards().get(index).setHitbox(position.updatehitbox_());
         }
     }
 
