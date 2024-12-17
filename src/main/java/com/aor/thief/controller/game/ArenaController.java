@@ -14,11 +14,16 @@ public class ArenaController extends Controller {
     private final GuardController guardController;
     private final CopController copController;
 
+    private final CameraController cameraController;
     public ArenaController(Arena arena) {
         super(arena);
         this.thiefController = new ThiefController(arena);
         this.guardController = new GuardController(arena);
+
         this.copController = new CopController(arena);
+
+        this.cameraController = new CameraController(arena);
+
     }
 
     public void step(Game game, GUI.ACTION action,long time) throws IOException {
@@ -27,7 +32,11 @@ public class ArenaController extends Controller {
         else {
             thiefController.step(game, action, time);
             guardController.step(game, action,time);
+
             copController.step(game, action, time);
+
+            cameraController.step(game, action,time);
+
         }
     }
 }

@@ -4,19 +4,9 @@ import com.aor.thief.model.Position;
 
 import java.util.List;
 
-public class Camera extends Element {
-    private int direction;
+public class Camera extends ConeEnemy {
 
-    public Camera(int x, int y, int direction, List<Position> hitbox) {
-        super(x, y,hitbox);
-        this.direction = direction;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
+    public Camera(int x, int y, int direction, boolean found, List<Position> hitbox) {
+        super(x, y, direction, found, hitbox);
     }
 }
