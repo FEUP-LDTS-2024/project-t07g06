@@ -37,7 +37,13 @@ public class CopController extends GameController {
                         int counting_dir = cur_dir;
                         if (!cop.getHitbox().isEmpty()) {
                             for (Position position : cop.getHitbox()) {
-                                while (!getModel().isntWall(position.movingpattern(cur_dir))) {
+                                if(!getModel().isntWall(position.getDown())){
+                                    cop.setDown(false);
+                                }
+                                if(!getModel().isntWall(position.getUp())){
+                                    cop.setDown(true);
+                                }
+                                if(!getModel().isntWall(movement(position,cur_dir,index))) {
                                     cur_dir++;
                                     counting_dir++;
                                     if (cur_dir > 3) cur_dir = 0;
@@ -46,7 +52,10 @@ public class CopController extends GameController {
                             }
                         }
                         cop.setDirection(cur_dir);
-                        moveCop(index, cop.getPosition().movingpattern(cur_dir));
+                        moveCop(index,movement(cop.getPosition(),cur_dir,index));
+                        if(cur_dir%2==0){
+                            cop.setDirection(cur_dir+1);
+                        }
                         index++;
                     }
                     this.lastMovement = time;
@@ -123,5 +132,16 @@ public class CopController extends GameController {
             }
         }
         moveCop(cop_index, new Position(nierest.getX(), nierest.getY()));
+    }
+    public Position movement(Position position, int direction, int index){
+        switch (direction){
+            case 1:
+                return position.getLeft();
+            case 3:
+                return position.getRight();
+            default:
+                if(getModel().getCops().get(index).isDown()) return position.getDown();
+                else return position.getUp();
+        }
     }
 }
