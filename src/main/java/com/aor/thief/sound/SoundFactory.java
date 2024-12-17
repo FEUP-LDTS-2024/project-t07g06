@@ -42,4 +42,6 @@ public class SoundFactory {
     public InstanceSound createMenuSelectSound(){
         return new InstanceSound(loadFile("sounds/menuselect.wav"));
     }
+
+    public LoopedSoundPlayer createWinSound(){return new LoopedSoundPlayer(loadFile("sounds/win.wav"));}
 }

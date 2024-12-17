@@ -14,6 +14,7 @@ public class Game {
     private State state;
     private final LoopedSoundPlayer loopedSoundPlayer;
     private final InstanceSound itemPickupSound;
+    private final LoopedSoundPlayer win;
 
 
     public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
@@ -23,6 +24,7 @@ public class Game {
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
         this.itemPickupSound= new SoundFactory().createItemPickupSound();
+        this.win= new SoundFactory().createWinSound();
     }
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
         new Game().start();
@@ -62,6 +64,15 @@ public class Game {
     public void playMenuSelect(){
         InstanceSound menuSelect = new SoundFactory().createMenuSelectSound();
         menuSelect.start();
+    }
+
+
+    public void playWin(){
+        win.start();
+    }
+
+    public void stopWin(){
+        win.stop();
     }
 
 
