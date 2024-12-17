@@ -2,6 +2,9 @@ package com.aor.thief.model;
 
 import com.aor.thief.model.game.elements.Element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Position  {
     private final int x;
     private final int y;
@@ -51,6 +54,21 @@ public class Position  {
     }
     public int distance(Position position){
         return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
+    }
+    public List<Position> updatehitbox_(){
+        List<Position> hitbox = new ArrayList<>();
+        int x= this.x;
+        int y= this.y;
+        hitbox.add(new Position(x,y));
+        hitbox.add(new Position(x+1,y));
+        hitbox.add(new Position(x+1,y+1));
+        hitbox.add(new Position(x,y+1));
+        hitbox.add(new Position(x-1,y+1));
+        hitbox.add(new Position(x-1,y));
+        hitbox.add(new Position(x-1,y-1));
+        hitbox.add(new Position(x,y-1));
+        hitbox.add(new Position(x+1,y-1));
+        return hitbox;
     }
 
     @Override

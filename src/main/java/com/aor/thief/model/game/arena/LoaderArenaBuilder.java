@@ -1,5 +1,6 @@
 package com.aor.thief.model.game.arena;
 
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.*;
 
 import java.io.BufferedReader;
@@ -79,7 +80,19 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'T') return new Thief(x, y,0,0);
+                if (line.charAt(x) == 'T'){
+                    List <Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x,y));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
+                    return new Thief(x, y,0,0,hitbox);
+                }
         }
         return null;
     }

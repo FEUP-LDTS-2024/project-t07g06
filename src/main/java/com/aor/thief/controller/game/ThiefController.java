@@ -42,10 +42,16 @@ public class ThiefController extends GameController {
     }
 
     private void moveThief(Position position) {
-        if (getModel().isntWall(position)) {
-            getModel().getThief().setPosition(position);
+        boolean flag = true;
+        for(Position p: position.updatehitbox_()) {
+            if (!getModel().isntWall(p)) {
+                flag = false;
+            }
         }
-
+        if (flag) {
+            getModel().getThief().setPosition(position);
+            getModel().getThief().setHitbox(position.updatehitbox_());
+        }
     }
 
     public boolean canKill() {
