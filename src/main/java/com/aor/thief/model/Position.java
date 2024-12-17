@@ -55,7 +55,7 @@ public class Position  {
     public int distance(Position position){
         return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
     }
-    public List<Position> updatehitbox_(){
+    public List<Position> updatehitbox_(){ //change to get the current hitbox and direction, add or subtract depending on the dir
         List<Position> hitbox = new ArrayList<>();
         int x= this.x;
         int y= this.y;

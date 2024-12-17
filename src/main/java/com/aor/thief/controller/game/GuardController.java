@@ -75,10 +75,8 @@ public class GuardController extends GameController {
     public boolean isCaught() {
         for (Guard guard : getModel().getGuards()) {
             for (Position caught : getModel().fov(guard)) {
-                for(Position p: getModel().getThief().getHitbox()) {
-                    if (caught.equals(p)) {
-                        return true;
-                    }
+                if (getModel().getThief().getHitbox().contains(caught)) {
+                    return true;
                 }
             }
         }
