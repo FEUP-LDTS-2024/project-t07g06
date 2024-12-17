@@ -43,5 +43,9 @@ public class SoundFactory {
         return new InstanceSound(loadFile("sounds/menuselect.wav"));
     }
 
+
     public LoopedSoundPlayer createWinSound(){return new LoopedSoundPlayer(loadFile("sounds/win.wav"));}
+
+    public LoopedSoundPlayer createLoseSound(){return new LoopedSoundPlayer(loadFile("sounds/loss.wav"));}
+
 }

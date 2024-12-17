@@ -74,6 +74,8 @@ public class GuardController extends GameController {
                             Map<Position, Boolean> path = new HashMap<>();
                             pursuit(guard, getModel().getThief(), index);
                             if (guard.getPosition().equals(getModel().getThief().getPosition())) {
+                                game.stopGameSound();
+                                game.playLossSound();
                                 game.setState(new GameOverState(new GameOver()));
                             }
                             index++;
