@@ -103,6 +103,7 @@ public class ThiefController extends GameController {
         getModel().getCops().remove(cop);
     }
 
+
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
 
