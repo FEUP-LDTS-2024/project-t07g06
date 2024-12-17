@@ -78,6 +78,8 @@ public class CopController extends GameController {
                         Map<Position, Boolean> path = new HashMap<>();
                         pursuit(cop, getModel().getThief(), index);
                         if (cop.getPosition().equals(getModel().getThief().getPosition())) {
+                            game.stopGameSound();
+                            game.playLossSound();
                             game.setState(new GameOverState(new GameOver()));
                         }
                         index++;
