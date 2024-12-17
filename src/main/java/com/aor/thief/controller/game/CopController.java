@@ -24,8 +24,8 @@ public class CopController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
-        if (time - lastMovement > 500) {
-            if (!getModel().getCops().isEmpty()) {
+        if(!getModel().getCops().isEmpty()) {
+            if (time - lastMovement > 500) {
                 if (isCaught()) {
                     for (Cop cop : getModel().getCops()) {
                         cop.setFound(true);
@@ -35,7 +35,7 @@ public class CopController extends GameController {
                     for (Cop cop : getModel().getCops()) {
                         int cur_dir = cop.getDirection();
                         int counting_dir = cur_dir;
-                        if(!cop.getHitbox().isEmpty()) {
+                        if (!cop.getHitbox().isEmpty()) {
                             for (Position position : cop.getHitbox()) {
                                 while (!getModel().isntWall(position.movingpattern(cur_dir))) {
                                     cur_dir++;
@@ -53,14 +53,14 @@ public class CopController extends GameController {
                     if (isCaught()) {
                         for (Cop cop : getModel().getCops()) {
 
-                        cop.setFound(true);
+                            cop.setFound(true);
                         }
                         //game.setState(new MenuState(new Menu()));}
                     }
                 } else {
                     for (Cop cop : getModel().getCops()) {
                         Map<Position, Boolean> path = new HashMap<>();
-                        pursuit(cop, getModel().getThief(),index);
+                        pursuit(cop, getModel().getThief(), index);
                         if (cop.getPosition().equals(getModel().getThief().getPosition())) {
                             game.setState(new MenuState(new Menu()));
                         }

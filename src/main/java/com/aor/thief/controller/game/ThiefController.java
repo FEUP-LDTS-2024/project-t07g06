@@ -3,6 +3,7 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
+import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.menu.Menu;
@@ -63,30 +64,43 @@ public class ThiefController extends GameController {
         int index = 0;
         for (Guard guard : getModel().getGuards()) {
             for (Position kill : getModel().fov(getModel().getThief())) {
-                    if(guard.getHitbox().contains(kill)){
-                        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox()));
-                        getModel().getGuards().remove(index);
-                        return true;
-                   }
+                if (guard.getHitbox().contains(kill)) {
+                    killGuard(guard);
+                    return true;
+                }
             }
-            index++;
+            for (Cop cop : getModel().getCops()) {
+                for (Position kill : getModel().fov(getModel().getThief())) {
+                    if (cop.getHitbox().contains(kill)) {
+                        System.out.println("Kill Cop");
+                        killCop(cop);
+                        return true;
+                    }
+                }
+                index++;
+            }
         }
         return false;
     }
 
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
-            for (Position p : getModel().getThief().getHitbox()) {
-                if (!getModel().getPrize().getFirst().getHitbox().isEmpty()) {
-                    if (getModel().getPrize().getFirst().getHitbox().contains(p)) {
-                        getModel().getThief().prize_collected();
-                        game.playItemPickupSound();
-                        getModel().getPrize().removeFirst();
-                    }
-                }
-
+            if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst())) {
+                getModel().getThief().prize_collected();
+                game.playItemPickupSound();
+                getModel().getPrize().removeFirst();
             }
         }
+    }
+
+    public void killGuard(Guard guard){
+        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox()));
+        getModel().getGuards().remove(guard);
+    }
+
+    public void killCop(Cop cop){
+        getModel().addDead(new DeadBody(cop.getPosition().getX(), cop.getPosition().getY(),cop.getHitbox()));
+        getModel().getCops().remove(cop);
     }
 
     @Override
