@@ -7,7 +7,9 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
+import com.aor.thief.model.gameover.GameOver;
 import com.aor.thief.model.menu.Menu;
+import com.aor.thief.states.GameOverState;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
@@ -76,7 +78,7 @@ public class CopController extends GameController {
                         Map<Position, Boolean> path = new HashMap<>();
                         pursuit(cop, getModel().getThief(), index);
                         if (cop.getPosition().equals(getModel().getThief().getPosition())) {
-                            game.setState(new MenuState(new Menu()));
+                            game.setState(new GameOverState(new GameOver()));
                         }
                         index++;
                         this.lastMovement = time;

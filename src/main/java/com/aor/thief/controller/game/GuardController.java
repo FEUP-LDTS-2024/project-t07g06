@@ -6,8 +6,13 @@ import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.Guard;
+
 import com.aor.thief.model.game.elements.Thief;
+
+import com.aor.thief.model.gameover.GameOver;
+
 import com.aor.thief.model.menu.Menu;
+import com.aor.thief.states.GameOverState;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
@@ -25,6 +30,7 @@ public class GuardController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
+
         if(!getModel().getGuards().isEmpty()) {
             if (time - lastMovement > 500) {
                 if (!getModel().getGuards().isEmpty()) {
@@ -68,13 +74,14 @@ public class GuardController extends GameController {
                             Map<Position, Boolean> path = new HashMap<>();
                             pursuit(guard, getModel().getThief(), index);
                             if (guard.getPosition().equals(getModel().getThief().getPosition())) {
-                                game.setState(new MenuState(new Menu()));
+                                game.setState(new GameOverState(new GameOver()));
                             }
                             index++;
                             this.lastMovement = time;
                         }
 
                     }
+
                 }
             }
         }
