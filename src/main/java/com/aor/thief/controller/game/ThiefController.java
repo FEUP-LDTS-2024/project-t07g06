@@ -129,6 +129,8 @@ public class ThiefController extends GameController {
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
+                game.stopGameSound();
+                game.playWin();
                 game.setState(new WinState(new Win()));
             }
         }

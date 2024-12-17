@@ -26,6 +26,8 @@ public class WinController extends Controller<Win> {
                 game.playMenuChange();
                 break;
             case SELECT:
+                game.stopWin();
+                game.playGameSound();
                 if (getModel().isSelectedExit()) {game.playMenuSelect(); game.setState(new MenuState(new Menu()));}
                 if (getModel().isSelectedStart()){game.playMenuSelect(); game.setState(new GameState(new LoaderArenaBuilder(1).createArena()));}
         }
