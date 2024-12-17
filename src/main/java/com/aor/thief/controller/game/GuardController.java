@@ -113,10 +113,14 @@ public class GuardController extends GameController {
 
 
     public void pursuit(Guard guard, Thief thief, int guard_index) {
-        int x = guard.getPosition().getX();
-        int y = guard.getPosition().getY();
-        x += ((thief.getPosition().getX()<x)? -1 : (thief.getPosition().getX()>x) ? 1 : 0 );
-        y += ((thief.getPosition().getY()<y)? -1 : (thief.getPosition().getY()>y) ? 1 : 0 );
-        moveGuard(guard_index, new Position(x,y));
+        int min_dist = Integer.MAX_VALUE;
+        Position nierest = null;
+        for(Position p: getNeighbors(guard.getPosition())) {
+            if(p.distance(thief.getPosition())<min_dist) {
+                min_dist = p.distance(thief.getPosition());
+                nierest = p;
+            }
+        }
+        moveGuard(guard_index, new Position(nierest.getX(), nierest.getY()));
     }
 }

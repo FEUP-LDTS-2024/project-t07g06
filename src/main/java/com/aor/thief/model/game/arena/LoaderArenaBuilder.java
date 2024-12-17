@@ -190,6 +190,29 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         return cam;
 
     }
+    @Override
+    protected List<Cop> createCop() {
+        List<Cop> cop = new ArrayList<>();
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++)
+                if (line.charAt(x) == 'O') {
+                    System.out.println("cop");
+                    List<Position> hitbox = new ArrayList<>();
+                    hitbox.add(new Position(x, y));
+                    hitbox.add(new Position(x + 1, y));
+                    hitbox.add(new Position(x + 1, y + 1));
+                    hitbox.add(new Position(x, y + 1));
+                    hitbox.add(new Position(x - 1, y + 1));
+                    hitbox.add(new Position(x - 1, y));
+                    hitbox.add(new Position(x - 1, y - 1));
+                    hitbox.add(new Position(x, y - 1));
+                    hitbox.add(new Position(x + 1, y - 1));
+                    cop.add(new Cop(x, y, 0, false, hitbox));
+                }
+        }
+        return cop;
+    }
 
 
 }

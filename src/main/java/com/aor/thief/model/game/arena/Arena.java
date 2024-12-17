@@ -20,6 +20,7 @@ public class Arena {
     private List<Camera> cameras;
     private List<Wall> walls;
     private List<DeadBody> deads;
+    private List<Cop> cops;
 
 
     public Arena(int width, int height) {
@@ -115,6 +116,14 @@ public class Arena {
     }
     public void addDead(DeadBody dead){
         deads.add(dead);
+    }
+
+    public List<Cop> getCops() {
+        return cops;
+    }
+
+    public void setCops(List<Cop> cops) {
+        this.cops = cops;
     }
 }
 

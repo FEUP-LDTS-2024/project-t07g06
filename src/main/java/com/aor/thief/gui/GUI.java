@@ -20,7 +20,7 @@ public interface GUI {
 
     void drawDoor(Position position);
 
-    //void drawDeadBody(Position positions);
+    void drawCop(Position position);
 
     void drawText(Position position, String text, String color);
 

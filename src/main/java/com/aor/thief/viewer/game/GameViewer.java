@@ -21,6 +21,7 @@ public class GameViewer extends Viewer<Arena> {
         drawElements(gui, getModel().getPrize(), new PrizeViewer());
         if(getModel().getPrize().isEmpty())drawElement(gui, getModel().getDoor(), new DoorViewer());
         if(!getModel().getDeads().isEmpty()) drawElements(gui, getModel().getDeads(), new DeadBodyViewer());
+        drawElements(gui,getModel().getCops(),new CopViewer());
     }
 
     private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) {

@@ -90,7 +90,11 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawGuard(Position position) {
-        drawCharacter(position.getX(), position.getY(), '@', "#CC0000");
+        drawCharacter(position.getX(), position.getY(), 'G', "#CC0000");
+    }
+    @Override
+    public void drawCop(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'O', "#CC0000");
     }
 
     @Override

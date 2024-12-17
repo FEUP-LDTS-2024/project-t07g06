@@ -39,7 +39,7 @@ public class ThiefController extends GameController {
 
     public boolean canThiefEscape() {
         for(Position p: getModel().getThief().getHitbox()) {
-            if(getModel().getDoor().getHitbox().contains(p)&&getModel().getPrize().isEmpty()){
+            if(!getModel().getDoor().getHitbox().isEmpty()&&getModel().getDoor().getHitbox().contains(p)&&getModel().getPrize().isEmpty()){
                return true;
             }
         }
@@ -77,11 +77,14 @@ public class ThiefController extends GameController {
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
             for (Position p : getModel().getThief().getHitbox()) {
-                if (getModel().getPrize().getFirst().getHitbox().contains(p)) {
-                    getModel().getThief().prize_collected();
-                    game.playItemPickupSound();
-                    getModel().getPrize().removeFirst();
+                if (!getModel().getPrize().getFirst().getHitbox().isEmpty()) {
+                    if (getModel().getPrize().getFirst().getHitbox().contains(p)) {
+                        getModel().getThief().prize_collected();
+                        game.playItemPickupSound();
+                        getModel().getPrize().removeFirst();
+                    }
                 }
+
             }
         }
     }
