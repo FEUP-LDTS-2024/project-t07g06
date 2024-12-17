@@ -208,7 +208,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x - 1, y - 1));
                     hitbox.add(new Position(x, y - 1));
                     hitbox.add(new Position(x + 1, y - 1));
-                    cop.add(new Cop(x, y, 0, false, hitbox));
+                    cop.add(new Cop(x, y, 1, false, hitbox));
                 }
         }
         return cop;

@@ -85,7 +85,7 @@ public class ThiefController extends GameController {
 
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
-            if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst())) {
+            if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {
                 getModel().getThief().prize_collected();
                 game.playItemPickupSound();
                 getModel().getPrize().removeFirst();
