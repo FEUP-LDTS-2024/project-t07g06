@@ -39,6 +39,8 @@ public class CopController extends GameController {
             if (time - lastMovement > 500) {
                 if (!getModel().getCops().isEmpty()) {
                     if (isCaught()) {
+                        game.stopGameSound();
+                        game.playWantedSound();
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }
@@ -88,6 +90,7 @@ public class CopController extends GameController {
                             pursuit(cop, getModel().getThief(), index);
                             if (cop.getPosition().equals(getModel().getThief().getPosition())) {
                                 game.stopGameSound();
+                                game.stopWantedSound();
                                 game.playLossSound();
                                 game.setState(new GameOverState(new GameOver()));
                             }
