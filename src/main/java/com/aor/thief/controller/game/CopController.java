@@ -28,9 +28,10 @@ public class CopController extends GameController {
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
         if (!getModel().getCops().isEmpty()) {
-            game.stopGameSound();
-            game.playWantedSound();
+
             if (isCaught()) {
+                game.stopGameSound();
+                game.playWantedSound();
                 for (Guard guard : getModel().getGuards()) {
                     guard.setFound(true);
                 }

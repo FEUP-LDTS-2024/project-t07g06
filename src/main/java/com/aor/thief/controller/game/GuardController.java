@@ -90,7 +90,8 @@ public class GuardController extends GameController {
         int index = 0;
         if (!getModel().getGuards().isEmpty()) {
                 if (isCaught()) {
-                    game.stopGameSound();game.playWantedSound();
+                    game.stopGameSound();
+                    game.playWantedSound();
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
                     }
