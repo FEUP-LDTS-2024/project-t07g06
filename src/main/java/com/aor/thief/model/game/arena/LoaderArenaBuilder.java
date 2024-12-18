@@ -84,14 +84,14 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                 if (line.charAt(x) == 'G') {
                     List <Position> hitbox = new ArrayList<>();
                     hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    hitbox.add(new Position(x+1,y));
+                    hitbox.add(new Position(x+1,y+1));
+                    hitbox.add(new Position(x,y+1));
+                    hitbox.add(new Position(x-1,y+1));
+                    hitbox.add(new Position(x-1,y));
+                    hitbox.add(new Position(x-1,y-1));
+                    hitbox.add(new Position(x,y-1));
+                    hitbox.add(new Position(x+1,y-1));
                     guards.add(new Guard(x, y, 0, false, hitbox,0,""));
                 }
         }
