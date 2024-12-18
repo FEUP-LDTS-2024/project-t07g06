@@ -60,22 +60,15 @@ public class Position  {
         int x= this.x;
         int y= this.y;
         hitbox.add(new Position(x,y));
-        hitbox.add(new Position(x+1,y));
-        hitbox.add(new Position(x+1,y+1));
-        hitbox.add(new Position(x,y+1));
-        hitbox.add(new Position(x-1,y+1));
-        hitbox.add(new Position(x-1,y));
-        hitbox.add(new Position(x-1,y-1));
-        hitbox.add(new Position(x,y-1));
-        hitbox.add(new Position(x+1,y-1));
-        hitbox.add(new Position(x+2,y));
-        hitbox.add(new Position(x+2,y+2));
-        hitbox.add(new Position(x,y+2));
-        hitbox.add(new Position(x-2,y+2));
-        hitbox.add(new Position(x-2,y));
-        hitbox.add(new Position(x-2,y-2));
-        hitbox.add(new Position(x,y-2));
-        hitbox.add(new Position(x+2,y-2));
+        hitbox.add(new Position(x+8,y));
+        hitbox.add(new Position(x+8,y+4));
+        hitbox.add(new Position(x,y+4));
+        hitbox.add(new Position(x-8,y+4));
+        hitbox.add(new Position(x-8,y));
+        hitbox.add(new Position(x-8,y-4));
+        hitbox.add(new Position(x,y-4));
+        hitbox.add(new Position(x+8,y-4));
+
         return hitbox;
     }
 

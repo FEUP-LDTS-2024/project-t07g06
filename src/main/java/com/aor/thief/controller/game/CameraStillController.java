@@ -29,6 +29,7 @@ public class CameraStillController extends GameController {
                 }
             }
             if (isCaught()) {
+                game.stopGameSound();game.playWantedSound();
                 for (Guard guard : getModel().getGuards()) {
                     guard.setFound(true);
                 }

@@ -122,6 +122,7 @@ public class GuardController extends GameController {
                     this.lastMovement = time;
                     index = 0;
                     if (isCaught()) {
+
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }

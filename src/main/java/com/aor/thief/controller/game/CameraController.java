@@ -56,6 +56,8 @@ public class CameraController extends GameController {
                     }
                     this.lastMovement = time;
                     if (isCaught()) {
+                        game.stopGameSound();
+                        game.playWantedSound();
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }
