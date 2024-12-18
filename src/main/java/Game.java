@@ -21,8 +21,10 @@ public class Game {
 
 
 
-    public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
 
+
+
+    public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
         this.gui = new LanternaGUI(160, 90);
 
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
@@ -34,7 +36,9 @@ public class Game {
         this.lossSound=new SoundFactory().createLoseSound();
 
     }
+
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
+
         new Game().start();
 
     }
@@ -101,11 +105,9 @@ public class Game {
 
 
 
-    private void start() throws IOException {
-
+    private void start() throws IOException ,InterruptedException{
 
         int FPS = 30;
-
         int frameTime = 1000 / FPS;
         playGameSound();
         while (this.state != null) {

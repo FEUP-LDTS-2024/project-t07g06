@@ -92,7 +92,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    guards.add(new Guard(x, y, 0, false,hitbox));
+                    guards.add(new Guard(x, y, 0, false, hitbox,0,""));
                 }
         }
 
@@ -115,7 +115,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    return new Thief(x, y,0,0,hitbox);
+                    return new Thief(x, y,0,0,hitbox,0,"");
                 }
         }
         return null;

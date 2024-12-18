@@ -8,11 +8,13 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.game.elements.Wall;
+import jdk.dynalink.linker.support.Guards;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,8 +29,8 @@ public class GuardControllerTest {
     @BeforeEach
     void setUp() {
         arena = new Arena(10, 10);
-        Position position = new Position(6, 5);
-        thief = new Thief(6, 5,0,0,position.updatehitbox_());
+
+        thief = new Thief(6, 5,0,0,new Position(6,5).updatehitbox_(),0,"");
         arena.setThief(thief);
 
         arena.setWalls(Arrays.asList());
@@ -40,13 +42,13 @@ public class GuardControllerTest {
     }
     @Test
     void moveGuardClosed() throws IOException {
-        Guard guard = new Guard(5, 5,0,false );
+        Guard guard = new Guard(5, 5,0,false,new Position(5,5).updatehitbox_(),0,"" );
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
-                new Wall(4, 5),
-                new Wall(6, 5),
-                new Wall(5, 4),
-                new Wall(5, 6)
+                new Wall(4, 5, new ArrayList<>()),
+                new Wall(6, 5, new ArrayList<>()),
+                new Wall(5, 4, new ArrayList<>()),
+                new Wall(5, 6, new ArrayList<>())
         ));
 
         for (int i = 0; i < 10; i++)
@@ -57,12 +59,12 @@ public class GuardControllerTest {
 
     @Test
     void moveGuardsGap() throws IOException {
-        Guard guard = new Guard(5, 5,0, false);
+        Guard guard = new Guard(5, 5,0 ,false,new Position(5,5).updatehitbox_(),0,"");
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
-                new Wall(5, 4),
-                new Wall(4, 5),
-                new Wall(5, 6)
+                new Wall(5, 4, new ArrayList<>()),
+                new Wall(4, 5, new ArrayList<>()),
+                new Wall(5, 6, new ArrayList<>())
         ));
 
         long time = 0;
@@ -76,4 +78,3 @@ public class GuardControllerTest {
     }
 
 }
-

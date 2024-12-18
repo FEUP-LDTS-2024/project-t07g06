@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface GUI {
-    ACTION getNextAction() throws IOException;
+    ACTION getNextAction() throws IOException, InterruptedException;
 
     void drawThief(Position position);
 
@@ -20,6 +20,7 @@ public interface GUI {
 
     void drawDoor(Position position);
 
+    void drawImage(Position positions,String filename) throws IOException;
 
     void drawCop(Position position);
 
@@ -36,7 +37,6 @@ public interface GUI {
     void refresh() throws IOException;
 
     void close() throws IOException;
-
 
     enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, ESCAPE,KILL}
 }

@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ArenaViewerTest{
     private GUI gui;
@@ -23,17 +25,16 @@ public class ArenaViewerTest{
         gui = Mockito.mock(GUI.class);
         viewer = new GameViewer(arena);
 
-        arena.setWalls(Arrays.asList(new Wall(1, 2), new Wall(2, 3), new Wall(3, 4)));
-        arena.setGuards(Arrays.asList(new Guard(4, 5, 0,false ), new Guard(5, 6, 0,false )));
-        arena.setPrize(Arrays.asList(new Prize(7, 7)));
-        Position position = new Position(5, 8);
-        arena.setThief(new Thief(5, 8, 0, 0,position.updatehitbox_()));
-        arena.setDoor(new Door(6,8));
+        arena.setWalls(Arrays.asList(new Wall(1, 2,new ArrayList<>()), new Wall(2, 3,new ArrayList<>()), new Wall(3, 4,new ArrayList<>())));
+        arena.setGuards(Arrays.asList(new Guard(4, 5, 0,false,new Position(5,6).updatehitbox_(),0,"" ), new Guard(5, 6, 0,false, new Position(5,6).updatehitbox_(),0,"" )));
+        arena.setPrize(Arrays.asList(new Prize(7, 7,new ArrayList<>())));
+        arena.setThief(new Thief(5, 8, 0, 0,(new Position(5,8)).updatehitbox_(),0,""));
+        arena.setDoor(new Door(6,8,new ArrayList<>()));
     }
 
 
     @Test
-    void drawWalls() throws IOException {
+    void drawWalls() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawWall(new Position(1, 2));
@@ -43,7 +44,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawGuards() throws IOException {
+    void drawGuards() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawGuard(new Position(4, 5));
@@ -52,7 +53,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawThief() throws IOException {
+    void drawThief() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).drawThief(new Position(5, 8));
@@ -60,7 +61,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void drawDoor()throws IOException{
+    void drawDoor() throws IOException, InterruptedException {
         arena.setPrize(Arrays.asList());
         viewer.draw(gui);
         Mockito.verify(gui, Mockito.times(1)).drawDoor(new Position(6, 8));
@@ -68,7 +69,7 @@ public class ArenaViewerTest{
     }
 
     @Test
-    void refreshAndClear() throws IOException {
+    void refreshAndClear() throws IOException, InterruptedException {
         viewer.draw(gui);
 
         Mockito.verify(gui, Mockito.times(1)).clear();

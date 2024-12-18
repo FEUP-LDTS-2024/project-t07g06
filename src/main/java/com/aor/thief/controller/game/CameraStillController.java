@@ -19,20 +19,22 @@ public class CameraStillController extends GameController {
     }
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        if (!getModel().getCamera().getFirst().isFound()) {
-            for (CameraStill camera : getModel().getCamera()) {
-                if (camera.getCorner().isEmpty()) {
-                    getModel().defAxis(camera);
+        if(!getModel().getCamera().isEmpty()) {
+            if (!getModel().getStillCameras().getFirst().isFound()) {
+                for (CameraStill camera : getModel().getCamera()) {
+                    if (camera.getCorner().isEmpty()) {
+                        getModel().defAxis(camera);
+                    }
+                    getModel().fov(camera);
                 }
-                getModel().fov(camera);
             }
-        }
-        if (isCaught()) {
-            for (Guard guard : getModel().getGuards()) {
-                guard.setFound(true);
-            }
-            for (Cop cop : getModel().getCops()) {
-                cop.setFound(true);
+            if (isCaught()) {
+                for (Guard guard : getModel().getGuards()) {
+                    guard.setFound(true);
+                }
+                for (Cop cop : getModel().getCops()) {
+                    cop.setFound(true);
+                }
             }
         }
 

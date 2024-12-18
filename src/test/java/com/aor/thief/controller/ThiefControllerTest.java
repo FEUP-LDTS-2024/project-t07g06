@@ -20,14 +20,14 @@ public class ThiefControllerTest {
     @BeforeEach
     void setUp(){
         arena= new Arena(10, 10);
-        Position position = new Position(5, 5);
-        thief= new Thief(5,5,0,0,position.updatehitbox_());
+
+        thief= new Thief(5,5,0,0,new Position(5, 5).updatehitbox_(),0,"");
         arena.setThief(thief);
 
         arena.setWalls(Arrays.asList());
         arena.setGuards(new ArrayList<>());
         arena.setPrize(Arrays.asList());
-        arena.setDoor(new Door(5,5));
+        arena.setDoor(new Door(5,5, new ArrayList<>()));
 
         controller = new ThiefController(arena);
     }
@@ -40,7 +40,7 @@ public class ThiefControllerTest {
 
     @Test
     void moveHeroRightNotEmpty() {
-        arena.setWalls(Arrays.asList(new Wall(6, 5)));
+        arena.setWalls(Arrays.asList(new Wall(6, 5, new ArrayList<>())));
         controller.moveThiefRight();
         assertEquals(new Position(5, 5), thief.getPosition());
     }
@@ -52,7 +52,7 @@ public class ThiefControllerTest {
 
     @Test
     void moveHeroLeftNotEmpty() {
-        arena.setWalls(Arrays.asList(new Wall(4, 5)));
+        arena.setWalls(Arrays.asList(new Wall(4, 5, new ArrayList<>())));
         controller.moveThiefLeft();
         assertEquals(new Position(5, 5), thief.getPosition());
     }
@@ -64,7 +64,7 @@ public class ThiefControllerTest {
 
     @Test
     void moveThiefUpNotEmpty() {
-        arena.setWalls(Arrays.asList(new Wall(5, 4)));
+        arena.setWalls(Arrays.asList(new Wall(5, 4, new ArrayList<>())));
         controller.moveThiefUp();
         assertEquals(new Position(5, 5), thief.getPosition());
     }
@@ -77,7 +77,7 @@ public class ThiefControllerTest {
 
     @Test
     void moveHeroDownNotEmpty() {
-        arena.setWalls(Arrays.asList(new Wall(5, 6)));
+        arena.setWalls(Arrays.asList(new Wall(5, 6, new ArrayList<>())));
         controller.moveThiefDown();
         assertEquals(new Position(5, 5), thief.getPosition());
     }
@@ -91,22 +91,22 @@ public class ThiefControllerTest {
 
     @Test
     void cantThiefEscape() {
-        arena.setPrize(Arrays.asList(new Prize(1,1)));
+        arena.setPrize(Arrays.asList(new Prize(1,1, new ArrayList<>())));
         assertEquals(false, controller.canThiefEscape());
     }
 
     @Test
-    void canKill(){
+    void canKill() throws InterruptedException {
         List<Guard> guards = new ArrayList<>();
-        guards.add(new Guard(5, 6, 0, false)); // Adicionando um guard
+        guards.add(new Guard(5, 6, 0,false,new Position(5, 6).updatehitbox_(),0,"")); // Adicionando um guard
         arena.setGuards(guards);
         assertEquals(true,controller.canKill());
     }
 
     @Test
-    void cantKill(){
+    void cantKill() throws InterruptedException {
         List<Guard> guards = new ArrayList<>();
-        guards.add(new Guard(4, 4, 0, false)); // Adicionando um guard
+        guards.add(new Guard(7, 7, 0, false, new Position(5, 6).updatehitbox_(),0,"")); // Adicionando um guard
         arena.setGuards(guards);
         assertEquals(false,controller.canKill());
     }
