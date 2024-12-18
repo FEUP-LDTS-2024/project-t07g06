@@ -195,7 +195,6 @@ public class CopController extends GameController {
                     } else {
                         cop.setDraw("leftleg_" + finalDirection + ".png");
                     }
-                    System.out.println(cop.getDraw());
                     cop.toggleFeet();
                     Thread.sleep(500);
 
