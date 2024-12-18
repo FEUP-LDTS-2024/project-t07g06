@@ -32,7 +32,8 @@ public class ArenaController extends Controller {
 
     public void step(Game game, GUI.ACTION action,long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.QUIT)
-            game.setState(new MenuState(new Menu()));
+        {game.stopWantedSound();game.playGameSound();
+            game.setState(new MenuState(new Menu()));}
         else {
             thiefController.step(game, action, time);
             guardController.step(game, action,time);

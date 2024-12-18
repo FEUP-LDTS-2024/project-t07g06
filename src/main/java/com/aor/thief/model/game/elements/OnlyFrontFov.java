@@ -14,7 +14,7 @@ public class OnlyFrontFov extends HasFov{
 
     @Override
     public  int getSight(){
-        return 6;
+        return 50;
     }
 
     @Override

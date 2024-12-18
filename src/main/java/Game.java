@@ -14,10 +14,9 @@ public class Game {
     private State state;
     private final LoopedSoundPlayer loopedSoundPlayer;
     private final InstanceSound itemPickupSound;
-
     private final LoopedSoundPlayer win;
-
     private final LoopedSoundPlayer lossSound;
+    private final LoopedSoundPlayer wanted;
 
 
 
@@ -30,10 +29,9 @@ public class Game {
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
         this.itemPickupSound= new SoundFactory().createItemPickupSound();
-
         this.win= new SoundFactory().createWinSound();
-
         this.lossSound=new SoundFactory().createLoseSound();
+        this.wanted=new SoundFactory().createWantedSound();
 
     }
 
@@ -61,6 +59,14 @@ public class Game {
     public  void playGuardDeathSound() {
         InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
         guardDeathSound.start();
+    }
+
+    public void playWantedSound(){
+        wanted.start();
+    }
+
+    public void stopWantedSound(){
+        wanted.stop();
     }
 
     public void playLossSound(){

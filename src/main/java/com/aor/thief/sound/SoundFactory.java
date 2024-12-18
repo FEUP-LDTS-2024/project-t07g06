@@ -48,4 +48,6 @@ public class SoundFactory {
 
     public LoopedSoundPlayer createLoseSound(){return new LoopedSoundPlayer(loadFile("sounds/loss.wav"));}
 
+    public LoopedSoundPlayer createWantedSound(){return new LoopedSoundPlayer(loadFile("sounds/wanted.wav"));}
+
 }
