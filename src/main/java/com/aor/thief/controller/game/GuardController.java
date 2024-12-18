@@ -90,6 +90,7 @@ public class GuardController extends GameController {
         int index = 0;
         if (!getModel().getGuards().isEmpty()) {
                 if (isCaught()) {
+                    game.stopGameSound();game.playWantedSound();
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
                     }
@@ -133,6 +134,7 @@ public class GuardController extends GameController {
                         pursuit(guard, getModel().getThief(), index);
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
                             game.stopGameSound();
+                            game.stopWantedSound();
                             game.playLossSound();
                             game.setState(new GameOverState(new GameOver()));
                         }
