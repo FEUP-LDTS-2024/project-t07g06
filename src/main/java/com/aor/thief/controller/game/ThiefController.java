@@ -162,12 +162,12 @@ public class ThiefController extends GameController {
     }
 
     public void killGuard(Guard guard){
-        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox()));
+        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox(),"G"));
         getModel().getGuards().remove(guard);
     }
 
     public void killCop(Cop cop){
-        getModel().addDead(new DeadBody(cop.getPosition().getX(), cop.getPosition().getY(),cop.getHitbox()));
+        getModel().addDead(new DeadBody(cop.getPosition().getX(), cop.getPosition().getY(),cop.getHitbox(),"C"));
         getModel().getCops().remove(cop);
     }
 
