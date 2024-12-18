@@ -17,7 +17,7 @@ import java.util.*;
 
 public class CopController extends GameController {
     private long lastMovement;
-    private int cur_dir;
+    private Thread moveAnimation;
 
     public CopController(Arena arena) {
         super(arena);
@@ -161,6 +161,40 @@ public class CopController extends GameController {
             default:
                 if(getModel().getCops().get(index).isDown()) return position.getDown();
                 else return position.getUp();
+        }
+    }
+    private synchronized void startMoveAnimation(Cop cop) {
+        String direction = "";
+        switch (cop.getDirection()) {
+            case 0:
+                direction = "down";
+                break;
+            case 1:
+                direction = "left";
+                break;
+            case 2:
+                direction = "up";
+                break;
+            case 3:
+                direction = "right";
+                break;
+        }
+        if (moveAnimation == null || !moveAnimation.isAlive()) {
+            String finalDirection = direction;
+            moveAnimation = new Thread(() -> {
+                try {
+                    if (cop.getFeet() == 0) {
+                        cop.setDraw("rightleg_" + finalDirection + ".png");
+                    } else {
+                        cop.setDraw("leftleg_" + finalDirection + ".png");
+                    }
+                    Thread.sleep(500);
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            moveAnimation.start();
         }
     }
 }

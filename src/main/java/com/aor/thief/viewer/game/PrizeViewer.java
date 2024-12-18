@@ -11,6 +11,6 @@ public class PrizeViewer implements ElementViewer<Prize>{
     @Override
     public void draw(Prize prize, GUI gui) throws IOException {
        // gui.drawImage(prize.getPosition(),"");
-        gui.drawImage(prize.getPosition(), path+"prize.png");
+        gui.drawImage(prize.getPosition(), path+"prize_1.png");
     }
 }

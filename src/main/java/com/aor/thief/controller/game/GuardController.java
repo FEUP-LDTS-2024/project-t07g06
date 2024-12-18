@@ -128,7 +128,7 @@ public class GuardController extends GameController {
                     }
                 } else {
                     for (Guard guard : getModel().getGuards()) {
-                        Map<Position, Boolean> path = new HashMap<>();
+                        startMoveAnimation(guard);
                         pursuit(guard, getModel().getThief(), index);
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
                             game.stopGameSound();
