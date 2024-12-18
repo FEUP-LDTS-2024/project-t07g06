@@ -44,7 +44,22 @@ public class ConeFov extends HasFov{
                 dirx = 1;
                 diry = 0;
                 break;
-
+            case 30:
+                dirx = 1;
+                diry = 1;
+                break;
+            case 32:
+                dirx = 1;
+                diry = -1;
+                break;
+            case 10:
+                dirx = -1;
+                diry = 1;
+                break;
+            case 12:
+                dirx = -1;
+                diry = -1;
+                break;
         }
         for (int i = 0; i <= sig; i++) {
             for (int j = -i ; j <= i ; j++){

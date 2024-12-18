@@ -92,9 +92,25 @@ public class LanternaGUI implements GUI {
     public void drawGuard(Position position) {
         drawCharacter(position.getX(), position.getY(), 'G', "#CC0000");
     }
+
     @Override
     public void drawCop(Position position) {
         drawCharacter(position.getX(), position.getY(), 'O', "#CC0000");
+    }
+
+    @Override
+    public void drawCamera(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'C', "#D3D3D3");
+    }
+
+    @Override
+    public void drawStillCamera(Position position){
+        drawCharacter(position.getX(), position.getY(), 'S', "#D3D3D3");
+    }
+
+    @Override
+    public void drawDoor(Position position){
+        drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
     }
 
     @Override
@@ -109,11 +125,8 @@ public class LanternaGUI implements GUI {
         tg.putString(x, y + 1, "" + c);
     }
 
-    //@Override
-    //public void drawVision(Position position){drawCharacter(position.getX(), position.getY(), 'S', "#FF0000");}
-    @Override
-    public void drawDoor(Position position){drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
-    }
+
+
 
 
     @Override

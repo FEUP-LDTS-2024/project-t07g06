@@ -24,7 +24,9 @@ public abstract class HasFov extends Element{
         this.direction = direction;
     }
 
-
+    public void setFov(List<Position> fov) {
+        this.fov = fov;
+    }
 
     public abstract void defineFov(Arena arena,int sig);
 

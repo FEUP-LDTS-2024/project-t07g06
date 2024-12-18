@@ -27,8 +27,16 @@ public class CopController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
-        if(!getModel().getCops().isEmpty()) {
-            if (time - lastMovement > 500) {
+        if (isCaught()) {
+            for (Guard guard : getModel().getGuards()) {
+                guard.setFound(true);
+            }
+            for (Cop cop : getModel().getCops()) {
+                cop.setFound(true);
+            }
+        }
+        if(time - lastMovement > 500) {
+            if (!getModel().getCops().isEmpty()) {
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);

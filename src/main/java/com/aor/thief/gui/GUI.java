@@ -20,7 +20,14 @@ public interface GUI {
 
     void drawDoor(Position position);
 
+
     void drawCop(Position position);
+
+    void drawCamera(Position position);
+
+    void drawStillCamera(Position position);
+
+
 
     void drawText(Position position, String text, String color);
 
@@ -29,6 +36,7 @@ public interface GUI {
     void refresh() throws IOException;
 
     void close() throws IOException;
+
 
     enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, ESCAPE,KILL}
 }

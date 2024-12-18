@@ -21,6 +21,7 @@ public class Arena {
     private List<Wall> walls;
     private List<DeadBody> deads;
     private List<Cop> cops;
+    private List<CameraStill> stillCameras;
 
 
     public Arena(int width, int height) {
@@ -82,7 +83,9 @@ public class Arena {
         hasfov.defineFov(this,hasfov.getSight());
         return hasfov.getFov();
     }
-
+    public void setFov(List<Position> fov,HasFov hasfov) {
+        hasfov.setFov(fov);
+    }
 
     public List<Prize> getPrize() {
         return prize;
@@ -124,6 +127,50 @@ public class Arena {
 
     public void setCops(List<Cop> cops) {
         this.cops = cops;
+    }
+    public List<CameraStill> getStillCameras() {
+        return stillCameras;
+    }
+
+    public void setStillCameras(List<CameraStill> stillCameras) {
+        this.stillCameras = stillCameras;
+    }
+    public void  defCorner( Camera camera){
+        List<Integer> corner= new ArrayList<>();
+        if(isntWall(camera.getPosition().getDown())){
+            corner.add(0);
+            if(isntWall(camera.getPosition().getRight())) {
+                corner.add(30);
+                corner.add(3);
+            }else{
+                corner.add(10);
+                corner.add(1);
+            }
+        }
+        else {
+            corner.add(2);
+            if(isntWall(camera.getPosition().getRight())) {
+                corner.add(32);
+                corner.add(3);
+            }else{
+                corner.add(12);
+                corner.add(1);
+            }
+        }
+        camera.setCorner(corner);
+    }
+    public void defAxis(CameraStill camera ){
+        List<Integer> axis= new ArrayList<>();
+        if(!isntWall(camera.getPosition().getDown())){
+            axis.add(0);
+        }else if(!isntWall(camera.getPosition().getLeft())){
+            axis.add(1);
+        }else if(!isntWall(camera.getPosition().getUp())){
+            axis.add(2);
+        }else if(!isntWall(camera.getPosition().getRight())){
+            axis.add(3);
+        }
+        camera.setCorner(axis);
     }
 }
 

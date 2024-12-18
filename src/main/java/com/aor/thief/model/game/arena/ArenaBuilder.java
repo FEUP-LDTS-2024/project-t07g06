@@ -15,6 +15,7 @@ public abstract class ArenaBuilder {
         arena.setCameras(createCamera());
         arena.setDeads(createDeads());
         arena.setCops(createCop());
+        arena.setStillCameras(createStillCameras());
         return arena;
     }
 
@@ -36,6 +37,8 @@ public abstract class ArenaBuilder {
     protected abstract Door createDoor();
 
     protected abstract List<Camera> createCamera();
+
+    protected abstract List<CameraStill> createStillCameras();
 
     protected abstract List<Cop> createCop();
 
