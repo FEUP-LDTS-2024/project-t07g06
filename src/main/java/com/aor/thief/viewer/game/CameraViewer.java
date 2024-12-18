@@ -13,9 +13,7 @@ public class CameraViewer implements ElementViewer<Camera> {
     @Override
     public void draw(Camera camera, GUI gui) throws IOException {
         if(camera.getDraw().isEmpty()){
-
             camera.setDraw(getCorner(camera) + "_up.png");}
-            //System.out.println(camera.getDraw());
         gui.drawImage(camera.getPosition(), path + camera.getDraw());
     }
 

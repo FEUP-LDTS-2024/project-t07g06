@@ -12,7 +12,6 @@ public class GuardViewer implements ElementViewer<Guard> {
         if(guard.getDraw().isEmpty()){
             guard.setDraw("still_" + getDirection(guard) + ".png");}
         gui.drawImage(guard.getPosition(), path + guard.getDraw());
-        Thread.sleep(1000);
     }
 
 
