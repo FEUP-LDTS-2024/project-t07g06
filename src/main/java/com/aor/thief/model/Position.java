@@ -68,6 +68,14 @@ public class Position  {
         hitbox.add(new Position(x-1,y-1));
         hitbox.add(new Position(x,y-1));
         hitbox.add(new Position(x+1,y-1));
+        hitbox.add(new Position(x+2,y));
+        hitbox.add(new Position(x+2,y+2));
+        hitbox.add(new Position(x,y+2));
+        hitbox.add(new Position(x-2,y+2));
+        hitbox.add(new Position(x-2,y));
+        hitbox.add(new Position(x-2,y-2));
+        hitbox.add(new Position(x,y-2));
+        hitbox.add(new Position(x+2,y-2));
         return hitbox;
     }
 
