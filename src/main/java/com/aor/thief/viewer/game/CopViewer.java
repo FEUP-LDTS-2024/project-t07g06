@@ -13,7 +13,7 @@ public class CopViewer implements ElementViewer<Cop> {
     public void draw(Cop cop, GUI gui) throws IOException, InterruptedException {
         if(cop.getDraw().isEmpty()){
             cop.setDraw("still_" + getDirection(cop) + ".png");}
-        System.out.println(cop.getDraw());
+        System.out.println(path + cop.getDraw());
         gui.drawImage(cop.getPosition(), path + cop.getDraw());
     }
 
