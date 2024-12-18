@@ -33,7 +33,7 @@ public class CameraController extends GameController {
                 cop.setFound(true);
             }
         }
-        if (time - lastMovement > 2000) {
+        if (time - lastMovement > 750) {
             if (!getModel().getCamera().isEmpty()) {
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
@@ -118,6 +118,7 @@ public class CameraController extends GameController {
             String finalPos = pos;
             moveAnimation = new Thread(() -> {
                 try {
+                    System.out.println(i);
                     switch (i){
                         case 0:
                          camera.setDraw(finalPos + "_up.png");
@@ -130,7 +131,7 @@ public class CameraController extends GameController {
                         break;
                     }
                     System.out.println(camera.getDraw());
-                    Thread.sleep(2000);
+                    Thread.sleep(750);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
