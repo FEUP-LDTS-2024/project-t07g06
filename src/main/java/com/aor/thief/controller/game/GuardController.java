@@ -50,6 +50,7 @@ public class GuardController extends GameController {
                     } else {
                         guard.setDraw("leftleg_" + finalDirection + ".png");
                     }
+                    guard.toggleFeet();
                     Thread.sleep(500);
 
                 } catch (InterruptedException e) {

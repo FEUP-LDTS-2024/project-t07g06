@@ -10,9 +10,10 @@ import java.io.IOException;
 public class CopViewer implements ElementViewer<Cop> {
     private final String path = "src/main/resources/sprites/cop/";
     @Override
-    public void draw(Cop cop, GUI gui) throws IOException {
+    public void draw(Cop cop, GUI gui) throws IOException, InterruptedException {
         if(cop.getDraw().isEmpty()){
             cop.setDraw("still_" + getDirection(cop) + ".png");}
+        System.out.println(cop.getDraw());
         gui.drawImage(cop.getPosition(), path + cop.getDraw());
     }
 
