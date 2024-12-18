@@ -56,6 +56,7 @@ public class CopController extends GameController {
                             int cur_dir = cop.getDirection();
                             int counting_dir = cur_dir;
                             if (!cop.getHitbox().isEmpty()) {
+                                startMoveAnimation(cop);
                                 for (Position position : cop.getHitbox()) {
                                     if (!getModel().isntWall(position.getDown())) {
                                         cop.setDown(false);
@@ -89,8 +90,8 @@ public class CopController extends GameController {
                         }
                     } else {
                         for (Cop cop : getModel().getCops()) {
-                            Map<Position, Boolean> path = new HashMap<>();
                             pursuit(cop, getModel().getThief(), index);
+                            startMoveAnimation(cop);
                             if (cop.getPosition().equals(getModel().getThief().getPosition())) {
                                 game.stopGameSound();
                                 game.stopWantedSound();
@@ -194,6 +195,8 @@ public class CopController extends GameController {
                     } else {
                         cop.setDraw("leftleg_" + finalDirection + ".png");
                     }
+                    System.out.println(cop.getDraw());
+                    cop.toggleFeet();
                     Thread.sleep(500);
 
                 } catch (InterruptedException e) {

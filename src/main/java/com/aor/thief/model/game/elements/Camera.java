@@ -8,8 +8,13 @@ import java.util.List;
 public class Camera extends CameraStill {
     boolean isDown=false;
     int current_pos;
-    public Camera(int x, int y, int direction, boolean found, List<Position> hitbox,List<Integer> corner) {
+
+
+
+    String draw;
+    public Camera(int x, int y, int direction, boolean found, List<Position> hitbox,List<Integer> corner, String draw) {
         super(x, y, direction, found, hitbox,corner);
+        this.draw = draw;
     }
 
     public boolean isDown() {
@@ -34,5 +39,12 @@ public class Camera extends CameraStill {
 
     public void setCurrent_pos(int current_pos) {
         this.current_pos = current_pos;
+    }
+    public String getDraw() {
+        return draw;
+    }
+
+    public void setDraw(String draw) {
+        this.draw = draw;
     }
 }

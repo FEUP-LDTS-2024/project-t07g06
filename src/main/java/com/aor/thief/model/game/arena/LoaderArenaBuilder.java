@@ -62,14 +62,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     walls.add(new Wall(x, y,hitbox));
                 }
         }
@@ -100,14 +92,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     guards.add(new Guard(x, y, 0, false, hitbox,0,""));
                 }
         }
@@ -131,14 +115,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     return new Thief(x, y,0,0,hitbox,0,"");
                 }
         }
@@ -161,14 +137,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     prize.add( new Prize(x, y,hitbox));
                 }
         }
@@ -191,14 +159,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     return new Door(x, y,hitbox);
                 }
         }
@@ -223,15 +183,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-1,y-1));
                     hitbox.add(new Position(x,y-1));
                     hitbox.add(new Position(x+1,y-1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
-                    cam.add(new Camera(x, y,0, false ,hitbox, new ArrayList<>()));
+                    cam.add(new Camera(x, y,0, false ,hitbox, new ArrayList<>(),""));
                 }
         }
 
@@ -256,15 +208,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x - 1, y - 1));
                     hitbox.add(new Position(x, y - 1));
                     hitbox.add(new Position(x + 1, y - 1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
-                    cam.add(new Camera(x, y, 0, false, hitbox, new ArrayList<>()));
+                    cam.add(new Camera(x, y, 0, false, hitbox, new ArrayList<>(),""));
                 }
         }
 
@@ -287,14 +231,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x - 1, y - 1));
                     hitbox.add(new Position(x, y - 1));
                     hitbox.add(new Position(x + 1, y - 1));
-                    hitbox.add(new Position(x+2,y));
-                    hitbox.add(new Position(x+2,y+2));
-                    hitbox.add(new Position(x,y+2));
-                    hitbox.add(new Position(x-2,y+2));
-                    hitbox.add(new Position(x-2,y));
-                    hitbox.add(new Position(x-2,y-2));
-                    hitbox.add(new Position(x,y-2));
-                    hitbox.add(new Position(x+2,y-2));
                     cop.add(new Cop(x, y, 1, false, hitbox,0,""));
                 }
         }
