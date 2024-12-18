@@ -88,37 +88,6 @@ public class GuardController extends GameController {
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
         if (!getModel().getGuards().isEmpty()) {
-            if (isCaught()) {
-                for (Guard guard : getModel().getGuards()) {
-                    guard.setFound(true);
-                }
-                for (Cop cop : getModel().getCops()) {
-                    cop.setFound(true);
-                }
-            }
-        }
-        if (time - lastMovement > 500) {
-            if (!getModel().getGuards().getFirst().isFound()) {
-                for (Guard guard : getModel().getGuards()) {
-                    int cur_dir = guard.getDirection();
-                    int counting_dir = cur_dir;
-                    if (!guard.getHitbox().isEmpty()) {
-                        for (Position position : guard.getHitbox()) {
-                            startMoveAnimation(guard);
-                            while (!getModel().isntWall(position.movingpattern(cur_dir))) {
-                                cur_dir++;
-                                counting_dir++;
-                                if (cur_dir > 3) cur_dir = 0;
-                                if (counting_dir > cur_dir + 9) break;
-                            }
-                        }
-                    }
-                    guard.setDirection(cur_dir);
-                    moveGuard(index, guard.getPosition().movingpattern(cur_dir));
-                    index++;
-                }
-                this.lastMovement = time;
-                index = 0;
                 if (isCaught()) {
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
@@ -127,17 +96,48 @@ public class GuardController extends GameController {
                         cop.setFound(true);
                     }
                 }
-            } else {
-                for (Guard guard : getModel().getGuards()) {
-                    Map<Position, Boolean> path = new HashMap<>();
-                    pursuit(guard, getModel().getThief(), index);
-                    if (guard.getPosition().equals(getModel().getThief().getPosition())) {
-                        game.stopGameSound();
-                        game.playLossSound();
-                        game.setState(new GameOverState(new GameOver()));
+            if (time - lastMovement > 500) {
+                if (!getModel().getGuards().getFirst().isFound()) {
+                    for (Guard guard : getModel().getGuards()) {
+                        int cur_dir = guard.getDirection();
+                        int counting_dir = cur_dir;
+                        if (!guard.getHitbox().isEmpty()) {
+                            for (Position position : guard.getHitbox()) {
+                                startMoveAnimation(guard);
+                                while (!getModel().isntWall(position.movingpattern(cur_dir))) {
+                                    cur_dir++;
+                                    counting_dir++;
+                                    if (cur_dir > 3) cur_dir = 0;
+                                    if (counting_dir > cur_dir + 9) break;
+                                }
+                            }
+                        }
+                        guard.setDirection(cur_dir);
+                        moveGuard(index, guard.getPosition().movingpattern(cur_dir));
+                        index++;
                     }
-                    index++;
                     this.lastMovement = time;
+                    index = 0;
+                    if (isCaught()) {
+                        for (Guard guard : getModel().getGuards()) {
+                            guard.setFound(true);
+                        }
+                        for (Cop cop : getModel().getCops()) {
+                            cop.setFound(true);
+                        }
+                    }
+                } else {
+                    for (Guard guard : getModel().getGuards()) {
+                        Map<Position, Boolean> path = new HashMap<>();
+                        pursuit(guard, getModel().getThief(), index);
+                        if (guard.getPosition().equals(getModel().getThief().getPosition())) {
+                            game.stopGameSound();
+                            game.playLossSound();
+                            game.setState(new GameOverState(new GameOver()));
+                        }
+                        index++;
+                        this.lastMovement = time;
+                    }
                 }
             }
         }
