@@ -24,7 +24,6 @@ public class MenuController extends Controller<Menu> {
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         game.stopWantedSound();
         game.stopLossSound();
-        game.stopWin();
         switch (action){
             case UP:
                 getModel().previousEntry();
