@@ -27,16 +27,15 @@ public class GameOverController extends Controller<GameOver> {
                 game.playMenuChange();
                 break;
             case SELECT:
+                game.stopLossSound();
+                game.playGameSound();
                 if (getModel().isSelectedExit()) {game.playMenuSelect();
                     {
-                        game.stopLossSound();
-                        game.playGameSound();
+
                         game.setState(new MenuState(new Menu()));
                     }
                 }
                 if (getModel().isSelectedStart()){
-                    game.stopLossSound();
-                    game.playGameSound();
                     game.playMenuSelect(); game.setState(new GameState(new LoaderArenaBuilder(1).createArena()));}
         }
     }

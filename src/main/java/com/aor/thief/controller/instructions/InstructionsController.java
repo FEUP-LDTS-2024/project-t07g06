@@ -19,6 +19,7 @@ public InstructionsController(Instructions instructions) {super(instructions);}
 
 @Override
 public void step(Game game, GUI.ACTION action, long time) throws IOException {
+
     switch (action){
         case UP:
             getModel().previousEntry();
