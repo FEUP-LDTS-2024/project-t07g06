@@ -151,6 +151,8 @@ public class ThiefController extends GameController {
         }
     }
 
+
+
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
             if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {

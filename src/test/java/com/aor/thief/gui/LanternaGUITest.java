@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LanternaGUITest {
     private Screen screen;
@@ -35,7 +37,17 @@ public class LanternaGUITest {
     }
     @Test
     void drawImage() throws IOException {
-        Thief thief = new Thief(1,1,0,0,0,"");
+        List <Position> hitbox = new ArrayList<>();
+        hitbox.add(new Position(1,1));
+        hitbox.add(new Position(1+8,1));
+        hitbox.add(new Position(1+8,1+4));
+        hitbox.add(new Position(1,1+4));
+        hitbox.add(new Position(1-8,1+4));
+        hitbox.add(new Position(1-8,1));
+        hitbox.add(new Position(1-8,1-4));
+        hitbox.add(new Position(1,1-4));
+        hitbox.add(new Position(1+8,1-4));
+        Thief thief = new Thief(1,1,0,0,hitbox,0,"");
         gui.drawImage(thief.getPosition(),"src/main/resources/sprites/thief/rightleg_down.png");
         Mockito.verify(tg, Mockito.times(44)).putString(1, 2, "T");
     }
