@@ -42,8 +42,7 @@ public class CopController extends GameController {
             if (time - lastMovement > 500) {
                 if (!getModel().getCops().isEmpty()) {
                     if (isCaught()) {
-                        game.stopGameSound();
-                        game.playWantedSound();
+
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }

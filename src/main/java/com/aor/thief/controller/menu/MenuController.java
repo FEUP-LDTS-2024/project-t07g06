@@ -22,6 +22,7 @@ public class MenuController extends Controller<Menu> {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        game.stopWantedSound();
         switch (action){
             case UP:
                 getModel().previousEntry();

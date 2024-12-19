@@ -12,8 +12,9 @@ import java.net.URISyntaxException;
 public class Game {
     private final LanternaGUI gui;
     private State state;
+    //sons que são looped são inicializados dentro do Game para serem mais acessiveis de parar e iniciar,
+    //assim como sons de seleção no menu.
     private final LoopedSoundPlayer loopedSoundPlayer;
-    private final InstanceSound itemPickupSound;
     private final LoopedSoundPlayer win;
     private final LoopedSoundPlayer lossSound;
     private final LoopedSoundPlayer wanted;
@@ -28,7 +29,6 @@ public class Game {
 
         this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
-        this.itemPickupSound= new SoundFactory().createItemPickupSound();
         this.win= new SoundFactory().createWinSound();
         this.lossSound=new SoundFactory().createLoseSound();
         this.wanted=new SoundFactory().createWantedSound();
@@ -45,21 +45,6 @@ public class Game {
         this.state = state;
     }
 
-
-    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
-        InstanceSound footStepSound = new SoundFactory().createFootStepSound();
-        footStepSound.start();
-    }
-
-    public  void playGunShot() {
-        InstanceSound gunShot = new SoundFactory().createGunShotSound();
-        gunShot.start();
-    }
-
-    public  void playGuardDeathSound() {
-        InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
-        guardDeathSound.start();
-    }
 
     public void playWantedSound(){
         wanted.start();
@@ -83,11 +68,6 @@ public class Game {
 
     public void stopGameSound(){
         loopedSoundPlayer.stop();
-    }
-
-
-    public void playItemPickupSound(){
-        itemPickupSound.start();
     }
 
     public void playMenuChange(){
