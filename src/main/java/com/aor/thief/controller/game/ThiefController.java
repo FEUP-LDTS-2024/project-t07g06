@@ -185,9 +185,6 @@ public class ThiefController extends GameController {
             game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
-
-
-
             moveThiefDown();
             PickedUpPrize(game);
         }
@@ -200,7 +197,6 @@ public class ThiefController extends GameController {
             PickedUpPrize(game);
         }
         if (action == GUI.ACTION.RIGHT) {
-
             game.playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");

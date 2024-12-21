@@ -5,9 +5,7 @@ import com.aor.thief.sound.*;
 import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class Game {
     private final LanternaGUI gui;
@@ -23,9 +21,8 @@ public class Game {
 
 
 
-    public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
+    public Game() throws Exception {
         this.gui = new LanternaGUI(160, 90);
-
         this.state = new MenuState(new Menu());
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
         this.itemPickupSound= new SoundFactory().createItemPickupSound();
@@ -35,7 +32,7 @@ public class Game {
 
     }
 
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
+    public static void main(String[] args) throws Exception {
 
         new Game().start();
 
