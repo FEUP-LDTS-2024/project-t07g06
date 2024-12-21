@@ -104,39 +104,46 @@ public class CameraController extends GameController {
     private synchronized void startRotationAnimation(Camera camera) {
         String pos = "";
         List<Integer> corner = camera.getCorner();
-        List<Integer> up_right =  Arrays.asList(0,10,1);
-        List<Integer> up_left =  Arrays.asList(0,30,3);
-        List<Integer> down_left =  Arrays.asList(2,32,3);
-        List<Integer> down_right =  Arrays.asList(2,12,1);
-        if(corner.equals(up_right)){pos="up_right";}
-        else if(corner.equals(up_left)){pos="up_left";}
-        else if(corner.equals(down_left)){pos="down_left";}
-        else if(corner.equals(down_right)){pos="down_right";}
-
+        if(!corner.isEmpty()) {
+            if (corner.getFirst() == 0) {
+                pos += "up_";
+            } else {
+                pos += "down_";
+            }
+            if (corner.getLast() == 1) {
+                pos += "left";
+            } else {
+                pos += "right";
+            }
+        }
+        System.out.println(pos);
         if (moveAnimation == null || !moveAnimation.isAlive()) {
-            int i=camera.getCorner().indexOf(camera.getCurrent_pos());
-            String finalPos = pos;
-            moveAnimation = new Thread(() -> {
-                try {
-                    System.out.println(i);
-                    switch (i){
-                        case 0:
-                         camera.setDraw(finalPos + "_up.png");
-                         break;
-                     case 1:
-                         camera.setDraw(finalPos + "_mid.png");
-                         break;
-                    case 2:
-                        camera.setDraw(finalPos + "_down.png");
-                        break;
+            if (!camera.getCorner().isEmpty()) {
+                int i = camera.getCorner().get(camera.getCurrent_pos());
+                System.out.println(i);
+                String finalPos = pos;
+                moveAnimation = new Thread(() -> {
+                    try {
+                        System.out.println(i);
+                        switch (i) {
+                            case 0:
+                                camera.setDraw(finalPos + "_up.png");
+                                break;
+                            case 1:
+                                camera.setDraw(finalPos + "_mid.png");
+                                break;
+                            case 2:
+                                camera.setDraw(finalPos + "_down.png");
+                                break;
+                        }
+                        System.out.println(camera.getDraw());
+                        Thread.sleep(750);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
-                    System.out.println(camera.getDraw());
-                    Thread.sleep(750);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            moveAnimation.start();
+                });
+                moveAnimation.start();
+            }
         }
     }
 }
