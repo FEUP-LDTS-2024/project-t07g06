@@ -126,8 +126,6 @@ public class GuardController extends GameController {
                         startMoveAnimation(guard);
                         System.out.println("In pursuit");
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
-                            game.stopGameSound();
-                            game.stopWantedSound();
                             game.playLossSound();
                             game.setState(new GameOverState(new GameOver()));
                         }

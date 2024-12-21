@@ -7,6 +7,8 @@ import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.win.Win;
+import com.aor.thief.sound.InstanceSound;
+import com.aor.thief.sound.SoundFactory;
 import com.aor.thief.states.WinState;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
@@ -150,11 +152,21 @@ public class ThiefController extends GameController {
         }
     }
 
+    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+        InstanceSound footStepSound = new SoundFactory().createFootStepSound();
+        footStepSound.start();
+    }
+
+    public  void playGunShot() {
+        InstanceSound gunShot = new SoundFactory().createGunShotSound();
+        gunShot.start();
+    }
+
     public void PickedUpPrize(Game game){
         if (!getModel().getPrize().isEmpty()) {
             if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {
                 getModel().getThief().prize_collected();
-                game.playItemPickupSound();
+                playItemPickup();
                 getModel().getPrize().removeFirst();
             }
         }
@@ -170,11 +182,20 @@ public class ThiefController extends GameController {
         getModel().getCops().remove(cop);
     }
 
+    public void playItemPickup(){
+        InstanceSound item=new SoundFactory().createItemPickupSound();
+        item.start();
+    }
+
+    public  void playGuardDeathSound() {
+        InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
+        guardDeathSound.start();
+    }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.UP) {
-            game.playFootStepSound();
+            playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
             moveThiefUp();
@@ -182,7 +203,7 @@ public class ThiefController extends GameController {
         }
 
         if (action == GUI.ACTION.DOWN) {
-            game.playFootStepSound();
+            playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
             moveThiefDown();
@@ -190,14 +211,17 @@ public class ThiefController extends GameController {
         }
 
         if (action == GUI.ACTION.LEFT) {
-            game.playFootStepSound();
+            playFootStepSound();
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
             PickedUpPrize(game);
         }
         if (action == GUI.ACTION.RIGHT) {
-            game.playFootStepSound();
+
+
+            playFootStepSound();
+
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
@@ -205,8 +229,6 @@ public class ThiefController extends GameController {
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
-                game.stopGameSound();
-                game.stopWantedSound();
                 game.playWin();
                 game.setState(new WinState(new Win()));
             }
@@ -214,10 +236,10 @@ public class ThiefController extends GameController {
         if (action == GUI.ACTION.KILL) {
 
             startAttackAnimation(getModel().getThief());
-            game.playGunShot();
-            if(canKill()) game.playGuardDeathSound();
+            playGunShot();
+            if(canKill()) playGuardDeathSound();
 
-            game.playGunShot();
+
 
 
 
