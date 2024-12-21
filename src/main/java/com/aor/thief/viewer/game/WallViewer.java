@@ -10,7 +10,7 @@ public class WallViewer implements ElementViewer<Wall> {
     @Override
     public void draw(Wall wall, GUI gui) throws IOException {
       //  gui.drawImage(wall.getPosition(),"");
-        gui.drawImage(wall.getPosition(), path +"wall.png");
+        gui.drawImage(wall.getPosition(), path +"wall8.png");
     }
 
 }

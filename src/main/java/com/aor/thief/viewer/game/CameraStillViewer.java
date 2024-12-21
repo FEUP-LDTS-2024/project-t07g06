@@ -15,7 +15,7 @@ public class CameraStillViewer implements ElementViewer<CameraStill>{
                 gui.drawImage(position, "src/main/resources/sprites/vision/pixil-frame-0.png");
             }
         }
-        gui.drawImage(camera.getPosition(),"src/main/resources/sprites/camera/up_left_up.png");
+        gui.drawImage(camera.getPosition(),"src/main/resources/sprites/camera/up_left_up1.png");
 
     }
 }

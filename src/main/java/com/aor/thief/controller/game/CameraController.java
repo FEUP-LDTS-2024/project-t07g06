@@ -76,13 +76,13 @@ public class CameraController extends GameController {
                     try {
                         switch (camera.getCurrent_pos()) {
                             case 0:
-                                camera.setDraw(finalPos + "down.png");
+                                camera.setDraw(finalPos + "down1.png");
                                 break;
                             case 1:
-                                camera.setDraw(finalPos + "mid.png");
+                                camera.setDraw(finalPos + "mid1.png");
                                 break;
                             case 2:
-                                camera.setDraw(finalPos + "up.png");
+                                camera.setDraw(finalPos + "up1.png");
                                 break;
                         }
                         Thread.sleep(750);
