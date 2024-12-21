@@ -28,7 +28,7 @@ public interface GUI {
 
     void drawStillCamera(Position position);
 
-
+    void  drawCharacter(int x, int y, char c, String color);
 
     void drawText(Position position, String text, String color);
 

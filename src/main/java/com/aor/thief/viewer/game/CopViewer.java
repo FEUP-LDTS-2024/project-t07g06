@@ -1,6 +1,8 @@
 package com.aor.thief.viewer.game;
 
 import com.aor.thief.gui.GUI;
+import com.googlecode.lanterna.TextColor;
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;

@@ -68,14 +68,12 @@ public class CameraController extends GameController {
                 pos += "right_";
             }
         }
-        System.out.println(pos);
         if (moveAnimation == null || !moveAnimation.isAlive()) {
             if (!camera.getCorner().isEmpty()) {
                 int i = camera.getCorner().get(camera.getCurrent_pos());
                 String finalPos = pos;
                 moveAnimation = new Thread(() -> {
                     try {
-                        System.out.println(camera.getCorner().indexOf(i));
                         switch (camera.getCorner().indexOf(i)) {
                             case 0:
                                 camera.setDraw(finalPos + "up.png");
@@ -87,7 +85,6 @@ public class CameraController extends GameController {
                                 camera.setDraw(finalPos + "down.png");
                                 break;
                         }
-                        System.out.println(camera.getDraw());
                         Thread.sleep(750);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);

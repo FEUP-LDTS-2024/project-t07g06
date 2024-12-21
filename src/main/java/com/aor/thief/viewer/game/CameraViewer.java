@@ -19,9 +19,6 @@ public class CameraViewer implements ElementViewer<Camera> {
 
     public String getCorner(Camera camera) {
         List<Integer> corner = camera.getCorner();
-        for(int i = 0; i < corner.size(); i++){
-            System.out.println(corner.get(i));
-        }
         List<Integer> up_right =  Arrays.asList(0,10,1);
         List<Integer> up_left =  Arrays.asList(0,30,3);
         List<Integer> down_left =  Arrays.asList(2,32,3);

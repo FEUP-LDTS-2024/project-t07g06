@@ -165,7 +165,7 @@ public class CopController extends GameController {
                     for (Cop cop : getModel().getCops()) {
                         pursuit(cop, getModel().getThief(), index);
                         startMoveAnimation(cop);
-                        if (cop.getHitbox().contains(getModel().getThief().getPosition())) {
+                        if (cop.getPosition().equals(getModel().getThief().getPosition())) {
                             game.stopGameSound();
                             game.stopWantedSound();
                             game.playLossSound();
