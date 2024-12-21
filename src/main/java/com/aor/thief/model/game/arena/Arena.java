@@ -158,19 +158,26 @@ public class Arena {
             }
         }
         camera.setCorner(corner);
+        System.out.println(camera.getCorner());
     }
     public void defAxis(CameraStill camera ){
         List<Integer> axis= new ArrayList<>();
         if(!isntWall(camera.getPosition().getDown())){
-            axis.add(0);
-        }else if(!isntWall(camera.getPosition().getLeft())){
-            axis.add(1);
-        }else if(!isntWall(camera.getPosition().getUp())){
             axis.add(2);
-        }else if(!isntWall(camera.getPosition().getRight())){
+            camera.setDirection(2);
+        }else if(!isntWall(camera.getPosition().getLeft())){
             axis.add(3);
+            camera.setDirection(3);
+        }else if(!isntWall(camera.getPosition().getUp())){
+            axis.add(0);
+            camera.setDirection(0);
+        }else if(!isntWall(camera.getPosition().getRight())){
+            axis.add(1);
+            camera.setDirection(1);
         }
+
         camera.setCorner(axis);
+        System.out.println(axis.getFirst());
     }
 }
 

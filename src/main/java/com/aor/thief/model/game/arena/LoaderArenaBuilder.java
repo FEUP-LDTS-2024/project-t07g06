@@ -208,7 +208,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                     hitbox.add(new Position(x-4,y-4));
                     hitbox.add(new Position(x,y-4));
                     hitbox.add(new Position(x+4,y-4));
-                    cam.add(new Camera(x, y, 0, false, hitbox, new ArrayList<>(),""));
+                    cam.add(new Camera(x, y, 1, false, hitbox, new ArrayList<>(),""));
                 }
         }
 

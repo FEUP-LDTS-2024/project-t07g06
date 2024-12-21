@@ -43,7 +43,7 @@ public class Game {
     }
 
 
-    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+    public  void playFootStepSound() { //como footstep é chfamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
         InstanceSound footStepSound = new SoundFactory().createFootStepSound();
         footStepSound.start();
     }

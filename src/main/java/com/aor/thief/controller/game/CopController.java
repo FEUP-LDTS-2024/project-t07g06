@@ -4,9 +4,7 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
-import com.aor.thief.model.game.elements.Cop;
-import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Thief;
+import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.gameover.GameOver;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.GameOverState;
@@ -159,6 +157,12 @@ public class CopController extends GameController {
                         }
                         for (Cop cop : getModel().getCops()) {
                             cop.setFound(true);
+                        }
+                        for (Camera camera : getModel().getCamera()){
+                            camera.setFound(true);
+                        }
+                        for (CameraStill still : getModel().getStillCameras()){
+                            still.setFound(true);
                         }
                     }
                 } else {

@@ -4,9 +4,7 @@ import com.aor.thief.Game;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
-import com.aor.thief.model.game.elements.Cop;
-import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Thief;
+import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.gameover.GameOver;
 import com.aor.thief.model.menu.Menu;
@@ -115,11 +113,18 @@ public class GuardController extends GameController {
                         for (Cop cop : getModel().getCops()) {
                             cop.setFound(true);
                         }
+                        for (Camera camera : getModel().getCamera()){
+                            camera.setFound(true);
+                        }
+                        for (CameraStill still : getModel().getStillCameras()){
+                            still.setFound(true);
+                        }
                     }
                 } else {
                     for (Guard guard : getModel().getGuards()) {
-                        startMoveAnimation(guard);
                         pursuit(guard, getModel().getThief(), index);
+                        startMoveAnimation(guard);
+                        System.out.println("In pursuit");
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
                             game.stopGameSound();
                             game.stopWantedSound();
@@ -156,6 +161,13 @@ public class GuardController extends GameController {
                 nierest = p;
             }
         }
+        if(nierest.getX()>guard.getPosition().getX()) {
+            guard.setDirection(3);
+        }else if(nierest.getX()<guard.getPosition().getX())guard.setDirection(1);
+        else if(nierest.getY()>guard.getPosition().getY()) {
+            guard.setDirection(0);
+        }else if(nierest.getY()<guard.getPosition().getY())guard.setDirection(2);
+
         moveGuard(guard_index, new Position(nierest.getX(), nierest.getY()));
     }
 }

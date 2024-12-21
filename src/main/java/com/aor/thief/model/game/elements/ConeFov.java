@@ -61,7 +61,7 @@ public class ConeFov extends HasFov{
                 diry = -1;
                 break;
         }
-        for (int i = 0; i <= sig; i++) {
+        for (int i = 8; i <= sig; i++) {
             for (int j = -i ; j <= i ; j++){
                 int fovx = guardCurrentPosition.getX() + dirx * i + diry * j;
                 int fovy = guardCurrentPosition.getY() + diry * i + dirx * j;

@@ -15,6 +15,11 @@ public class CopViewer implements ElementViewer<Cop> {
     public void draw(Cop cop, GUI gui) throws IOException, InterruptedException {
         if(cop.getDraw().isEmpty()){
             cop.setDraw("still_" + getDirection(cop) + ".png");}
+        if(!cop.isFound()) {
+            for (Position position : cop.getFov()) {
+                gui.drawImage(position, "src/main/resources/sprites/vision/pixil-frame-0.png");
+            }
+        }
         gui.drawImage(cop.getPosition(), path + cop.getDraw());
     }
 

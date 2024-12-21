@@ -1,6 +1,7 @@
 package com.aor.thief.viewer.game;
 
 import com.aor.thief.gui.GUI;
+import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.Camera;
 import com.aor.thief.model.game.elements.Guard;
 
@@ -13,7 +14,12 @@ public class CameraViewer implements ElementViewer<Camera> {
     @Override
     public void draw(Camera camera, GUI gui) throws IOException {
         if(camera.getDraw().isEmpty()){
-            camera.setDraw(getCorner(camera) + "_up.png");}
+            camera.setDraw(getCorner(camera) + "_mid.png");}
+        if(!camera.isFound()) {
+            for (Position position : camera.getFov()) {
+                gui.drawImage(position, "src/main/resources/sprites/vision/pixil-frame-0.png");
+            }
+        }
         gui.drawImage(camera.getPosition(), path + camera.getDraw());
     }
 

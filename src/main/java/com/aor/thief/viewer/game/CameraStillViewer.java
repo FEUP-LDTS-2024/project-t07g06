@@ -10,10 +10,12 @@ import java.io.IOException;
 public class CameraStillViewer implements ElementViewer<CameraStill>{
     @Override
     public void draw(CameraStill camera, GUI gui) throws IOException {
-        gui.drawImage(camera.getPosition(),"src/main/resources/sprites/camera/up_left_up.png");
-        for(Position position : camera.getFov()){
-            System.out.println(position.getX() + " " + position.getY());
-            gui.drawImage(position,"src/main/resources/sprites/vision/pixil-frame-0.png");
+        if(!camera.isFound()) {
+            for (Position position : camera.getFov()) {
+                gui.drawImage(position, "src/main/resources/sprites/vision/pixil-frame-0.png");
+            }
         }
+        gui.drawImage(camera.getPosition(),"src/main/resources/sprites/camera/up_left_up.png");
+
     }
 }

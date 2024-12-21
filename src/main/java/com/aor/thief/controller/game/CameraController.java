@@ -5,6 +5,7 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Camera;
+import com.aor.thief.model.game.elements.CameraStill;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.Guard;
 
@@ -70,19 +71,18 @@ public class CameraController extends GameController {
         }
         if (moveAnimation == null || !moveAnimation.isAlive()) {
             if (!camera.getCorner().isEmpty()) {
-                int i = camera.getCorner().get(camera.getCurrent_pos());
                 String finalPos = pos;
                 moveAnimation = new Thread(() -> {
                     try {
-                        switch (camera.getCorner().indexOf(i)) {
+                        switch (camera.getCurrent_pos()) {
                             case 0:
-                                camera.setDraw(finalPos + "up.png");
+                                camera.setDraw(finalPos + "down.png");
                                 break;
                             case 1:
                                 camera.setDraw(finalPos + "mid.png");
                                 break;
                             case 2:
-                                camera.setDraw(finalPos + "down.png");
+                                camera.setDraw(finalPos + "up.png");
                                 break;
                         }
                         Thread.sleep(750);
@@ -106,6 +106,12 @@ public class CameraController extends GameController {
                     for (Cop cop : getModel().getCops()) {
                         cop.setFound(true);
                     }
+                    for (Camera camera : getModel().getCamera()){
+                        camera.setFound(true);
+                    }
+                    for (CameraStill still : getModel().getStillCameras()){
+                        still.setFound(true);
+                    }
                 }
                 int index=0;
                 for (Camera camera : getModel().getCamera()) {
@@ -114,6 +120,8 @@ public class CameraController extends GameController {
                         getModel().defCorner(camera);
                     }
                     rotateCamera(index,camera.getCurrent_pos());
+                    System.out.println(camera.getCurrent_pos());
+                    camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
                     getModel().fov(camera);
                     index++;
                 }

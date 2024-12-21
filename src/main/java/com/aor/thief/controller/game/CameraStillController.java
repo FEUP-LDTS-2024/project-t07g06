@@ -21,11 +21,11 @@ public class CameraStillController extends GameController {
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if(!getModel().getStillCameras().isEmpty()) {
             if (!getModel().getStillCameras().getFirst().isFound()) {
-                for (CameraStill camera : getModel().getCamera()) {
+                for (CameraStill camera : getModel().getStillCameras()) {
                     if (camera.getCorner().isEmpty()) {
                         getModel().defAxis(camera);
+                        camera.setFov(getModel().fov(camera));
                     }
-                    getModel().fov(camera);
                 }
             }
             if (isCaught()) {
@@ -35,6 +35,12 @@ public class CameraStillController extends GameController {
                 }
                 for (Cop cop : getModel().getCops()) {
                     cop.setFound(true);
+                }
+                for (Camera camera : getModel().getCamera()){
+                    camera.setFound(true);
+                }
+                for (CameraStill still : getModel().getStillCameras()){
+                    still.setFound(true);
                 }
             }
         }
