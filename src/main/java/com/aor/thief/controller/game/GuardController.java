@@ -50,7 +50,6 @@ public class GuardController extends GameController {
                     } else {
                         guard.setDraw("leftleg_" + finalDirection + ".png");
                     }
-                    guard.toggleFeet();
                     Thread.sleep(500);
 
                 } catch (InterruptedException e) {
@@ -83,36 +82,25 @@ public class GuardController extends GameController {
             getModel().getGuards().get(index).setPosition(position);
             getModel().getGuards().get(index).setHitbox(position.updatehitbox_());
         }
+        getModel().getGuards().get(index).toggleFeet();
     }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
         if (!getModel().getGuards().isEmpty()) {
-                if (isCaught()) {
-                    game.stopGameSound();
-                    game.playWantedSound();
-                    for (Guard guard : getModel().getGuards()) {
-                        guard.setFound(true);
-                    }
-                    for (Cop cop : getModel().getCops()) {
-                        cop.setFound(true);
-                    }
-                }
             if (time - lastMovement > 500) {
                 if (!getModel().getGuards().getFirst().isFound()) {
                     for (Guard guard : getModel().getGuards()) {
                         int cur_dir = guard.getDirection();
                         int counting_dir = cur_dir;
-                        if (!guard.getHitbox().isEmpty()) {
-                            for (Position position : guard.getHitbox()) {
-                                startMoveAnimation(guard);
-                                while (!getModel().isntWall(position.movingpattern(cur_dir))) {
-                                    cur_dir++;
-                                    counting_dir++;
-                                    if (cur_dir > 3) cur_dir = 0;
-                                    if (counting_dir > cur_dir + 9) break;
-                                }
+                        for (Position position : guard.getHitbox()) {
+                            startMoveAnimation(guard);
+                            while (!getModel().isntWall(position.movingpattern(cur_dir))) {
+                                cur_dir++;
+                                counting_dir++;
+                                if (cur_dir > 3) cur_dir = 0;
+                                if (counting_dir > cur_dir + 9) break;
                             }
                         }
                         guard.setDirection(cur_dir);
@@ -120,9 +108,7 @@ public class GuardController extends GameController {
                         index++;
                     }
                     this.lastMovement = time;
-                    index = 0;
                     if (isCaught()) {
-
                         for (Guard guard : getModel().getGuards()) {
                             guard.setFound(true);
                         }

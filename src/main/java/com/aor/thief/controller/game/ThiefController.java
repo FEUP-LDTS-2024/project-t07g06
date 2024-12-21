@@ -104,7 +104,6 @@ public class ThiefController extends GameController {
                         thief.setDraw("leftleg_" + finalDirection + ".png");
                         Thread.sleep(150);
                     }
-                    thief.toggleFeet();
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
