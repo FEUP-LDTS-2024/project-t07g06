@@ -8,6 +8,7 @@ import com.aor.thief.model.game.elements.CameraStill;
 import java.io.IOException;
 
 public class CameraStillViewer implements ElementViewer<CameraStill>{
+    private final String path ="src/main/resources/sprites/camera/";
     @Override
     public void draw(CameraStill camera, GUI gui) throws IOException {
         if(!camera.isFound()) {
@@ -15,7 +16,21 @@ public class CameraStillViewer implements ElementViewer<CameraStill>{
                 gui.drawImage(position, "src/main/resources/sprites/vision/pixil-frame-0.png");
             }
         }
-        gui.drawImage(camera.getPosition(),"src/main/resources/sprites/camera/up_left_up1.png");
+        switch(camera.getDirection()){
+            case(0):
+                gui.drawImage(camera.getPosition(),path +"up_left_down.png");
+                break;
+            case(1):
+                gui.drawImage(camera.getPosition(),path +"up_right_up.png");
+                break;
+            case(2):
+                gui.drawImage(camera.getPosition(),path +"down_right_down.png");
+                break;
+            case(3):
+                gui.drawImage(camera.getPosition(),path +"up_left_up.png");
+                break;
+        }
+
 
     }
 }

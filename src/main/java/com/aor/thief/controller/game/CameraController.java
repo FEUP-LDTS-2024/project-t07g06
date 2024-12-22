@@ -76,13 +76,13 @@ public class CameraController extends GameController {
                     try {
                         switch (camera.getCurrent_pos()) {
                             case 0:
-                                camera.setDraw(finalPos + "down1.png");
+                                camera.setDraw(finalPos + "down.png");
                                 break;
                             case 1:
-                                camera.setDraw(finalPos + "mid1.png");
+                                camera.setDraw(finalPos + "mid.png");
                                 break;
                             case 2:
-                                camera.setDraw(finalPos + "up1.png");
+                                camera.setDraw(finalPos + "up.png");
                                 break;
                         }
                         Thread.sleep(750);
@@ -98,7 +98,23 @@ public class CameraController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if (time - lastMovement > 750) {
-            if (!getModel().getCamera().isEmpty()) {
+            if(!getModel().getCamera().getFirst().isFound()) {
+                if (!getModel().getCamera().isEmpty()) {
+                    int index = 0;
+                    for (Camera camera : getModel().getCamera()) {
+                        startRotationAnimation(camera);
+                        if (camera.getCorner().isEmpty()) {
+                            getModel().defCorner(camera);
+                        }
+                        rotateCamera(index, camera.getCurrent_pos());
+                        System.out.println(camera.getCurrent_pos());
+                        camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
+                        getModel().fov(camera);
+                        index++;
+
+                    }
+                    this.lastMovement = time;
+                }
                 if (isCaught()) {
                     game.stopGameSound();game.playWantedSound();
                     for (Guard guard : getModel().getGuards()) {
@@ -107,32 +123,11 @@ public class CameraController extends GameController {
                     for (Cop cop : getModel().getCops()) {
                         cop.setFound(true);
                     }
-                    for (Camera camera : getModel().getCamera()){
+                    for (Camera camera : getModel().getCamera()) {
                         camera.setFound(true);
                     }
-                    for (CameraStill still : getModel().getStillCameras()){
-                        still.setFound(true);
-                    }
-                }
-                int index=0;
-                for (Camera camera : getModel().getCamera()) {
-                    startRotationAnimation(camera);
-                    if(camera.getCorner().isEmpty()){
-                        getModel().defCorner(camera);
-                    }
-                    rotateCamera(index,camera.getCurrent_pos());
-                    System.out.println(camera.getCurrent_pos());
-                    camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
-                    getModel().fov(camera);
-                    index++;
-                }
-                this.lastMovement = time;
-                if (isCaught()) {
-                    for (Guard guard : getModel().getGuards()) {
-                        guard.setFound(true);
-                    }
-                    for (Cop cop : getModel().getCops()) {
-                        cop.setFound(true);
+                    for (CameraStill cameraStill : getModel().getStillCameras()){
+                        cameraStill.setFound(true);
                     }
                 }
             }
