@@ -89,16 +89,16 @@ public class CopController extends GameController {
         String direction = "";
         switch (cop.getDirection()) {
             case 0:
-                direction = "down";
+                direction = "down1";
                 break;
             case 1:
-                direction = "left";
+                direction = "left1";
                 break;
             case 2:
-                direction = "up";
+                direction = "up1";
                 break;
             case 3:
-                direction = "right";
+                direction = "right1";
                 break;
         }
         if (moveAnimation == null || !moveAnimation.isAlive()) {
