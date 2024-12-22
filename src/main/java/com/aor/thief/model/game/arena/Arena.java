@@ -162,16 +162,16 @@ public class Arena {
     }
     public void defAxis(CameraStill camera ){
         List<Integer> axis= new ArrayList<>();
-        if(!isntWall(camera.getPosition().getDown())){
+        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+4))){
             axis.add(2);
             camera.setDirection(2);
-        }else if(!isntWall(camera.getPosition().getLeft())){
+        }else if(!isntWall(new Position(camera.getPosition().getX()-4,camera.getPosition().getY()))){
             axis.add(3);
             camera.setDirection(3);
-        }else if(!isntWall(camera.getPosition().getUp())){
+        }else if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()-4))){
             axis.add(0);
             camera.setDirection(0);
-        }else if(!isntWall(camera.getPosition().getRight())){
+        }else if(!isntWall(new Position(camera.getPosition().getX()+4,camera.getPosition().getY()))){
             axis.add(1);
             camera.setDirection(1);
         }

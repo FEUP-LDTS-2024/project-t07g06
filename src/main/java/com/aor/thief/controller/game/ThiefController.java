@@ -63,7 +63,6 @@ public class ThiefController extends GameController {
             getModel().getThief().setPosition(position);
             getModel().getThief().setHitbox(position.updatehitbox_());
         }
-        getModel().getThief().toggleFeet();
     }
 
     public boolean canKill() throws InterruptedException {
@@ -106,7 +105,7 @@ public class ThiefController extends GameController {
                         thief.setDraw("leftleg_" + finalDirection + ".png");
                         Thread.sleep(150);
                     }
-
+                    thief.toggleFeet();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
