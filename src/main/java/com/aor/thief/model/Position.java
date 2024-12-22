@@ -59,15 +59,11 @@ public class Position  {
         List<Position> hitbox = new ArrayList<>();
         int x= this.x;
         int y= this.y;
-        hitbox.add(new Position(x,y));
-        hitbox.add(new Position(x+8,y));
-        hitbox.add(new Position(x+8,y+4));
-        hitbox.add(new Position(x,y+4));
-        hitbox.add(new Position(x-8,y+4));
-        hitbox.add(new Position(x-8,y));
-        hitbox.add(new Position(x-8,y-4));
-        hitbox.add(new Position(x,y-4));
-        hitbox.add(new Position(x+8,y-4));
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                hitbox.add(new Position(x+i,y+j));
+            }
+        }
 
         return hitbox;
     }

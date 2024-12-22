@@ -53,15 +53,11 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == '#'){
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+1,y));
-                    hitbox.add(new Position(x+1,y+1));
-                    hitbox.add(new Position(x,y+1));
-                    hitbox.add(new Position(x-1,y+1));
-                    hitbox.add(new Position(x-1,y));
-                    hitbox.add(new Position(x-1,y-1));
-                    hitbox.add(new Position(x,y-1));
-                    hitbox.add(new Position(x+1,y-1));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
                     walls.add(new Wall(x, y,hitbox));
                 }
         }
@@ -83,15 +79,11 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'G') {
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+1,y));
-                    hitbox.add(new Position(x+1,y+1));
-                    hitbox.add(new Position(x,y+1));
-                    hitbox.add(new Position(x-1,y+1));
-                    hitbox.add(new Position(x-1,y));
-                    hitbox.add(new Position(x-1,y-1));
-                    hitbox.add(new Position(x,y-1));
-                    hitbox.add(new Position(x+1,y-1));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
                     guards.add(new Guard(x, y, 0, false, hitbox,0,""));
                 }
         }
@@ -106,15 +98,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'T'){
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     return new Thief(x, y,0,0,hitbox,0,"");
                 }
         }
@@ -128,15 +117,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'P') {
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     prize.add( new Prize(x, y,hitbox));
                 }
         }
@@ -150,15 +136,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'T'){
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     return new Door(x, y,hitbox);
                 }
         }
@@ -174,15 +157,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'C') {
                     List <Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     cam.add(new Camera(x, y,0, false ,hitbox, new ArrayList<>(),""));
                 }
         }
@@ -199,15 +179,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'S') {
                     List<Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+4,y));
-                    hitbox.add(new Position(x+4,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-4,y+4));
-                    hitbox.add(new Position(x-4,y));
-                    hitbox.add(new Position(x-4,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+4,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     cam.add(new Camera(x, y, 1, false, hitbox, new ArrayList<>(),""));
                 }
         }
@@ -222,15 +199,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'O') {
                     List<Position> hitbox = new ArrayList<>();
-                    hitbox.add(new Position(x,y));
-                    hitbox.add(new Position(x+8,y));
-                    hitbox.add(new Position(x+8,y+4));
-                    hitbox.add(new Position(x,y+4));
-                    hitbox.add(new Position(x-8,y+4));
-                    hitbox.add(new Position(x-8,y));
-                    hitbox.add(new Position(x-8,y-4));
-                    hitbox.add(new Position(x,y-4));
-                    hitbox.add(new Position(x+8,y-4));
+                    for(int i=0;i<5;i++){
+                        for(int j=0;j<5;j++){
+                            hitbox.add(new Position(x+i,y+j));
+                        }
+                    }
+
                     cop.add(new Cop(x, y, 1, false, hitbox,0,""));
                 }
         }
