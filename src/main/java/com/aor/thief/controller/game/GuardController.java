@@ -140,6 +140,16 @@ public class GuardController extends GameController {
     public void pursuit(Guard guard, Thief thief, int guard_index) {
         int x = Integer.compare(thief.getPosition().getX(), guard.getPosition().getX());
         int y = Integer.compare(thief.getPosition().getY(), guard.getPosition().getY());
+        if(x==1||x==-1) y=0;
+        if(x==1){
+            guard.setDirection(3);
+        }else if(x==-1){
+            guard.setDirection(1);
+        }else if(y==-1){
+            guard.setDirection(2);
+        }else if(y==1){
+            guard.setDirection(0);
+        }
         moveGuard(guard_index, new Position(guard.getPosition().getX()+x, guard.getPosition().getY() + y));
     }
 }

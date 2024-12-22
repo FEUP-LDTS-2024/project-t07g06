@@ -46,6 +46,16 @@ public class CopController extends GameController {
     public void pursuit(Cop cop, Thief thief, int cop_index) {
         int x = Integer.compare(thief.getPosition().getX(), cop.getPosition().getX());
         int y = Integer.compare(thief.getPosition().getY(), cop.getPosition().getY());
+        if(x==1||x==-1) y=0;
+        if(x==1){
+            cop.setDirection(3);
+        }else if(x==-1){
+            cop.setDirection(1);
+        }else if(y==-1){
+            cop.setDirection(2);
+        }else if(y==1){
+            cop.setDirection(0);
+        }
         moveCop(cop_index, new Position(cop.getPosition().getX()+x, cop.getPosition().getY() + y));
     }
     public Position movement(Position position, int direction, int index){

@@ -72,7 +72,7 @@ public class ThiefController extends GameController {
             }
         }
         for (Cop cop : getModel().getCops()) {
-            if (getModel().getThief().getFov().stream().anyMatch(cop.getHitbox()::contains)) {
+            if (getModel().fov(getModel().getThief()).stream().anyMatch(cop.getHitbox()::contains)) {
                 killCop(cop);
                 return true;
             }
