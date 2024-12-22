@@ -97,37 +97,40 @@ public class CameraController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        if (time - lastMovement > 750) {
-            if(!getModel().getCamera().getFirst().isFound()) {
-                if (!getModel().getCamera().isEmpty()) {
-                    int index = 0;
-                    for (Camera camera : getModel().getCamera()) {
-                        startRotationAnimation(camera);
-                        if (camera.getCorner().isEmpty()) {
-                            getModel().defCorner(camera);
-                        }
-                        rotateCamera(index, camera.getCurrent_pos());
-                        System.out.println(camera.getCurrent_pos());
-                        camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
-                        getModel().fov(camera);
-                        index++;
+        if (!getModel().getCamera().isEmpty()){
+            if (time - lastMovement > 750) {
+                if (!getModel().getCamera().getFirst().isFound()) {
+                    if (!getModel().getCamera().isEmpty()) {
+                        int index = 0;
+                        for (Camera camera : getModel().getCamera()) {
+                            startRotationAnimation(camera);
+                            if (camera.getCorner().isEmpty()) {
+                                getModel().defCorner(camera);
+                            }
+                            rotateCamera(index, camera.getCurrent_pos());
+                            System.out.println(camera.getCurrent_pos());
+                            camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
+                            getModel().fov(camera);
+                            index++;
 
+                        }
+                        this.lastMovement = time;
                     }
-                    this.lastMovement = time;
-                }
-                if (isCaught()) {
-                    game.stopGameSound();game.playWantedSound();
-                    for (Guard guard : getModel().getGuards()) {
-                        guard.setFound(true);
-                    }
-                    for (Cop cop : getModel().getCops()) {
-                        cop.setFound(true);
-                    }
-                    for (Camera camera : getModel().getCamera()) {
-                        camera.setFound(true);
-                    }
-                    for (CameraStill cameraStill : getModel().getStillCameras()){
-                        cameraStill.setFound(true);
+                    if (isCaught()) {
+                        game.stopGameSound();
+                        game.playWantedSound();
+                        for (Guard guard : getModel().getGuards()) {
+                            guard.setFound(true);
+                        }
+                        for (Cop cop : getModel().getCops()) {
+                            cop.setFound(true);
+                        }
+                        for (Camera camera : getModel().getCamera()) {
+                            camera.setFound(true);
+                        }
+                        for (CameraStill cameraStill : getModel().getStillCameras()) {
+                            cameraStill.setFound(true);
+                        }
                     }
                 }
             }
