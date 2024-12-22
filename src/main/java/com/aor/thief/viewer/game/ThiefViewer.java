@@ -16,7 +16,7 @@ public class ThiefViewer implements ElementViewer<Thief> {
         if(thief.getDraw().isEmpty()) {
             thief.setDraw("still_" +getDirection(thief) + ".png");
         }
-        gui.drawImage(thief.getPosition(), path+thief.getDraw());
+        gui.drawImage(thief.getPosition(), path + thief.getDraw());
     }
 
     public String getDirection(Thief thief) {

@@ -15,7 +15,7 @@ public class ConeFov extends HasFov{
 
     @Override
     public int getSight() {
-        return 15;
+        return 9;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ConeFov extends HasFov{
                 diry = -1;
                 break;
         }
-        for (int i = 8; i <= sig; i++) {
+        for (int i = 4; i <= sig; i++) {
             for (int j = -i ; j <= i ; j++){
                 int fovx = guardCurrentPosition.getX() + dirx * i + diry * j;
                 int fovy = guardCurrentPosition.getY() + diry * i + dirx * j;

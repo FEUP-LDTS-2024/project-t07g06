@@ -66,7 +66,6 @@ public class ThiefController extends GameController {
     }
 
     public boolean canKill() throws InterruptedException {
-        int index = 0;
         for (Guard guard : getModel().getGuards()) {
             for (Position kill : getModel().fov(getModel().getThief())) {
                 if (guard.getHitbox().contains(kill)) {
@@ -81,7 +80,6 @@ public class ThiefController extends GameController {
                         return true;
                     }
                 }
-                index++;
             }
         }
         return false;
@@ -161,7 +159,7 @@ public class ThiefController extends GameController {
         gunShot.start();
     }
 
-    public void PickedUpPrize(Game game){
+    public void PickedUpPrize(){
         if (!getModel().getPrize().isEmpty()) {
             if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {
                 getModel().getThief().prize_collected();
@@ -198,7 +196,7 @@ public class ThiefController extends GameController {
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
             moveThiefUp();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
 
         if (action == GUI.ACTION.DOWN) {
@@ -206,7 +204,7 @@ public class ThiefController extends GameController {
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
             moveThiefDown();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
 
         if (action == GUI.ACTION.LEFT) {
@@ -214,7 +212,7 @@ public class ThiefController extends GameController {
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
         if (action == GUI.ACTION.RIGHT) {
 
@@ -224,7 +222,7 @@ public class ThiefController extends GameController {
             startMoveAnimation(getModel().getThief());
             if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {

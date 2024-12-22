@@ -68,6 +68,15 @@ public class Position  {
         return hitbox;
     }
 
+    public List<Position> getNeighbors() {
+        List<Position> neighbors = new ArrayList<>();
+        neighbors.add(new Position(x - 1, y));
+        neighbors.add(new Position(x + 1, y));
+        neighbors.add(new Position(x, y - 1));
+        neighbors.add(new Position(x, y + 1));
+        return neighbors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

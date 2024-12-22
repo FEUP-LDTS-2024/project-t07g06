@@ -87,7 +87,7 @@ public class Game {
         win.stop();
     }
 
-    
+
 
 
     private void start() throws IOException ,InterruptedException{

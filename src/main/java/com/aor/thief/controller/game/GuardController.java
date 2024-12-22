@@ -98,7 +98,7 @@ public class GuardController extends GameController {
                                 cur_dir++;
                                 counting_dir++;
                                 if (cur_dir > 3) cur_dir = 0;
-                                if (counting_dir > cur_dir + 8) break;
+                                if (counting_dir > cur_dir + 7) break;
                             }
                         }
                         guard.setDirection(cur_dir);
@@ -125,7 +125,6 @@ public class GuardController extends GameController {
                     for (Guard guard : getModel().getGuards()) {
                         pursuit(guard, getModel().getThief(), index);
                         startMoveAnimation(guard);
-                        System.out.println("In pursuit");
                         if (guard.getPosition().equals(getModel().getThief().getPosition())) {
                             game.playLossSound();
                             game.setState(new GameOverState(new GameOver()));

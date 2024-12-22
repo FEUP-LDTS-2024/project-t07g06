@@ -30,7 +30,6 @@ public class CameraController extends GameController {
                     return true;
                 }
             }
-
         }
         return false;
     }
@@ -103,12 +102,11 @@ public class CameraController extends GameController {
                     if (!getModel().getCamera().isEmpty()) {
                         int index = 0;
                         for (Camera camera : getModel().getCamera()) {
-                            startRotationAnimation(camera);
                             if (camera.getCorner().isEmpty()) {
                                 getModel().defCorner(camera);
                             }
                             rotateCamera(index, camera.getCurrent_pos());
-                            System.out.println(camera.getCurrent_pos());
+                            startRotationAnimation(camera);
                             camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
                             getModel().fov(camera);
                             index++;

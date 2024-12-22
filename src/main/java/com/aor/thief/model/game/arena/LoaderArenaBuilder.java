@@ -53,7 +53,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == '#'){
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<3;i++){
+                    for(int i=0;i<5;i++){
                         for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
@@ -122,7 +122,6 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
-
                     prize.add( new Prize(x, y,hitbox));
                 }
         }

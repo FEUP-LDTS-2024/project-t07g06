@@ -38,35 +38,18 @@ public class CopController extends GameController {
         for(Position p: position.updatehitbox_()) {
             if (!getModel().isntWall(p)) {
                 flag = false;
+                break;
             }
         }
         if (flag) {
             getModel().getCops().get(index).setPosition(position);
             getModel().getCops().get(index).setHitbox(position.updatehitbox_());
         }
-        getModel().getCops().get(index).toggleFeet();
     }
-
-
-
-    List<Position> getNeighbors(Position p) {
-        List<Position> neighbors = new ArrayList<>();
-        int x = p.getX();
-        int y = p.getY();
-        neighbors.add(new Position(x - 1, y));
-        neighbors.add(new Position(x + 1, y));
-        neighbors.add(new Position(x, y - 1));
-        neighbors.add(new Position(x, y + 1));
-        return neighbors;
-    }
-
-
-
-
     public void pursuit(Cop cop, Thief thief, int cop_index) {
         int min_dist = Integer.MAX_VALUE;
         Position nierest = null;
-        for(Position p: getNeighbors(cop.getPosition())) {
+        for(Position p: cop.getPosition().getNeighbors()) {
             if(p.distance(thief.getPosition())<min_dist) {
                 min_dist = p.distance(thief.getPosition());
                 nierest = p;
@@ -107,9 +90,9 @@ public class CopController extends GameController {
                 try {
                     if (cop.getFeet() == 0) {
                         cop.setDraw("rightleg_" + finalDirection + ".png");
-                    } else {
                         cop.setDraw("leftleg_" + finalDirection + ".png");
                     }
+                    cop.toggleFeet();
                     Thread.sleep(500);
 
                 } catch (InterruptedException e) {
@@ -117,6 +100,20 @@ public class CopController extends GameController {
                 }
             });
             moveAnimation.start();
+        }
+    }
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
         }
     }
 
@@ -141,7 +138,7 @@ public class CopController extends GameController {
                                 cur_dir++;
                                 counting_dir++;
                                 if (cur_dir > 3) cur_dir = 0;
-                                if (counting_dir > cur_dir + 6) break;
+                                if (counting_dir > cur_dir + 7) break;
                             }
                             if (cur_dir % 2 == 0) {
                                 cop.setDirection(cur_dir + 1);
@@ -153,18 +150,6 @@ public class CopController extends GameController {
                     this.lastMovement = time;
                     if (isCaught()) {
                         game.stopGameSound();game.playWantedSound();
-                        for (Guard guard : getModel().getGuards()) {
-                            guard.setFound(true);
-                        }
-                        for (Cop cop : getModel().getCops()) {
-                            cop.setFound(true);
-                        }
-                        for (Camera camera : getModel().getCamera()){
-                            camera.setFound(true);
-                        }
-                        for (CameraStill still : getModel().getStillCameras()){
-                            still.setFound(true);
-                        }
                     }
                 } else {
                     for (Cop cop : getModel().getCops()) {
