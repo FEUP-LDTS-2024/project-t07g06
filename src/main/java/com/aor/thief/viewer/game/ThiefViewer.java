@@ -22,13 +22,13 @@ public class ThiefViewer implements ElementViewer<Thief> {
     public String getDirection(Thief thief) {
         switch (thief.getDirection()) {
             case (0):
-                return "down";
+                return "down1";
             case (1):
-                return "left";
+                return "left1";
             case (2):
-                return "up";
+                return "up1";
             case (3):
-                return "right";
+                return "right1";
             default:
                 return "down";
         }

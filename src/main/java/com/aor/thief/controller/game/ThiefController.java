@@ -89,10 +89,10 @@ public class ThiefController extends GameController {
     private synchronized void startMoveAnimation(Thief thief)  {
         String direction = "";
         switch (thief.getDirection()){
-            case 0: direction = "down"; break;
-            case 1: direction = "left"; break;
-            case 2: direction = "up"; break;
-            case 3: direction = "right"; break;
+            case 0: direction = "down1"; break;
+            case 1: direction = "left1"; break;
+            case 2: direction = "up1"; break;
+            case 3: direction = "right1"; break;
         }
         if (moveAnimation == null || !moveAnimation.isAlive()) {
             String finalDirection = direction;
@@ -119,16 +119,16 @@ public class ThiefController extends GameController {
         String direction = "";
         switch (thief.getDirection()) {
             case 0:
-                direction = "down";
+                direction = "down1";
                 break;
             case 1:
-                direction = "left";
+                direction = "left1";
                 break;
             case 2:
-                direction = "up";
+                direction = "up1";
                 break;
             case 3:
-                direction = "right";
+                direction = "right1";
                 break;
         }
         if (attackAnimation == null || !attackAnimation.isAlive()) {
