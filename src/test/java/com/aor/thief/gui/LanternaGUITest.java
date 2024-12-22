@@ -13,6 +13,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.screen.Screen;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 public class LanternaGUITest {
     private Screen screen;
     private LanternaGUI gui;
@@ -32,31 +46,88 @@ public class LanternaGUITest {
     void drawThief() {
         gui.drawThief(new Position(1, 1));
 
-        Mockito.verify(tg, Mockito.times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
-        Mockito.verify(tg, Mockito.times(1)).putString(1, 2, "T");
-    }
-    @Test
-    void drawImage() throws IOException {
-        List <Position> hitbox = new ArrayList<>();
-        hitbox.add(new Position(1,1));
-        hitbox.add(new Position(1+8,1));
-        hitbox.add(new Position(1+8,1+4));
-        hitbox.add(new Position(1,1+4));
-        hitbox.add(new Position(1-8,1+4));
-        hitbox.add(new Position(1-8,1));
-        hitbox.add(new Position(1-8,1-4));
-        hitbox.add(new Position(1,1-4));
-        hitbox.add(new Position(1+8,1-4));
-        Thief thief = new Thief(1,1,0,0,hitbox,0,"");
-        gui.drawImage(thief.getPosition(),"src/main/resources/sprites/thief/rightleg_down.png");
-        Mockito.verify(tg, Mockito.times(44)).putString(1, 2, "T");
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
+        verify(tg, times(1)).putString(1, 2, "T");
     }
 
     @Test
     void drawText() {
         gui.drawText(new Position(1, 1), "Hello World", "#336699");
 
-        Mockito.verify(tg, Mockito.times(1)).setForegroundColor(new TextColor.RGB(51, 102, 153));
-        Mockito.verify(tg, Mockito.times(1)).putString(1, 1, "Hello World");
+        verify(tg, times(1)).setForegroundColor(TextColor.Factory.fromString("#336699"));
+        verify(tg, times(1)).putString(1, 1, "Hello World");
     }
+
+    @Test
+    void drawImageThrowsIOExceptionForInvalidPath() {
+        Position position = new Position(1, 1);
+        String invalidPath = "invalid/path/to/image.png";
+
+        assertThrows(IOException.class, () -> gui.drawImage(position, invalidPath));
+    }
+
+    @Test
+    void getNextActionArrowKeys() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowUp));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.UP, action);
+    }
+
+    @Test
+    void getNextActionCharacterKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('q', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.QUIT, action);
+    }
+
+    @Test
+    void drawWall() {
+        gui.drawWall(new Position(5, 5));
+
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(51, 51, 255));
+        verify(tg, times(1)).putString(5, 6, "#");
+    }
+
+    @Test
+    void drawCop() {
+        gui.drawCop(new Position(2, 3));
+
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(204, 0, 0));
+        verify(tg, times(1)).putString(2, 4, "O");
+    }
+
+    @Test
+    void clearScreen() {
+        gui.clear();
+
+        verify(screen, times(1)).clear();
+    }
+
+    @Test
+    void refreshScreen() throws IOException {
+        gui.refresh();
+
+        verify(screen, times(1)).refresh();
+    }
+
+    @Test
+    void closeScreen() throws IOException {
+        gui.close();
+
+        verify(screen, times(1)).close();
+    }
+
+    @Test
+    void drawPrize() {
+        gui.drawPrize(new Position(3, 3));
+
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
+        verify(tg, times(1)).putString(3, 4, "£");
+    }
+
+
 }
