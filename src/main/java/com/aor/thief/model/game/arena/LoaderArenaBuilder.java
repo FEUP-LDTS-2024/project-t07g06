@@ -53,8 +53,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == '#'){
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -79,8 +79,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'G') {
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -98,8 +98,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'T'){
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -117,8 +117,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'P') {
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<1;i++){
+                        for(int j=0;j<1;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -136,8 +136,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'T'){
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -157,8 +157,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'C') {
                     List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -179,8 +179,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'S') {
                     List<Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -199,8 +199,8 @@ public class LoaderArenaBuilder extends ArenaBuilder {
             for (int x = 0; x < line.length(); x++)
                 if (line.charAt(x) == 'O') {
                     List<Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<5;i++){
-                        for(int j=0;j<5;j++){
+                    for(int i=0;i<3;i++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
