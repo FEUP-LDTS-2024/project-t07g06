@@ -100,6 +100,7 @@ public class CameraController extends GameController {
         if (time - lastMovement > 750) {
             if (!getModel().getCamera().isEmpty()) {
                 if (isCaught()) {
+                    game.stopGameSound();game.playWantedSound();
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
                     }
@@ -127,8 +128,6 @@ public class CameraController extends GameController {
                 }
                 this.lastMovement = time;
                 if (isCaught()) {
-                    game.stopGameSound();
-                    game.playWantedSound();
                     for (Guard guard : getModel().getGuards()) {
                         guard.setFound(true);
                     }
