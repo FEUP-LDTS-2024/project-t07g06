@@ -141,7 +141,7 @@ public class CopController extends GameController {
                                 cur_dir++;
                                 counting_dir++;
                                 if (cur_dir > 3) cur_dir = 0;
-                                if (counting_dir > cur_dir + 9) break;
+                                if (counting_dir > cur_dir + 6) break;
                             }
                             if (cur_dir % 2 == 0) {
                                 cop.setDirection(cur_dir + 1);
