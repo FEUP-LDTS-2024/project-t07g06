@@ -12,8 +12,6 @@ import com.aor.thief.model.game.elements.Guard;
 import java.io.IOException;
 
 public class CameraStillController extends GameController {
-    private long lastMovement;
-
     public CameraStillController(Arena arena) {
         super(arena);
     }
@@ -55,7 +53,6 @@ public class CameraStillController extends GameController {
                     return true;
                 }
             }
-
         }
         return false;
     }

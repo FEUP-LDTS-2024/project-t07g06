@@ -7,12 +7,8 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.gameover.GameOver;
-import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.GameOverState;
-import com.aor.thief.states.MenuState;
-
 import java.io.IOException;
-import java.util.*;
 
 public class GuardController extends GameController {
     private long lastMovement;
@@ -24,29 +20,20 @@ public class GuardController extends GameController {
     }
 
     private synchronized void startMoveAnimation(Guard guard) {
-        String direction = "";
-        switch (guard.getDirection()) {
-            case 0:
-                direction = "down1";
-                break;
-            case 1:
-                direction = "left1";
-                break;
-            case 2:
-                direction = "up1";
-                break;
-            case 3:
-                direction = "right1";
-                break;
-        }
+        String direction = switch (guard.getDirection()) {
+            case 0 -> "down1";
+            case 1 -> "left1";
+            case 2 -> "up1";
+            case 3 -> "right1";
+            default -> "";
+        };
         if (moveAnimation == null || !moveAnimation.isAlive()) {
-            String finalDirection = direction;
             moveAnimation = new Thread(() -> {
                 try {
                     if (guard.getFeet() == 0) {
-                        guard.setDraw("rightleg_" + finalDirection + ".png");
+                        guard.setDraw("rightleg_" + direction + ".png");
                     } else {
-                        guard.setDraw("leftleg_" + finalDirection + ".png");
+                        guard.setDraw("leftleg_" + direction + ".png");
                     }
                     Thread.sleep(500);
 
@@ -138,34 +125,21 @@ public class GuardController extends GameController {
     }
 
 
-    List<Position> getNeighbors(Position p) {
-        List<Position> neighbors = new ArrayList<>();
-        int x = p.getX();
-        int y = p.getY();
-        neighbors.add(new Position(x - 1, y));
-        neighbors.add(new Position(x + 1, y));
-        neighbors.add(new Position(x, y - 1));
-        neighbors.add(new Position(x, y + 1));
-        return neighbors;
-    }
+//    List<Position> getNeighbors(Position p) {
+//        List<Position> neighbors = new ArrayList<>();
+//        int x = p.getX();
+//        int y = p.getY();
+//        neighbors.add(new Position(x - 1, y));
+//        neighbors.add(new Position(x + 1, y));
+//        neighbors.add(new Position(x, y - 1));
+//        neighbors.add(new Position(x, y + 1));
+//        return neighbors;
+//    }
 
 
     public void pursuit(Guard guard, Thief thief, int guard_index) {
-        int min_dist = Integer.MAX_VALUE;
-        Position nierest = null;
-        for (Position p : getNeighbors(guard.getPosition())) {
-            if (p.distance(thief.getPosition()) < min_dist) {
-                min_dist = p.distance(thief.getPosition());
-                nierest = p;
-            }
-        }
-        if(nierest.getX()>guard.getPosition().getX()) {
-            guard.setDirection(3);
-        }else if(nierest.getX()<guard.getPosition().getX())guard.setDirection(1);
-        else if(nierest.getY()>guard.getPosition().getY()) {
-            guard.setDirection(0);
-        }else if(nierest.getY()<guard.getPosition().getY())guard.setDirection(2);
-
-        moveGuard(guard_index, new Position(nierest.getX(), nierest.getY()));
+        int x = Integer.compare(thief.getPosition().getX(), guard.getPosition().getX());
+        int y = Integer.compare(thief.getPosition().getY(), guard.getPosition().getY());
+        moveGuard(guard_index, new Position(guard.getPosition().getX()+x, guard.getPosition().getY() + y));
     }
 }

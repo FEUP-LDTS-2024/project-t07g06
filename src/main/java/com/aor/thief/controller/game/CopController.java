@@ -6,12 +6,9 @@ import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.*;
 import com.aor.thief.model.gameover.GameOver;
-import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.GameOverState;
-import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
-import java.util.*;
 
 public class CopController extends GameController {
     private long lastMovement;
@@ -47,15 +44,9 @@ public class CopController extends GameController {
         }
     }
     public void pursuit(Cop cop, Thief thief, int cop_index) {
-        int min_dist = Integer.MAX_VALUE;
-        Position nierest = null;
-        for(Position p: cop.getPosition().getNeighbors()) {
-            if(p.distance(thief.getPosition())<min_dist) {
-                min_dist = p.distance(thief.getPosition());
-                nierest = p;
-            }
-        }
-        moveCop(cop_index, new Position(nierest.getX(), nierest.getY()));
+        int x = Integer.compare(thief.getPosition().getX(), cop.getPosition().getX());
+        int y = Integer.compare(thief.getPosition().getY(), cop.getPosition().getY());
+        moveCop(cop_index, new Position(cop.getPosition().getX()+x, cop.getPosition().getY() + y));
     }
     public Position movement(Position position, int direction, int index){
         switch (direction){
@@ -150,6 +141,7 @@ public class CopController extends GameController {
                     this.lastMovement = time;
                     if (isCaught()) {
                         game.stopGameSound();game.playWantedSound();
+                        caught();
                     }
                 } else {
                     for (Cop cop : getModel().getCops()) {

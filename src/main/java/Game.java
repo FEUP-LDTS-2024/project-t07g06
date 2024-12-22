@@ -78,7 +78,6 @@ public class Game {
         menuSelect.start();
     }
 
-
     public void playWin(){
         win.start();
     }
@@ -86,9 +85,6 @@ public class Game {
     public void stopWin(){
         win.stop();
     }
-
-
-
 
     private void start() throws IOException ,InterruptedException{
 

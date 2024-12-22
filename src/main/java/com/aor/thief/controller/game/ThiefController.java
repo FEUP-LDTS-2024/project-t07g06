@@ -11,8 +11,7 @@ import com.aor.thief.sound.InstanceSound;
 import com.aor.thief.sound.SoundFactory;
 import com.aor.thief.states.WinState;
 import com.aor.thief.model.game.elements.Thief;
-import com.aor.thief.model.menu.Menu;
-import com.aor.thief.states.MenuState;
+
 
 import java.io.IOException;
 
@@ -65,42 +64,37 @@ public class ThiefController extends GameController {
         }
     }
 
-    public boolean canKill() throws InterruptedException {
+    public boolean canKill()  {
         for (Guard guard : getModel().getGuards()) {
-            for (Position kill : getModel().fov(getModel().getThief())) {
-                if (guard.getHitbox().contains(kill)) {
-                    killGuard(guard);
-                    return true;
-                }
+            if (getModel().fov(getModel().getThief()).stream().anyMatch(guard.getHitbox()::contains)) {
+                killGuard(guard);
+                return true;
             }
-            for (Cop cop : getModel().getCops()) {
-                for (Position kill : getModel().fov(getModel().getThief())) {
-                    if (cop.getHitbox().contains(kill)) {
-                        killCop(cop);
-                        return true;
-                    }
-                }
+        }
+        for (Cop cop : getModel().getCops()) {
+            if (getModel().getThief().getFov().stream().anyMatch(cop.getHitbox()::contains)) {
+                killCop(cop);
+                return true;
             }
         }
         return false;
     }
     private synchronized void startMoveAnimation(Thief thief)  {
-        String direction = "";
-        switch (thief.getDirection()){
-            case 0: direction = "down1"; break;
-            case 1: direction = "left1"; break;
-            case 2: direction = "up1"; break;
-            case 3: direction = "right1"; break;
-        }
+        String direction = switch (thief.getDirection()) {
+            case 0 -> "down1";
+            case 1 -> "left1";
+            case 2 -> "up1";
+            case 3 -> "right1";
+            default -> "";
+        };
         if (moveAnimation == null || !moveAnimation.isAlive()) {
-            String finalDirection = direction;
             moveAnimation = new Thread(() -> {
                 try {
                     if(getModel().getThief().getFeet()==0) {
-                        thief.setDraw("rightleg_" + finalDirection + ".png");
+                        thief.setDraw("rightleg_" + direction + ".png");
                         Thread.sleep(150);
                     }else {
-                        thief.setDraw("leftleg_" + finalDirection + ".png");
+                        thief.setDraw("leftleg_" + direction + ".png");
                         Thread.sleep(150);
                     }
                     thief.toggleFeet();
@@ -114,30 +108,21 @@ public class ThiefController extends GameController {
     }
 
     private synchronized void startAttackAnimation(Thief thief)  {
-        String direction = "";
-        switch (thief.getDirection()) {
-            case 0:
-                direction = "down1";
-                break;
-            case 1:
-                direction = "left1";
-                break;
-            case 2:
-                direction = "up1";
-                break;
-            case 3:
-                direction = "right1";
-                break;
-        }
+        String direction = switch (thief.getDirection()) {
+            case 0 -> "down1";
+            case 1 -> "left1";
+            case 2 -> "up1";
+            case 3 -> "right1";
+            default -> "";
+        };
         if (attackAnimation == null || !attackAnimation.isAlive()) {
-            String finalDirection = direction;
             attackAnimation = new Thread(() -> {
                 try {
-                    String shoot = "shoot_" + finalDirection + ".png";
+                    String shoot = "shoot_" + direction + ".png";
 
                     thief.setDraw(shoot);
                     Thread.sleep(100);
-                    String still = "still_" + finalDirection + ".png";
+                    String still = "still_" + direction + ".png";
                     thief.setDraw(still);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -161,7 +146,7 @@ public class ThiefController extends GameController {
 
     public void PickedUpPrize(){
         if (!getModel().getPrize().isEmpty()) {
-            if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {
+            if(getModel().getThief().getHitbox().stream().anyMatch(getModel().getPrize().getFirst().getHitbox()::contains)) {
                 getModel().getThief().prize_collected();
                 playItemPickup();
                 getModel().getPrize().removeFirst();
