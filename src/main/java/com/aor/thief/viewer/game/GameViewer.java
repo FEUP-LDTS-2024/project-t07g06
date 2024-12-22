@@ -22,11 +22,11 @@ public class GameViewer extends Viewer<Arena> {
         drawElement(gui, getModel().getThief(), new ThiefViewer());
         drawElements(gui, getModel().getPrize(), new PrizeViewer());
         if(getModel().getPrize().isEmpty())drawElement(gui, getModel().getDoor(), new DoorViewer());
-        gui.refresh();
         if(!getModel().getDeads().isEmpty()) drawElements(gui, getModel().getDeads(), new DeadBodyViewer());
         drawElements(gui,getModel().getCops(),new CopViewer());
         drawElements(gui, getModel().getCamera(), new CameraViewer());
         drawElements(gui, getModel().getStillCameras(), new CameraStillViewer());
+        gui.refresh();
     }
 
     private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) throws InterruptedException, IOException {
