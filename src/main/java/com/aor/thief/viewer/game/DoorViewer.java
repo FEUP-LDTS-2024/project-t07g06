@@ -13,6 +13,6 @@ public class DoorViewer implements ElementViewer<Door> {
     @Override
     public void draw(Door door, GUI gui) throws IOException {
         //gui.drawImage(door.getPosition(),"");
-        gui.drawImage(door.getPosition(), path+"closed.png");
+        gui.drawImage(door.getPosition(), path+"door.png");
     }
 }

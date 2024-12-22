@@ -54,7 +54,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                 if (line.charAt(x) == '#'){
                     List <Position> hitbox = new ArrayList<>();
                     for(int i=0;i<5;i++){
-                        for(int j=0;j<3;j++){
+                        for(int j=0;j<4;j++){
                             hitbox.add(new Position(x+i,y+j));
                         }
                     }
@@ -132,17 +132,17 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     protected Door createDoor() {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
-            for (int x = 0; x < line.length(); x++)
-                if (line.charAt(x) == 'T'){
-                    List <Position> hitbox = new ArrayList<>();
-                    for(int i=0;i<3;i++){
-                        for(int j=0;j<3;j++){
-                            hitbox.add(new Position(x+i,y+j));
+            for (int x = 0; x < line.length(); x++) {
+                if (line.charAt(x) == 'T') {
+                    List<Position> hitbox = new ArrayList<>();
+                    for (int i = 0; i < 3; i++) {
+                        for (int j = 0; j < 3; j++) {
+                            hitbox.add(new Position(x + i, y + j));
                         }
                     }
-
-                    return new Door(x, y,hitbox);
+                    return new Door(x, y, hitbox);
                 }
+            }
         }
         return null;
     }

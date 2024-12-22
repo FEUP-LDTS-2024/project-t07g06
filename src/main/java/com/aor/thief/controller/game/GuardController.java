@@ -70,6 +70,21 @@ public class GuardController extends GameController {
         getModel().getGuards().get(index).toggleFeet();
     }
 
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
+        }
+    }
+
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         int index = 0;
@@ -95,18 +110,7 @@ public class GuardController extends GameController {
                     this.lastMovement = time;
                     if (isCaught()) {
                         game.stopGameSound();game.playWantedSound();
-                        for (Guard guard : getModel().getGuards()) {
-                            guard.setFound(true);
-                        }
-                        for (Cop cop : getModel().getCops()) {
-                            cop.setFound(true);
-                        }
-                        for (Camera camera : getModel().getCamera()){
-                            camera.setFound(true);
-                        }
-                        for (CameraStill still : getModel().getStillCameras()){
-                            still.setFound(true);
-                        }
+                        caught();
                     }
                 } else {
                     for (Guard guard : getModel().getGuards()) {

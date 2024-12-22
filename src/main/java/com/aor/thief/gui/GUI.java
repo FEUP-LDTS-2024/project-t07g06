@@ -10,23 +10,14 @@ public interface GUI {
 
     void drawThief(Position position);
 
-    void drawPrize(Position position);
-
     void drawWall(Position position);
 
-    void drawDeadBody(Position position);
 
     void drawGuard(Position position);
 
     void drawDoor(Position position);
 
     void drawImage(Position positions,String filename) throws IOException;
-
-    void drawCop(Position position);
-
-    void drawCamera(Position position);
-
-    void drawStillCamera(Position position);
 
     void  drawCharacter(int x, int y, char c, String color);
 

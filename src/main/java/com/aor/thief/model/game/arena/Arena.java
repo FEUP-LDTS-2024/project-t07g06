@@ -134,9 +134,9 @@ public class Arena {
     }
     public void  defCorner( Camera camera){
         List<Integer> corner= new ArrayList<>();
-        if(isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))){
+        if(isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
             corner.add(0);
-            if(isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))) {
+            if(isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))) {
                 corner.add(30);
                 corner.add(3);
             }else{
@@ -146,7 +146,7 @@ public class Arena {
         }
         else {
             corner.add(2);
-            if(isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))) {
+            if(isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))) {
                 corner.add(32);
                 corner.add(3);
             }else{
@@ -159,16 +159,16 @@ public class Arena {
     }
     public void defAxis(CameraStill camera ){
         List<Integer> axis= new ArrayList<>();
-        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))){
+        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
             axis.add(2);
             camera.setDirection(2);
-        }else if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))){
+        }else if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))){
             axis.add(3);
             camera.setDirection(3);
-        }else if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()))){
+        }else if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()-1))){
             axis.add(0);
             camera.setDirection(0);
-        }else if(!isntWall(new Position(camera.getPosition().getX()+4,camera.getPosition().getY()))){
+        }else if(!isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))){
             axis.add(1);
             camera.setDirection(1);
         }
