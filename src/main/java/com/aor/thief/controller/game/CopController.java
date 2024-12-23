@@ -40,7 +40,7 @@ public class CopController extends GameController {
             getModel().getCops().get(index).setPosition(position);
             getModel().getCops().get(index).setHitbox(position.updatehitbox_());
         }
-        getModel().getCops().get(index).toggleFeet();
+
     }
     public void pursuit(Cop cop, Thief thief, int cop_index) {
         int x = Integer.compare(thief.getPosition().getX(), cop.getPosition().getX());
@@ -88,11 +88,10 @@ public class CopController extends GameController {
             String finalDirection = direction;
             moveAnimation = new Thread(() -> {
                 try {
-                    if (cop.getFeet() == 0) {
-                        cop.setDraw("rightleg_" + finalDirection + ".png");
-                        cop.setDraw("leftleg_" + finalDirection + ".png");
-                    }
-                    Thread.sleep(500);
+                    if (cop.getFeet() == 0) {cop.setDraw("rightleg_" + finalDirection + ".png");
+                    }else cop.setDraw("leftleg_" + finalDirection + ".png");
+                    cop.toggleFeet();
+                    Thread.sleep(100);
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);

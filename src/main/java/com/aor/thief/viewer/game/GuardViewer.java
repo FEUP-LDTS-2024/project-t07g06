@@ -24,15 +24,15 @@ public class GuardViewer implements ElementViewer<Guard> {
     public String getDirection(Guard guard) {
         switch (guard.getDirection()) {
             case (0):
-                return "down1";
+                return "down";
             case (1):
-                return "left1";
+                return "left";
             case (2):
-                return "up1";
+                return "up";
             case (3):
-                return "right1";
+                return "right";
             default:
-                return "down1";
+                return "down";
         }
     }
 

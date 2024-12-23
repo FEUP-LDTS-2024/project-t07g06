@@ -35,7 +35,7 @@ public class GuardController extends GameController {
                     } else {
                         guard.setDraw("leftleg_" + direction + ".png");
                     }
-                    Thread.sleep(500);
+                    Thread.sleep(200);
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
