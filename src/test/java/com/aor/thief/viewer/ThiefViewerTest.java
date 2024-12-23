@@ -24,6 +24,9 @@ public class ThiefViewerTest {
     @Test
     void drawElement() throws IOException, InterruptedException {
         viewer.draw(thief, gui);
-        Mockito.verify(gui, Mockito.times(1)).drawThief(thief.getPosition());
+        Mockito.verify(gui, Mockito.times(1)).drawImage(
+                thief.getPosition(),
+                "src/main/resources/sprites/thief/still_down1.png"
+        );
     }
 }
