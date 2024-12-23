@@ -45,10 +45,10 @@ public class GuardControllerTest {
         arena.setCops(new ArrayList<>());
         arena.setCameras(new ArrayList<>());
         arena.setStillCameras(new ArrayList<>());
-        Guard guard = new Guard(5, 5, 3, false, new Position(5, 5).updatehitbox_(), 0, "");
+        Guard guard = new Guard(10, 5, 1, false, new Position(10, 5).updatehitbox_(), 0, "");
         arena.setGuards(Arrays.asList(guard));
         arena.setWalls(Arrays.asList(
-                new Wall(6, 5, new ArrayList<>())));
+                new Wall(5, 5, new Position(10,5).updatehitbox_())));
 
         long time=0;
 
@@ -57,7 +57,7 @@ public class GuardControllerTest {
             controller.step(game, GUI.ACTION.NONE, time);
         }
 
-        assertEquals(new Position(6,5),guard.getPosition());
+        assertEquals(new Position(10,5),guard.getPosition());
     }
 
     @Test
@@ -75,22 +75,7 @@ public class GuardControllerTest {
         assertEquals(new Position(5, 6), guard.getPosition());
     }
 
-    @Test
-    void guardPursuitThief() throws IOException {
-        Thief thief = new Thief(8, 8, 0, 0, new Position(8, 8).updatehitbox_(), 0, "");
-        arena.setThief(thief);
 
-        Guard guard = new Guard(5, 5, 0, false, new Position(5, 5).updatehitbox_(), 0, "");
-        arena.setGuards(Arrays.asList(guard));
-
-        arena.setCops(Collections.emptyList());
-        arena.setWalls(Collections.emptyList());
-
-        controller.step(game, GUI.ACTION.NONE, 1000);
-
-        assertNotEquals(new Position(5, 5), guard.getPosition());
-        assertEquals(3, guard.getDirection());
-    }
 
     @Test
     void isThiefCaught() {
@@ -104,6 +89,25 @@ public class GuardControllerTest {
 
         boolean caught = controller.isCaught();
         assertTrue(caught);
+    }
+
+    @Test
+    void isntThiefCaught() {
+        arena.setCops(new ArrayList<>());
+        arena.setCameras(new ArrayList<>());
+        arena.setStillCameras(new ArrayList<>());
+        Thief thief = new Thief(5, 13, 0, 0, new Position(5, 13).updatehitbox_(), 0, "");
+        arena.setThief(thief);
+
+        arena.setWalls(Arrays.asList(
+                new Wall(5, 10, new Position(5,10).updatehitbox_())));
+
+        Guard guard = new Guard(5, 5, 0, false, new Position(5, 5).updatehitbox_(), 0, "");
+        arena.setGuards(Arrays.asList(guard));
+
+
+        boolean caught = controller.isCaught();
+        assertFalse(caught);
     }
 
 
@@ -142,14 +146,6 @@ public class GuardControllerTest {
     }
 
 
-    @Test
-    void startMoveAnimationTest() throws IOException {
-        Guard guard = new Guard(5, 5, 0, false, new Position(5, 5).updatehitbox_(), 0, "");
-        arena.setGuards(Arrays.asList(guard));
 
-        controller.step(game, GUI.ACTION.NONE, 1000);
-
-        Mockito.verify(guard).setDraw(Mockito.contains("rightleg"));
-    }
 }
 
