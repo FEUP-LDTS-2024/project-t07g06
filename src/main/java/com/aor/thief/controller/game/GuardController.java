@@ -21,10 +21,10 @@ public class GuardController extends GameController {
 
     private synchronized void startMoveAnimation(Guard guard) {
         String direction = switch (guard.getDirection()) {
-            case 0 -> "down1";
-            case 1 -> "left1";
-            case 2 -> "up1";
-            case 3 -> "right1";
+            case 0 -> "down";
+            case 1 -> "left";
+            case 2 -> "up";
+            case 3 -> "right";
             default -> "";
         };
         if (moveAnimation == null || !moveAnimation.isAlive()) {
