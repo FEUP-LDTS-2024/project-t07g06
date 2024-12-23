@@ -57,6 +57,10 @@ public class Arena {
         return cameras;
     }
 
+    public List<CameraStill> getStillCamera() {
+        return stillCameras;
+    }
+
     public void setCameras(List<Camera> cameras) {
         this.cameras = cameras;
     }

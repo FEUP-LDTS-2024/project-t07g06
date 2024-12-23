@@ -5,10 +5,12 @@ import com.aor.thief.controller.Controller;
 import com.aor.thief.gui.GUI;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.CameraStill;
+import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.model.menu.Menu;
 import com.aor.thief.states.MenuState;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ArenaController extends Controller {
     private final ThiefController thiefController;
@@ -45,4 +47,11 @@ public class ArenaController extends Controller {
             cameraStillController.step(game, action,time);
         }
     }
+
+    public ThiefController getThiefController() { return thiefController;}
+    public GuardController getGuardController() { return guardController;}
+    public CopController getCopController() { return copController;}
+    public CameraStillController getCameraStillController() { return cameraStillController;}
+    public CameraController getCameraController() { return cameraController;}
+
 }
