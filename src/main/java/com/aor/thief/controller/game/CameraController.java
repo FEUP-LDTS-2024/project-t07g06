@@ -53,46 +53,7 @@ public class CameraController extends GameController {
         }
         getModel().getCamera().get(index).setCurrent_pos(getModel().getCamera().get(index).getCurrent_pos()+movement);
     }
-    private synchronized void startRotationAnimation(Camera camera) {
-        String pos = "";
-        List<Integer> corner = camera.getCorner();
-        if(!corner.isEmpty()) {
-            if (corner.getFirst() == 0) {
-                pos += "up_";
-            } else {
-                pos += "down_";
-            }
-            if (corner.getLast() == 3) {
-                pos += "left_";
-            } else {
-                pos += "right_";
-            }
-        }
-        if (moveAnimation == null || !moveAnimation.isAlive()) {
-            if (!camera.getCorner().isEmpty()) {
-                String finalPos = pos;
-                moveAnimation = new Thread(() -> {
-                    try {
-                        switch (camera.getCurrent_pos()) {
-                            case 0:
-                                camera.setDraw(finalPos + "down.png");
-                                break;
-                            case 1:
-                                camera.setDraw(finalPos + "mid.png");
-                                break;
-                            case 2:
-                                camera.setDraw(finalPos + "up.png");
-                                break;
-                        }
-                        Thread.sleep(750);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                moveAnimation.start();
-            }
-        }
-    }
+
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
@@ -106,7 +67,6 @@ public class CameraController extends GameController {
                                 getModel().defCorner(camera);
                             }
                             rotateCamera(index, camera.getCurrent_pos());
-                            startRotationAnimation(camera);
                             camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
                             getModel().fov(camera);
                             index++;
