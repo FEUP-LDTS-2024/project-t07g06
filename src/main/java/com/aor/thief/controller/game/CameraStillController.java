@@ -15,6 +15,14 @@ public class CameraStillController extends GameController {
     public CameraStillController(Arena arena) {
         super(arena);
     }
+    public boolean isCaught() {
+        for (CameraStill camera : getModel().getStillCameras()) {
+            if (getModel().fov(camera).stream().anyMatch(getModel().getThief().getHitbox()::contains)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if(!getModel().getStillCameras().isEmpty()) {
@@ -43,18 +51,6 @@ public class CameraStillController extends GameController {
             }
         }
 
-    }
-
-
-    public boolean isCaught() {
-        for (CameraStill camera : getModel().getStillCameras()) {
-            for (Position caught : getModel().fov(camera)) {
-                if (getModel().getThief().getHitbox().contains(caught)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
 }

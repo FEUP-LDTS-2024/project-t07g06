@@ -21,10 +21,8 @@ public class CopController extends GameController {
 
     public boolean isCaught() {
         for (Cop cop : getModel().getCops()) {
-            for (Position caught : getModel().fov(cop)) {
-                if (getModel().getThief().getHitbox().contains(caught)) {
-                    return true;
-                }
+            if (getModel().fov(cop).stream().anyMatch(getModel().getThief().getHitbox()::contains)){
+                return true;
             }
         }
         return false;

@@ -25,10 +25,8 @@ public class CameraController extends GameController {
 
     public boolean isCaught() {
         for (Camera camera : getModel().getCamera()) {
-            for (Position caught : getModel().fov(camera)) {
-                if (getModel().getThief().getHitbox().contains(caught)) {
+            if (getModel().fov(camera).stream().anyMatch(getModel().getThief().getHitbox()::contains)) {
                     return true;
-                }
             }
         }
         return false;
