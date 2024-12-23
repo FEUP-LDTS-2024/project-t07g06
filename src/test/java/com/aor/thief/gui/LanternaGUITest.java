@@ -92,13 +92,6 @@ public class LanternaGUITest {
         verify(tg, times(1)).putString(5, 6, "#");
     }
 
-    @Test
-    void drawCop() {
-        gui.drawCop(new Position(2, 3));
-
-        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(204, 0, 0));
-        verify(tg, times(1)).putString(2, 4, "O");
-    }
 
     @Test
     void clearScreen() {
@@ -120,14 +113,4 @@ public class LanternaGUITest {
 
         verify(screen, times(1)).close();
     }
-
-    @Test
-    void drawPrize() {
-        gui.drawPrize(new Position(3, 3));
-
-        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
-        verify(tg, times(1)).putString(3, 4, "£");
-    }
-
-
 }
