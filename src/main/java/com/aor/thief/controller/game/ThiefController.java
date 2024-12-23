@@ -118,7 +118,7 @@ public class ThiefController extends GameController {
                     String shoot = "shoot_" + direction + ".png";
 
                     thief.setDraw(shoot);
-                    Thread.sleep(100);
+                    Thread.sleep(75);
                     String still = "still_" + direction + ".png";
                     thief.setDraw(still);
                 } catch (InterruptedException e) {
