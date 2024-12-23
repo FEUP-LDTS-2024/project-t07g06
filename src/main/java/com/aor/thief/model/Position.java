@@ -62,6 +62,7 @@ public class Position  {
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 hitbox.add(new Position(x+i,y+j));
+                hitbox.add(new Position(x-i,y-j));
             }
         }
 
