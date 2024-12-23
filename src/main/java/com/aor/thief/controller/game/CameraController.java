@@ -32,7 +32,7 @@ public class CameraController extends GameController {
         return false;
     }
 
-    private void rotateCamera(int index,int current_pos) {
+    public void rotateCamera(int index,int current_pos) {
         getModel().getCamera().get(index).setDirection(getModel().getCamera().get(index).getCurrent_pos());
         int movement=0;
         switch (current_pos) {
