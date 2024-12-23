@@ -54,8 +54,9 @@ public class LoaderArenaBuilder extends ArenaBuilder {
                 if (line.charAt(x) == '#'){
                     List <Position> hitbox = new ArrayList<>();
                     for(int i=0;i<5;i++){
-                        for(int j=0;j<4;j++){
+                        for(int j=0;j<3;j++){
                             hitbox.add(new Position(x+i,y+j));
+                            hitbox.add(new Position(x-i,y-j));
                         }
                     }
                     walls.add(new Wall(x, y,hitbox));

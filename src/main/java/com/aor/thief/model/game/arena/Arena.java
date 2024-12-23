@@ -134,23 +134,23 @@ public class Arena {
     }
     public void  defCorner( Camera camera){
         List<Integer> corner= new ArrayList<>();
-        if(isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
-            corner.add(0);
-            if(isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))) {
-                corner.add(30);
-                corner.add(3);
-            }else{
-                corner.add(10);
-                corner.add(1);
-            }
-        }
-        else {
+        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
             corner.add(2);
-            if(isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))) {
+            if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))) {
                 corner.add(32);
                 corner.add(3);
             }else{
                 corner.add(12);
+                corner.add(1);
+            }
+        }
+        else {
+            corner.add(0);
+            if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))) {
+                corner.add(30);
+                corner.add(3);
+            }else{
+                corner.add(10);
                 corner.add(1);
             }
         }
