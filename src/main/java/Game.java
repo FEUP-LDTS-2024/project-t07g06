@@ -78,10 +78,7 @@ public class Game {
         menuSelect.start();
     }
 
-    public void playWin(){
-        win.start();
-    }
-
+    public void playWin(){ win.start();}
 
     public void stopWin(){
         win.stop();
