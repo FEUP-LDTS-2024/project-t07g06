@@ -18,6 +18,7 @@ import java.io.IOException;
 public class ThiefController extends GameController {
     Thread moveAnimation;
     Thread attackAnimation;
+
     public ThiefController(Arena arena) {
         super(arena);
     }

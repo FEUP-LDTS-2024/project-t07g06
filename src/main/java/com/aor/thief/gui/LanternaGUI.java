@@ -58,18 +58,18 @@ public class LanternaGUI implements GUI {
         if (keyStroke == null) return ACTION.NONE;
 
         if (keyStroke.getKeyType() == KeyType.EOF) System.exit(0);
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
-        if (keyStroke.getKeyType() == KeyType.ArrowUp ) return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown ) return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft ) return ACTION.LEFT;
-        if (keyStroke.getKeyType() == KeyType.ArrowRight ) return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return ACTION.LEFT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return ACTION.ESCAPE;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') return ACTION.KILL;
-        if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
+        else if (keyStroke.getKeyType() == KeyType.ArrowUp ) return ACTION.UP;
+        else if (keyStroke.getKeyType() == KeyType.ArrowDown ) return ACTION.DOWN;
+        else if (keyStroke.getKeyType() == KeyType.ArrowLeft ) return ACTION.LEFT;
+        else if (keyStroke.getKeyType() == KeyType.ArrowRight ) return ACTION.RIGHT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return ACTION.UP;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return ACTION.RIGHT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return ACTION.DOWN;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return ACTION.LEFT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return ACTION.ESCAPE;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') return ACTION.KILL;
+        else if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
 
         return ACTION.NONE;
     }
