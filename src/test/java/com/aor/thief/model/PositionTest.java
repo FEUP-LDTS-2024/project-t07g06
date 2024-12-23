@@ -83,10 +83,11 @@ class PositionTest {
         Position position = new Position(x, y);
         List<Position> hitbox = position.updatehitbox_();
 
-        assertEquals(9, hitbox.size());
+        assertEquals(18, hitbox.size());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 assertTrue(hitbox.contains(new Position(x + i, y + j)));
+                assertTrue(hitbox.contains(new Position(x-i,y-j)));
             }
         }
     }
