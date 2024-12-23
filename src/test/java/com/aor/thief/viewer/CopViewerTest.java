@@ -26,20 +26,18 @@ class CopViewerTest {
         viewer = new CopViewer();
     }
 
+
     @Test
     void testDraw_CopFound() throws IOException, InterruptedException {
-        // Arrange
+
         when(cop.isFound()).thenReturn(true);
         when(cop.getPosition()).thenReturn(new Position(5, 5));
         when(cop.getDraw()).thenReturn("still_down1.png");
-
-
         viewer.draw(cop, gui);
-
-
         verify(gui).drawImage(cop.getPosition(), "src/main/resources/sprites/cop/still_down1.png");
         verify(gui, never()).drawImage(any(), eq("src/main/resources/sprites/vision/pixil-frame-0.png"));
     }
+
 
     @Test
     void testDraw_CopNotFound() throws IOException, InterruptedException {
@@ -52,21 +50,17 @@ class CopViewerTest {
         when(cop.getFov()).thenReturn(fov);
         when(cop.getPosition()).thenReturn(new Position(5, 5));
         when(cop.getDraw()).thenReturn("still_down1.png");
-
-
         viewer.draw(cop, gui);
-
-
         verify(gui).drawImage(new Position(4, 5), "src/main/resources/sprites/vision/pixil-frame-0.png");
         verify(gui).drawImage(new Position(5, 4), "src/main/resources/sprites/vision/pixil-frame-0.png");
         verify(gui).drawImage(cop.getPosition(), "src/main/resources/sprites/cop/still_down1.png");
     }
 
+
     @Test
     void testGetDirection() {
 
         when(cop.getDirection()).thenReturn(0, 1, 2, 3, -1);
-
 
         assertEquals("down1", viewer.getDirection(cop));
         assertEquals("left1", viewer.getDirection(cop));

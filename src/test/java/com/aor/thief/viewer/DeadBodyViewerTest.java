@@ -18,21 +18,19 @@ class DeadBodyViewerTest {
 
     @BeforeEach
     void setUp() {
+
         gui = mock(GUI.class);
         deadBody = mock(DeadBody.class);
         viewer = new DeadBodyViewer();
     }
+
 
     @Test
     void testDraw_GuardDeadBody() throws IOException {
 
         when(deadBody.getType()).thenReturn("G");
         when(deadBody.getPosition()).thenReturn(new Position(5, 5));
-
-
         viewer.draw(deadBody, gui);
-
-
         verify(gui).drawImage(new Position(5, 5), "src/main/resources/sprites/guards/dead.png");
     }
 
@@ -41,11 +39,7 @@ class DeadBodyViewerTest {
 
         when(deadBody.getType()).thenReturn("C");
         when(deadBody.getPosition()).thenReturn(new Position(10, 10));
-
-
         viewer.draw(deadBody, gui);
-
-
         verify(gui).drawImage(new Position(10, 10), "src/main/resources/sprites/cop/dead.png");
     }
 }

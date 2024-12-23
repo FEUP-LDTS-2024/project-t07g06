@@ -24,15 +24,12 @@ class PrizeViewerTest {
         viewer = new PrizeViewer();
     }
 
+
     @Test
     void testDraw_Prize() throws IOException {
 
         when(prize.getPosition()).thenReturn(new Position(7, 7));
-
-
         viewer.draw(prize, gui);
-
-
         verify(gui).drawImage(new Position(7, 7), "src/main/resources/sprites/prize/prize_1.png");
     }
 }

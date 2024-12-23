@@ -26,15 +26,12 @@ public class WallViewerTest {
         gui = Mockito.mock(GUI.class);
     }
 
+
     @Test
     public void testDraw() throws IOException {
 
         Mockito.when(wall.getPosition()).thenReturn(new Position(5, 5));
-
-
         wallViewer.draw(wall, gui);
-
-
         verify(gui).drawImage(new Position(5, 5), "src/main/resources/sprites/wall/wall8.png");
     }
 }

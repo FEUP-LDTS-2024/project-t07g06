@@ -32,11 +32,7 @@ class GuardViewerTest {
         when(guard.isFound()).thenReturn(true);
         when(guard.getPosition()).thenReturn(new Position(5, 5));
         when(guard.getDraw()).thenReturn("still_down1.png");
-
-
         viewer.draw(guard, gui);
-
-
         verify(gui).drawImage(guard.getPosition(), "src/main/resources/sprites/guards/still_down1.png");
         verify(gui, never()).drawImage(any(), eq("src/main/resources/sprites/vision/pixil-frame-0.png"));
     }
@@ -47,16 +43,11 @@ class GuardViewerTest {
         LinkedList<Position> fov = new LinkedList<>();
         fov.add(new Position(4, 5));
         fov.add(new Position(5, 4));
-
         when(guard.isFound()).thenReturn(false);
         when(guard.getFov()).thenReturn(fov);
         when(guard.getPosition()).thenReturn(new Position(5, 5));
         when(guard.getDraw()).thenReturn("still_down1.png");
-
-
         viewer.draw(guard, gui);
-
-
         verify(gui).drawImage(new Position(4, 5), "src/main/resources/sprites/vision/pixil-frame-0.png");
         verify(gui).drawImage(new Position(5, 4), "src/main/resources/sprites/vision/pixil-frame-0.png");
         verify(gui).drawImage(guard.getPosition(), "src/main/resources/sprites/guards/still_down1.png");
@@ -66,7 +57,6 @@ class GuardViewerTest {
     void testGetDirection() {
 
         when(guard.getDirection()).thenReturn(0, 1, 2, 3, -1);
-
 
         assertEquals("down1", viewer.getDirection(guard));
         assertEquals("left1", viewer.getDirection(guard));

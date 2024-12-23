@@ -19,6 +19,7 @@ class DoorViewerTest {
 
     @BeforeEach
     void setUp() {
+
         gui = mock(GUI.class);
         door = mock(Door.class);
         viewer = new DoorViewer();
@@ -28,9 +29,7 @@ class DoorViewerTest {
     void testDraw_DoorClosed() throws IOException {
 
         when(door.getPosition()).thenReturn(new Position(3, 3));
-
         viewer.draw(door, gui);
-
         verify(gui).drawImage(new Position(3, 3), "src/main/resources/sprites/door/closed.png");
     }
 }
