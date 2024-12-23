@@ -123,20 +123,6 @@ public class GuardController extends GameController {
             }
         }
     }
-
-
-//    List<Position> getNeighbors(Position p) {
-//        List<Position> neighbors = new ArrayList<>();
-//        int x = p.getX();
-//        int y = p.getY();
-//        neighbors.add(new Position(x - 1, y));
-//        neighbors.add(new Position(x + 1, y));
-//        neighbors.add(new Position(x, y - 1));
-//        neighbors.add(new Position(x, y + 1));
-//        return neighbors;
-//    }
-
-
     public void pursuit(Guard guard, Thief thief, int guard_index) {
         int x = Integer.compare(thief.getPosition().getX(), guard.getPosition().getX());
         int y = Integer.compare(thief.getPosition().getY(), guard.getPosition().getY());
