@@ -159,7 +159,6 @@ public class Arena {
             }
         }
         camera.setCorner(corner);
-        System.out.println(camera.getCorner());
     }
     public void defAxis(CameraStill camera ){
         List<Integer> axis= new ArrayList<>();
@@ -178,7 +177,6 @@ public class Arena {
         }
 
         camera.setCorner(axis);
-        System.out.println(axis.getFirst());
     }
 }
 
