@@ -84,15 +84,6 @@ public class LanternaGUI implements GUI {
         drawCharacter(position.getX(), position.getY(), '#', "#3333FF");
     }
 
-    @Override
-    public void drawGuard(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'G', "#CC0000");
-    }
-
-    @Override
-    public void drawDoor(Position position){
-        drawCharacter(position.getX(), position.getY(), 'P', "#964B00");
-    }
 
     @Override
     public void drawText(Position position, String text, String color) {
