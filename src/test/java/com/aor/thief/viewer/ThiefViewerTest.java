@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ThiefViewerTest {
     private Thief thief;
     private ThiefViewer viewer;
@@ -24,9 +26,8 @@ public class ThiefViewerTest {
     }
 
     @Test
-    void drawElement_WhenDrawIsEmpty() throws IOException, InterruptedException {
-        // Verifica o caminho quando draw está vazio
-        thief.setDraw(""); // Garante que a condição isEmpty será verdadeira
+    void drawIsEmpty() throws IOException, InterruptedException {
+        thief.setDraw("");
         viewer.draw(thief, gui);
         Mockito.verify(gui, Mockito.times(1)).drawImage(
                 thief.getPosition(),
@@ -35,8 +36,7 @@ public class ThiefViewerTest {
     }
 
     @Test
-    void drawElement_WhenDrawIsNotEmpty() throws IOException, InterruptedException {
-        // Verifica o caminho quando draw não está vazio
+    void drawIsnttEmpty() throws IOException, InterruptedException {
         thief.setDraw("custom_image.png");
         viewer.draw(thief, gui);
         Mockito.verify(gui, Mockito.times(1)).drawImage(
@@ -46,21 +46,20 @@ public class ThiefViewerTest {
     }
 
     @Test
-    void getDirection_AllCases() {
-        // Testa cada direção possível
+    void getDir() {
         thief.setDirection(0);
-        Assertions.assertEquals("down1", viewer.getDirection(thief));
+        assertEquals("down1", viewer.getDirection(thief));
 
         thief.setDirection(1);
-        Assertions.assertEquals("left1", viewer.getDirection(thief));
+        assertEquals("left1", viewer.getDirection(thief));
 
         thief.setDirection(2);
-        Assertions.assertEquals("up1", viewer.getDirection(thief));
+        assertEquals("up1", viewer.getDirection(thief));
 
         thief.setDirection(3);
-        Assertions.assertEquals("right1", viewer.getDirection(thief));
+        assertEquals("right1", viewer.getDirection(thief));
 
-        thief.setDirection(99); // Caso padrão
-        Assertions.assertEquals("down", viewer.getDirection(thief));
+        thief.setDirection(99);
+        assertEquals("down", viewer.getDirection(thief));
     }
 }

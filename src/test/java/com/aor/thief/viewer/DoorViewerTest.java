@@ -26,7 +26,7 @@ class DoorViewerTest {
     }
 
     @Test
-    void testDraw_DoorClosed() throws IOException {
+    void testDraw_Door() throws IOException {
 
         when(door.getPosition()).thenReturn(new Position(3, 3));
         viewer.draw(door, gui);
