@@ -1,7 +1,9 @@
 plugins {
     id 'java'
     id 'application'
-    id 'info.solidsoft.pitest' version '1.6.0'
+    id 'info.solidsoft.pitest' version '1.15.0'
+    id 'net.ltgt.errorprone' version '4.1.0'
+
 }
 
 group 'com.aor.Thief'
@@ -12,7 +14,11 @@ repositories {
 }
 
 pitest {
-    junit5PluginVersion = '0.12'
+    junit5PluginVersion = '1.2.1'
+    targetClasses = ['com.aor.thief.*']
+    excludedClasses=['com.aor.thief.gui.*']
+
+
 }
 
 application {
@@ -23,9 +29,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'org.mockito:mockito-core:3.7.7'
-    testImplementation 'net.jqwik:jqwik:1.5.1'
-
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
+    errorprone 'com.google.errorprone:error_prone_core:2.30.0'
+
 }
 
 java {
@@ -35,7 +41,6 @@ java {
 }
 
 test {
-    useJUnitPlatform {
-        includeEngines('junit-jupiter', 'jqwik')
-    }
+    useJUnitPlatform()
+
 }
