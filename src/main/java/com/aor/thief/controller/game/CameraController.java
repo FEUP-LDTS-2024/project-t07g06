@@ -5,11 +5,10 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Camera;
+import com.aor.thief.model.game.elements.CameraStill;
 import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.Guard;
-import com.aor.thief.model.game.elements.Thief;
-import com.aor.thief.model.menu.Menu;
-import com.aor.thief.states.MenuState;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -22,63 +21,17 @@ public class CameraController extends GameController {
         this.lastMovement = 0;
     }
 
-    @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        if (isCaught()) {
-            for (Guard guard : getModel().getGuards()) {
-                guard.setFound(true);
-            }
-            for (Cop cop : getModel().getCops()) {
-                cop.setFound(true);
-            }
-        }
-        if (time - lastMovement > 2000) {
-            if (!getModel().getCamera().isEmpty()) {
-                if (isCaught()) {
-                    for (Guard guard : getModel().getGuards()) {
-                        guard.setFound(true);
-                    }
-                    for (Cop cop : getModel().getCops()) {
-                        cop.setFound(true);
-                    }
-                }
-                int index=0;
-                if (!getModel().getCamera().getFirst().isFound()) {
-                    for (Camera camera : getModel().getCamera()) {
-                        if(camera.getCorner().isEmpty()){
-                            getModel().defCorner(camera);
-                        }
-                        rotateCamera(index,camera.getCurrent_pos());
-                        getModel().fov(camera);
-                        index++;
-                    }
-                    this.lastMovement = time;
-                    if (isCaught()) {
-                        for (Guard guard : getModel().getGuards()) {
-                            guard.setFound(true);
-                        }
-                        for (Cop cop : getModel().getCops()) {
-                            cop.setFound(true);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     public boolean isCaught() {
         for (Camera camera : getModel().getCamera()) {
-            for (Position caught : getModel().fov(camera)) {
-                if (getModel().getThief().getHitbox().contains(caught)) {
+            if (getModel().fov(camera).stream().anyMatch(getModel().getThief().getHitbox()::contains)) {
                     return true;
-                }
             }
-
         }
         return false;
     }
 
-    private void rotateCamera(int index,int current_pos) {
+    public void rotateCamera(int index,int current_pos) {
         getModel().getCamera().get(index).setDirection(getModel().getCamera().get(index).getCurrent_pos());
         int movement=0;
         switch (current_pos) {
@@ -98,4 +51,47 @@ public class CameraController extends GameController {
         getModel().getCamera().get(index).setCurrent_pos(getModel().getCamera().get(index).getCurrent_pos()+movement);
     }
 
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
+        }
+    }
+
+    @Override
+    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        if (!getModel().getCamera().isEmpty()){
+            if (time - lastMovement > 750) {
+                if (!getModel().getCamera().getFirst().isFound()) {
+                    if (!getModel().getCamera().isEmpty()) {
+                        int index = 0;
+                        for (Camera camera : getModel().getCamera()) {
+                            if (camera.getCorner().isEmpty()) {
+                                getModel().defCorner(camera);
+                            }
+                            rotateCamera(index, camera.getCurrent_pos());
+                            camera.setDirection(camera.getCorner().get(camera.getCurrent_pos()));
+                            getModel().fov(camera);
+                            index++;
+
+                        }
+                        this.lastMovement = time;
+                    }
+                    if (isCaught()) {
+                        game.stopGameSound();
+                        game.playWantedSound();
+                        caught();
+                    }
+                }
+            }
+        }
+    }
 }

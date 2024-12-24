@@ -5,36 +5,35 @@ import com.aor.thief.sound.*;
 import com.aor.thief.states.MenuState;
 import com.aor.thief.states.State;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class Game {
     private final LanternaGUI gui;
     private State state;
+    //sons que são looped são inicializados dentro do Game para serem mais acessiveis de parar e iniciar,
+    //assim como sons de seleção no menu.
     private final LoopedSoundPlayer loopedSoundPlayer;
-    private final InstanceSound itemPickupSound;
-
     private final LoopedSoundPlayer win;
-
     private final LoopedSoundPlayer lossSound;
+    private final LoopedSoundPlayer wanted;
 
 
 
-    public Game() throws FontFormatException, IOException, URISyntaxException,Exception {
 
+
+
+    public Game() throws Exception {
         this.gui = new LanternaGUI(160, 90);
-
-        this.state = new MenuState(new Menu()); //objetivo:Aqui ler o menu, para depois o menu lançar o nivel
+        this.state = new MenuState(new Menu());
         this.loopedSoundPlayer = new SoundFactory().createBackgroundSound();
-        this.itemPickupSound= new SoundFactory().createItemPickupSound();
-
         this.win= new SoundFactory().createWinSound();
-
         this.lossSound=new SoundFactory().createLoseSound();
+        this.wanted=new SoundFactory().createWantedSound();
 
     }
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException,Exception {
+
+    public static void main(String[] args) throws Exception {
+
         new Game().start();
 
     }
@@ -44,19 +43,13 @@ public class Game {
     }
 
 
-    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
-        InstanceSound footStepSound = new SoundFactory().createFootStepSound();
-        footStepSound.start();
+
+    public void playWantedSound(){
+        wanted.start();
     }
 
-    public  void playGunShot() {
-        InstanceSound gunShot = new SoundFactory().createGunShotSound();
-        gunShot.start();
-    }
-
-    public  void playGuardDeathSound() {
-        InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
-        guardDeathSound.start();
+    public void stopWantedSound(){
+        wanted.stop();
     }
 
     public void playLossSound(){
@@ -75,11 +68,6 @@ public class Game {
         loopedSoundPlayer.stop();
     }
 
-
-    public void playItemPickupSound(){
-        itemPickupSound.start();
-    }
-
     public void playMenuChange(){
         InstanceSound menuChange = new SoundFactory().createMenuChangeSound();
         menuChange.start();
@@ -90,22 +78,15 @@ public class Game {
         menuSelect.start();
     }
 
-
-    public void playWin(){
-        win.start();
-    }
+    public void playWin(){ win.start();}
 
     public void stopWin(){
         win.stop();
     }
 
-
-
-    private void start() throws IOException {
-
+    private void start() throws IOException ,InterruptedException{
 
         int FPS = 30;
-
         int frameTime = 1000 / FPS;
         playGameSound();
         while (this.state != null) {

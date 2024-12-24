@@ -15,13 +15,15 @@ import com.aor.thief.states.MenuState;
 import java.io.IOException;
 
 
-public class MenuController extends Controller<Menu> {
+public class  MenuController extends Controller<Menu> {
     public MenuController(Menu menu){
         super(menu);
     }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        game.stopWantedSound();
+        game.stopLossSound();
         switch (action){
             case UP:
                 getModel().previousEntry();

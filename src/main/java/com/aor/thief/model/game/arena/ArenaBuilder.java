@@ -20,27 +20,27 @@ public abstract class ArenaBuilder {
     }
 
 
-    protected abstract int getWidth();
+    public abstract int getWidth();
 
-    protected abstract int getHeight();
+    public abstract int getHeight();
 
-    protected abstract List<Wall> createWalls();
+    public abstract List<Wall> createWalls();
 
-    protected abstract List<DeadBody> createDeads();
+    public abstract List<DeadBody> createDeads();
 
-    protected abstract List<Guard> createGuard();
+    public abstract List<Guard> createGuard();
 
-    protected abstract Thief createThief();
+    public  abstract Thief createThief();
 
-    protected abstract List<Prize> createPrize();
+    public  abstract List<Prize> createPrize();
 
-    protected abstract Door createDoor();
+    public  abstract Door createDoor();
 
-    protected abstract List<Camera> createCamera();
+    public  abstract List<Camera> createCamera();
 
-    protected abstract List<CameraStill> createStillCameras();
+    public  abstract List<CameraStill> createStillCameras();
 
-    protected abstract List<Cop> createCop();
+    public  abstract List<Cop> createCop();
 
 }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CameraStill extends ConeEnemy {
-    List<Integer> corner= new ArrayList<>();
+    List<Integer> corner;
 
     public CameraStill(int x, int y, int direction, boolean found, List<Position> hitbox,List<Integer> corner) {
         super(x, y, direction, found, hitbox);

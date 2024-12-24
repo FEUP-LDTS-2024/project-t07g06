@@ -1,12 +1,32 @@
 package com.aor.thief.gui;
 
 import com.aor.thief.model.Position;
+import com.aor.thief.model.game.elements.Thief;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.screen.Screen;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class LanternaGUITest {
     private Screen screen;
@@ -27,15 +47,146 @@ public class LanternaGUITest {
     void drawThief() {
         gui.drawThief(new Position(1, 1));
 
-        Mockito.verify(tg, Mockito.times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
-        Mockito.verify(tg, Mockito.times(1)).putString(1, 2, "T");
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(255, 215, 0));
+        verify(tg, times(1)).putString(1, 2, "T");
     }
 
     @Test
     void drawText() {
         gui.drawText(new Position(1, 1), "Hello World", "#336699");
 
-        Mockito.verify(tg, Mockito.times(1)).setForegroundColor(new TextColor.RGB(51, 102, 153));
-        Mockito.verify(tg, Mockito.times(1)).putString(1, 1, "Hello World");
+        verify(tg, times(1)).setForegroundColor(TextColor.Factory.fromString("#336699"));
+        verify(tg, times(1)).putString(1, 1, "Hello World");
+    }
+
+    @Test
+    void drawImageThrowsIOExceptionForInvalidPath() {
+        Position position = new Position(1, 1);
+        String invalidPath = "invalid/path/to/image.png";
+
+        assertThrows(IOException.class, () -> gui.drawImage(position, invalidPath));
+    }
+
+    @Test
+    void getNextActionArrowKeys() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowUp));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.UP, action);
+    }
+
+    @Test
+    void getNextActionArrowDown() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowDown));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.DOWN, action);
+    }
+
+    @Test
+    void getNextActionNullKeyStroke() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(null);
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.NONE, action);
+    }
+
+
+    @Test
+    void getNextActionEscapeKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('e', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.ESCAPE, action);
+    }
+
+    @Test
+    void getNextActionKill() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(' ', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.KILL, action);
+    }
+
+    @Test
+    void getNextActionEnterKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.Enter));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.SELECT, action);
+    }
+
+
+    @Test
+    void getNextActionCharacterKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('q', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.QUIT, action);
+    }
+
+    @Test
+    void getNextActionCharacterWSAD() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('w', false, false));
+        assertEquals(GUI.ACTION.UP, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('a', false, false));
+        assertEquals(GUI.ACTION.LEFT, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('s', false, false));
+        assertEquals(GUI.ACTION.DOWN, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('d', false, false));
+        assertEquals(GUI.ACTION.RIGHT, gui.getNextAction());
+    }
+
+
+    @Test
+    void drawWall() {
+        gui.drawWall(new Position(5, 5));
+
+        verify(tg, times(1)).setForegroundColor(new TextColor.RGB(51, 51, 255));
+        verify(tg, times(1)).putString(5, 6, "#");
+    }
+
+
+
+    @Test
+    void drawCharacterWithColor() {
+        gui.drawCharacter(5, 5, 'T', "#FF0000"); // Red
+
+        verify(tg, times(1)).setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        verify(tg, times(1)).putString(5, 6, "T");
+    }
+
+
+
+
+    @Test
+    void clearScreen() {
+        gui.clear();
+
+        verify(screen, times(1)).clear();
+    }
+
+    @Test
+    void refreshScreen() throws IOException {
+        gui.refresh();
+
+        verify(screen, times(1)).refresh();
+    }
+
+    @Test
+    void closeScreen() throws IOException {
+        gui.close();
+
+        verify(screen, times(1)).close();
     }
 }

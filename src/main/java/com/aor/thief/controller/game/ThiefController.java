@@ -7,12 +7,18 @@ import com.aor.thief.model.game.elements.Cop;
 import com.aor.thief.model.game.elements.DeadBody;
 import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.win.Win;
-
+import com.aor.thief.sound.InstanceSound;
+import com.aor.thief.sound.SoundFactory;
 import com.aor.thief.states.WinState;
+import com.aor.thief.model.game.elements.Thief;
+
 
 import java.io.IOException;
 
 public class ThiefController extends GameController {
+    Thread moveAnimation;
+    Thread attackAnimation;
+
     public ThiefController(Arena arena) {
         super(arena);
     }
@@ -38,12 +44,8 @@ public class ThiefController extends GameController {
     }
 
     public boolean canThiefEscape() {
-        for(Position p: getModel().getThief().getHitbox()) {
-            if(!getModel().getDoor().getHitbox().isEmpty()&&getModel().getDoor().getHitbox().contains(p)&&getModel().getPrize().isEmpty()){
-               return true;
-            }
-        }
-        return false;
+        return getModel().getThief().getHitbox().stream().anyMatch(getModel().getDoor().getHitbox()::contains)
+                && getModel().getPrize().isEmpty();
     }
 
     private void moveThief(Position position) {
@@ -59,84 +61,166 @@ public class ThiefController extends GameController {
         }
     }
 
-    public boolean canKill() {
-        int index = 0;
+    public boolean canKill()  {
         for (Guard guard : getModel().getGuards()) {
-            for (Position kill : getModel().fov(getModel().getThief())) {
-                if (guard.getHitbox().contains(kill)) {
-                    killGuard(guard);
-                    return true;
-                }
+            if (getModel().fov(getModel().getThief()).stream().anyMatch(guard.getHitbox()::contains)) {
+                killGuard(guard);
+                return true;
             }
-            for (Cop cop : getModel().getCops()) {
-                for (Position kill : getModel().fov(getModel().getThief())) {
-                    if (cop.getHitbox().contains(kill)) {
-                        killCop(cop);
-                        return true;
-                    }
-                }
-                index++;
+        }
+        for (Cop cop : getModel().getCops()) {
+            if (getModel().fov(getModel().getThief()).stream().anyMatch(cop.getHitbox()::contains)) {
+                killCop(cop);
+                return true;
             }
         }
         return false;
     }
+    private synchronized void startMoveAnimation(Thief thief)  {
+        String direction = switch (thief.getDirection()) {
+            case 0 -> "down1";
+            case 1 -> "left1";
+            case 2 -> "up1";
+            case 3 -> "right1";
+            default -> "";
+        };
+        if (moveAnimation == null || !moveAnimation.isAlive()) {
+            moveAnimation = new Thread(() -> {
+                try {
+                    if(getModel().getThief().getFeet()==0) {
+                        thief.setDraw("rightleg_" + direction + ".png");
+                        Thread.sleep(150);
+                    }else {
+                        thief.setDraw("leftleg_" + direction + ".png");
+                        Thread.sleep(150);
+                    }
+                    thief.toggleFeet();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    public void PickedUpPrize(Game game){
+            moveAnimation.start();
+        }
+    }
+
+    private synchronized void startAttackAnimation(Thief thief)  {
+        String direction = switch (thief.getDirection()) {
+            case 0 -> "down1";
+            case 1 -> "left1";
+            case 2 -> "up1";
+            case 3 -> "right1";
+            default -> "";
+        };
+        if (attackAnimation == null || !attackAnimation.isAlive()) {
+            attackAnimation = new Thread(() -> {
+                try {
+                    String shoot = "shoot_" + direction + ".png";
+
+                    thief.setDraw(shoot);
+                    Thread.sleep(75);
+                    String still = "still_" + direction + ".png";
+                    thief.setDraw(still);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    attackAnimation = null;
+                }
+            });
+            attackAnimation.start();
+        }
+    }
+
+    public  void playFootStepSound() { //como footstep é chamado várias vezes num curto espaço de tempo,é melhor criar uma nova instância de footstep a cada utilização
+        InstanceSound footStepSound = new SoundFactory().createFootStepSound();
+        footStepSound.start();
+    }
+
+    public  void playGunShot() {
+        InstanceSound gunShot = new SoundFactory().createGunShotSound();
+        gunShot.start();
+    }
+
+    public void PickedUpPrize(){
         if (!getModel().getPrize().isEmpty()) {
-            if(getModel().getThief().getHitbox().contains(getModel().getPrize().getFirst().getPosition())) {
+            if(getModel().getThief().getHitbox().stream().anyMatch(getModel().getPrize().getFirst().getHitbox()::contains)) {
                 getModel().getThief().prize_collected();
-                game.playItemPickupSound();
+                playItemPickup();
                 getModel().getPrize().removeFirst();
             }
         }
     }
 
     public void killGuard(Guard guard){
-        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox()));
+        getModel().addDead(new DeadBody(guard.getPosition().getX(), guard.getPosition().getY(),guard.getHitbox(),"G"));
         getModel().getGuards().remove(guard);
     }
 
     public void killCop(Cop cop){
-        getModel().addDead(new DeadBody(cop.getPosition().getX(), cop.getPosition().getY(),cop.getHitbox()));
+        getModel().addDead(new DeadBody(cop.getPosition().getX(), cop.getPosition().getY(),cop.getHitbox(),"C"));
         getModel().getCops().remove(cop);
     }
 
+    public void playItemPickup(){
+        InstanceSound item=new SoundFactory().createItemPickupSound();
+        item.start();
+    }
+
+    public  void playGuardDeathSound() {
+        InstanceSound guardDeathSound = new SoundFactory().createGuardDeathSound();
+        guardDeathSound.start();
+    }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
-
+    public void step(Game game, GUI.ACTION action, long time) throws IOException, InterruptedException {
         if (action == GUI.ACTION.UP) {
-            game.playFootStepSound();
+            playFootStepSound();
+            startMoveAnimation(getModel().getThief());
+            if(getModel().getThief().getDirection()!=2) getModel().getThief().move("up");
             moveThiefUp();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
 
         if (action == GUI.ACTION.DOWN) {
-            game.playFootStepSound();
+            playFootStepSound();
+            startMoveAnimation(getModel().getThief());
+            if(getModel().getThief().getDirection()!=0) getModel().getThief().move("down");
             moveThiefDown();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
 
         if (action == GUI.ACTION.LEFT) {
-            game.playFootStepSound();
+            playFootStepSound();
+            startMoveAnimation(getModel().getThief());
+            if(getModel().getThief().getDirection()!=1) getModel().getThief().move("left");
             moveThiefLeft();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
         if (action == GUI.ACTION.RIGHT) {
-            game.playFootStepSound();
+
+
+            playFootStepSound();
+
+            startMoveAnimation(getModel().getThief());
+            if(getModel().getThief().getDirection()!=3) getModel().getThief().move("right");
             moveThiefRight();
-            PickedUpPrize(game);
+            PickedUpPrize();
         }
         if (action == GUI.ACTION.ESCAPE) {
             if (canThiefEscape()) {
-                game.stopGameSound();
                 game.playWin();
                 game.setState(new WinState(new Win()));
             }
         }
         if (action == GUI.ACTION.KILL) {
-            game.playGunShot();
-             if(canKill()) game.playGuardDeathSound();
+
+            startAttackAnimation(getModel().getThief());
+            playGunShot();
+            if(canKill()) playGuardDeathSound();
+
+
+
+
 
         }
     }

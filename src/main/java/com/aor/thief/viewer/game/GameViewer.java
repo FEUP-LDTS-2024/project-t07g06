@@ -6,6 +6,7 @@ import com.aor.thief.model.game.elements.Element;
 import com.aor.thief.model.Position;
 import com.aor.thief.viewer.Viewer;
 
+import java.io.IOException;
 import java.util.List;
 
 public class GameViewer extends Viewer<Arena> {
@@ -14,7 +15,8 @@ public class GameViewer extends Viewer<Arena> {
     }
 
     @Override
-    public void drawElements(GUI gui) {
+    public void drawElements(GUI gui) throws InterruptedException, IOException {
+        gui.clear();
         drawElements(gui, getModel().getWalls(), new WallViewer());
         drawElements(gui, getModel().getGuards(), new GuardViewer());
         drawElement(gui, getModel().getThief(), new ThiefViewer());
@@ -24,14 +26,15 @@ public class GameViewer extends Viewer<Arena> {
         drawElements(gui,getModel().getCops(),new CopViewer());
         drawElements(gui, getModel().getCamera(), new CameraViewer());
         drawElements(gui, getModel().getStillCameras(), new CameraStillViewer());
+        gui.refresh();
     }
 
-    private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) {
+    private <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) throws InterruptedException, IOException {
         for (T element : elements)
             drawElement(gui, element, viewer);
     }
 
-    private <T extends Element> void drawElement(GUI gui, T element, ElementViewer<T> viewer) {
+    private <T extends Element> void drawElement(GUI gui, T element, ElementViewer<T> viewer) throws InterruptedException, IOException {
         viewer.draw(element, gui);
     }
 }

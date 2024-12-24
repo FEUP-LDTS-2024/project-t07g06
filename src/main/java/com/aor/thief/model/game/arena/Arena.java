@@ -57,6 +57,10 @@ public class Arena {
         return cameras;
     }
 
+    public List<CameraStill> getStillCamera() {
+        return stillCameras;
+    }
+
     public void setCameras(List<Camera> cameras) {
         this.cameras = cameras;
     }
@@ -71,11 +75,8 @@ public class Arena {
 
     public boolean isntWall(Position position) {
         for (Wall wall : walls)
-            if(wall.getPosition().equals(position)) {
+            if (wall.getHitbox().contains(position))
                 return false;
-            }
-//            if (wall.getHitbox().contains(position))
-//                return false;
         return true;
     }
 
@@ -137,19 +138,9 @@ public class Arena {
     }
     public void  defCorner( Camera camera){
         List<Integer> corner= new ArrayList<>();
-        if(isntWall(camera.getPosition().getDown())){
-            corner.add(0);
-            if(isntWall(camera.getPosition().getRight())) {
-                corner.add(30);
-                corner.add(3);
-            }else{
-                corner.add(10);
-                corner.add(1);
-            }
-        }
-        else {
+        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
             corner.add(2);
-            if(isntWall(camera.getPosition().getRight())) {
+            if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))) {
                 corner.add(32);
                 corner.add(3);
             }else{
@@ -157,20 +148,37 @@ public class Arena {
                 corner.add(1);
             }
         }
+        else {
+            corner.add(0);
+            if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))) {
+                corner.add(30);
+                corner.add(3);
+            }else{
+                corner.add(10);
+                corner.add(1);
+            }
+        }
         camera.setCorner(corner);
+        System.out.println(camera.getCorner());
     }
     public void defAxis(CameraStill camera ){
         List<Integer> axis= new ArrayList<>();
-        if(!isntWall(camera.getPosition().getDown())){
-            axis.add(0);
-        }else if(!isntWall(camera.getPosition().getLeft())){
-            axis.add(1);
-        }else if(!isntWall(camera.getPosition().getUp())){
+        if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()+1))){
             axis.add(2);
-        }else if(!isntWall(camera.getPosition().getRight())){
+            camera.setDirection(2);
+        }else if(!isntWall(new Position(camera.getPosition().getX()-1,camera.getPosition().getY()))){
             axis.add(3);
+            camera.setDirection(3);
+        }else if(!isntWall(new Position(camera.getPosition().getX(),camera.getPosition().getY()-1))){
+            axis.add(0);
+            camera.setDirection(0);
+        }else if(!isntWall(new Position(camera.getPosition().getX()+1,camera.getPosition().getY()))){
+            axis.add(1);
+            camera.setDirection(1);
         }
+
         camera.setCorner(axis);
+        System.out.println(axis.getFirst());
     }
 }
 

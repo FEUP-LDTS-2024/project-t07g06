@@ -5,7 +5,7 @@ import com.aor.thief.model.game.elements.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position  {
+public class    Position  {
     private final int x;
     private final int y;
 
@@ -52,22 +52,17 @@ public class Position  {
                 return new Position(x, y);
         }
     }
-    public int distance(Position position){
-        return Math.abs(x - position.getX()) + Math.abs(y - position.getY());
-    }
     public List<Position> updatehitbox_(){ //change to get the current hitbox and direction, add or subtract depending on the dir
         List<Position> hitbox = new ArrayList<>();
         int x= this.x;
         int y= this.y;
-        hitbox.add(new Position(x,y));
-        hitbox.add(new Position(x+1,y));
-        hitbox.add(new Position(x+1,y+1));
-        hitbox.add(new Position(x,y+1));
-        hitbox.add(new Position(x-1,y+1));
-        hitbox.add(new Position(x-1,y));
-        hitbox.add(new Position(x-1,y-1));
-        hitbox.add(new Position(x,y-1));
-        hitbox.add(new Position(x+1,y-1));
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                hitbox.add(new Position(x+i,y+j));
+                hitbox.add(new Position(x-i,y-j));
+            }
+        }
+
         return hitbox;
     }
 

@@ -14,7 +14,7 @@ public class OnlyFrontFov extends HasFov{
 
     @Override
     public  int getSight(){
-        return 6;
+        return 50;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class OnlyFrontFov extends HasFov{
         }
         boolean flag=true;
         for (int i = 0; i <= sight; i++) {
-            int fovx = CurrentPosition.getX() + dirx * i  ;
+            int fovx = CurrentPosition.getX() + dirx * i *2 ;
             int fovy = CurrentPosition.getY() + diry * i ;
             Position possiblyCanSee = new Position(fovx, fovy);
 

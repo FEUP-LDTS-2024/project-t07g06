@@ -16,6 +16,8 @@ public class WinController extends Controller<Win> {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        game.stopGameSound();
+        game.stopWantedSound();
         switch (action){
             case UP:
                 getModel().previousEntry();

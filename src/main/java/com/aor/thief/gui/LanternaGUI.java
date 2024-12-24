@@ -3,6 +3,7 @@ package com.aor.thief.gui;
 
 import com.aor.thief.model.Position;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -11,8 +12,12 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -48,23 +53,23 @@ public class LanternaGUI implements GUI {
         return terminal;
     }
 
-    public ACTION getNextAction() throws IOException {
+    public ACTION getNextAction() throws IOException, InterruptedException {
         KeyStroke keyStroke = screen.pollInput();
         if (keyStroke == null) return ACTION.NONE;
 
         if (keyStroke.getKeyType() == KeyType.EOF) System.exit(0);
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
-        if (keyStroke.getKeyType() == KeyType.ArrowUp ) return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown ) return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft ) return ACTION.LEFT;
-        if (keyStroke.getKeyType() == KeyType.ArrowRight ) return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return ACTION.LEFT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return ACTION.ESCAPE;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') return ACTION.KILL;
-        if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
+        else if (keyStroke.getKeyType() == KeyType.ArrowUp ) return ACTION.UP;
+        else if (keyStroke.getKeyType() == KeyType.ArrowDown ) return ACTION.DOWN;
+        else if (keyStroke.getKeyType() == KeyType.ArrowLeft ) return ACTION.LEFT;
+        else if (keyStroke.getKeyType() == KeyType.ArrowRight ) return ACTION.RIGHT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return ACTION.UP;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return ACTION.RIGHT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return ACTION.DOWN;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return ACTION.LEFT;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return ACTION.ESCAPE;
+        else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') return ACTION.KILL;
+        else if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
 
         return ACTION.NONE;
     }
@@ -75,37 +80,13 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public void drawPrize(Position position) {
-        drawCharacter(position.getX(), position.getY(), '£', "#FFD700");
-    }
-
-    @Override
     public void drawWall(Position position) {
         drawCharacter(position.getX(), position.getY(), '#', "#3333FF");
     }
 
     @Override
-    public void drawDeadBody(Position position) {drawCharacter(position.getX(), position.getY(), 'D', "#CC0000");
-    }
-
-    @Override
     public void drawGuard(Position position) {
         drawCharacter(position.getX(), position.getY(), 'G', "#CC0000");
-    }
-
-    @Override
-    public void drawCop(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'O', "#CC0000");
-    }
-
-    @Override
-    public void drawCamera(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'C', "#D3D3D3");
-    }
-
-    @Override
-    public void drawStillCamera(Position position){
-        drawCharacter(position.getX(), position.getY(), 'S', "#D3D3D3");
     }
 
     @Override
@@ -119,7 +100,8 @@ public class LanternaGUI implements GUI {
         tg.setForegroundColor(TextColor.Factory.fromString(color));
         tg.putString(position.getX(), position.getY(), text);
     }
-    private void drawCharacter(int x, int y, char c, String color) {
+    @Override
+    public void drawCharacter(int x, int y, char c, String color) {
         TextGraphics tg = screen.newTextGraphics();
         tg.setForegroundColor(TextColor.Factory.fromString(color));
         tg.putString(x, y + 1, "" + c);
@@ -127,6 +109,25 @@ public class LanternaGUI implements GUI {
 
 
 
+
+    @Override
+    public void drawImage(Position position, String imagePath) throws IOException {
+        BufferedImage image = ImageIO.read(new File(imagePath));
+        TextGraphics graphics = screen.newTextGraphics();
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                int pixelColor = image.getRGB(x, y);
+                int alpha = (pixelColor >> 24) & 0xFF;
+                if (alpha == 0) continue;
+                int r = (pixelColor >> 16) & 0xFF;
+                int g = (pixelColor >> 8) & 0xFF;
+                int b = pixelColor & 0xFF;
+                TextCharacter pixelChar = new TextCharacter(' ', new TextColor.RGB(r, g, b), new TextColor.RGB(r,g,b));
+                graphics.setCharacter(position.getX() + x, position.getY() + y, pixelChar);
+            }
+        }
+
+    }
 
 
     @Override

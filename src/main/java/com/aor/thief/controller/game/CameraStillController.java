@@ -12,43 +12,48 @@ import com.aor.thief.model.game.elements.Guard;
 import java.io.IOException;
 
 public class CameraStillController extends GameController {
-    private long lastMovement;
-
     public CameraStillController(Arena arena) {
         super(arena);
     }
-    @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        if (!getModel().getCamera().getFirst().isFound()) {
-            for (CameraStill camera : getModel().getCamera()) {
-                if (camera.getCorner().isEmpty()) {
-                    getModel().defAxis(camera);
-                }
-                getModel().fov(camera);
-            }
-        }
-        if (isCaught()) {
-            for (Guard guard : getModel().getGuards()) {
-                guard.setFound(true);
-            }
-            for (Cop cop : getModel().getCops()) {
-                cop.setFound(true);
-            }
-        }
-
-    }
-
-
     public boolean isCaught() {
         for (CameraStill camera : getModel().getStillCameras()) {
-            for (Position caught : getModel().fov(camera)) {
-                if (getModel().getThief().getHitbox().contains(caught)) {
-                    return true;
-                }
+            if (getModel().fov(camera).stream().anyMatch(getModel().getThief().getHitbox()::contains)) {
+                return true;
             }
-
         }
         return false;
+    }
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
+        }
+    }
+    @Override
+    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        if(!getModel().getStillCameras().isEmpty()) {
+            if (!getModel().getStillCameras().getFirst().isFound()) {
+                for (CameraStill camera : getModel().getStillCameras()) {
+                    if (camera.getCorner().isEmpty()) {
+                        getModel().defAxis(camera);
+                        camera.setFov(getModel().fov(camera));
+                    }
+                }
+            }
+            if (isCaught()) {
+                game.stopGameSound();game.playWantedSound();
+                caught();
+            }
+        }
+
     }
 
 }
