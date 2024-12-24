@@ -13,10 +13,6 @@ public interface GUI {
     void drawWall(Position position);
 
 
-    void drawGuard(Position position);
-
-    void drawDoor(Position position);
-
     void drawImage(Position positions,String filename) throws IOException;
 
     void  drawCharacter(int x, int y, char c, String color);
