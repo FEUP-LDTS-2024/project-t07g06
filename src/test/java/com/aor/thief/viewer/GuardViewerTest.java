@@ -58,10 +58,10 @@ class GuardViewerTest {
 
         when(guard.getDirection()).thenReturn(0, 1, 2, 3, -1);
 
-        assertEquals("down1", viewer.getDirection(guard));
-        assertEquals("left1", viewer.getDirection(guard));
-        assertEquals("up1", viewer.getDirection(guard));
-        assertEquals("right1", viewer.getDirection(guard));
-        assertEquals("down1", viewer.getDirection(guard)); // Default case
+        assertEquals("down", viewer.getDirection(guard));
+        assertEquals("left", viewer.getDirection(guard));
+        assertEquals("up", viewer.getDirection(guard));
+        assertEquals("right", viewer.getDirection(guard));
+        assertEquals("down", viewer.getDirection(guard)); // Default case
     }
 }

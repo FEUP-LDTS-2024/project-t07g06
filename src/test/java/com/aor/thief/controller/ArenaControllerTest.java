@@ -32,9 +32,10 @@ public class ArenaControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        arenaController = new ArenaController(arena);
         Arena arena = mock(Arena.class);
-        ArenaController arenaController = new ArenaController(arena);
+        arenaController = new ArenaController(arena);
+
+
 
     }
 

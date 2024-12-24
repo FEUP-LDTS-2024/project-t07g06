@@ -50,12 +50,9 @@ public class GuardControllerTest {
         arena.setWalls(Arrays.asList(
                 new Wall(5, 5, new Position(10,5).updatehitbox_())));
 
-        long time=0;
 
-        while (guard.getPosition().equals(new Position(5, 5))) {
-            time += 500;
-            controller.step(game, GUI.ACTION.NONE, time);
-        }
+            controller.step(game, GUI.ACTION.NONE, 750);
+
 
         assertEquals(new Position(10,5),guard.getPosition());
     }

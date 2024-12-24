@@ -2,6 +2,7 @@ package com.aor.thief.gui;
 
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.elements.Thief;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -76,6 +77,53 @@ public class LanternaGUITest {
     }
 
     @Test
+    void getNextActionArrowDown() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowDown));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.DOWN, action);
+    }
+
+    @Test
+    void getNextActionNullKeyStroke() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(null);
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.NONE, action);
+    }
+
+
+    @Test
+    void getNextActionEscapeKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('e', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.ESCAPE, action);
+    }
+
+    @Test
+    void getNextActionKill() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(' ', false, false));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.KILL, action);
+    }
+
+    @Test
+    void getNextActionEnterKey() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke(KeyType.Enter));
+
+        GUI.ACTION action = gui.getNextAction();
+
+        assertEquals(GUI.ACTION.SELECT, action);
+    }
+
+
+    @Test
     void getNextActionCharacterKey() throws IOException, InterruptedException {
         when(screen.pollInput()).thenReturn(new KeyStroke('q', false, false));
 
@@ -85,12 +133,40 @@ public class LanternaGUITest {
     }
 
     @Test
+    void getNextActionCharacterWSAD() throws IOException, InterruptedException {
+        when(screen.pollInput()).thenReturn(new KeyStroke('w', false, false));
+        assertEquals(GUI.ACTION.UP, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('a', false, false));
+        assertEquals(GUI.ACTION.LEFT, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('s', false, false));
+        assertEquals(GUI.ACTION.DOWN, gui.getNextAction());
+
+        when(screen.pollInput()).thenReturn(new KeyStroke('d', false, false));
+        assertEquals(GUI.ACTION.RIGHT, gui.getNextAction());
+    }
+
+
+    @Test
     void drawWall() {
         gui.drawWall(new Position(5, 5));
 
         verify(tg, times(1)).setForegroundColor(new TextColor.RGB(51, 51, 255));
         verify(tg, times(1)).putString(5, 6, "#");
     }
+
+
+
+    @Test
+    void drawCharacterWithColor() {
+        gui.drawCharacter(5, 5, 'T', "#FF0000"); // Red
+
+        verify(tg, times(1)).setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        verify(tg, times(1)).putString(5, 6, "T");
+    }
+
+
 
 
     @Test
