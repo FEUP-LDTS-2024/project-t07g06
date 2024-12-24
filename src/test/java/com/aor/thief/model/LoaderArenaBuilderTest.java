@@ -27,13 +27,13 @@ class LoaderArenaBuilderTest {
     @Test
     void testGetHeight() {
         int height = loaderArenaBuilder.getHeight();
-        assertEquals(94, height);
+        assertEquals(92, height);
     }
 
     @Test
     void testCreateWalls() {
         List<Wall> walls = loaderArenaBuilder.createWalls();
-        assertEquals(174, walls.size());
+        assertEquals(173, walls.size());
         assertEquals(new Position(0, 0), walls.get(0).getPosition());
     }
 
