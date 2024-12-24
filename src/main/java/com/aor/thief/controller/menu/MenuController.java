@@ -15,7 +15,7 @@ import com.aor.thief.states.MenuState;
 import java.io.IOException;
 
 
-public class MenuController extends Controller<Menu> {
+public class  MenuController extends Controller<Menu> {
     public MenuController(Menu menu){
         super(menu);
     }

@@ -15,7 +15,6 @@ import java.util.*;
 
 public class CameraController extends GameController {
     private long lastMovement;
-    private Thread moveAnimation;
 
     public CameraController(Arena arena) {
         super(arena);
@@ -32,7 +31,7 @@ public class CameraController extends GameController {
         return false;
     }
 
-    private void rotateCamera(int index,int current_pos) {
+    public void rotateCamera(int index,int current_pos) {
         getModel().getCamera().get(index).setDirection(getModel().getCamera().get(index).getCurrent_pos());
         int movement=0;
         switch (current_pos) {
@@ -52,6 +51,20 @@ public class CameraController extends GameController {
         getModel().getCamera().get(index).setCurrent_pos(getModel().getCamera().get(index).getCurrent_pos()+movement);
     }
 
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
+        }
+    }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
@@ -75,18 +88,7 @@ public class CameraController extends GameController {
                     if (isCaught()) {
                         game.stopGameSound();
                         game.playWantedSound();
-                        for (Guard guard : getModel().getGuards()) {
-                            guard.setFound(true);
-                        }
-                        for (Cop cop : getModel().getCops()) {
-                            cop.setFound(true);
-                        }
-                        for (Camera camera : getModel().getCamera()) {
-                            camera.setFound(true);
-                        }
-                        for (CameraStill cameraStill : getModel().getStillCameras()) {
-                            cameraStill.setFound(true);
-                        }
+                        caught();
                     }
                 }
             }

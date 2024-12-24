@@ -8,9 +8,6 @@ import java.util.List;
 public class Camera extends CameraStill {
     boolean isDown=false;
     int current_pos;
-
-
-
     String draw;
     public Camera(int x, int y, int direction, boolean found, List<Position> hitbox,List<Integer> corner, String draw) {
         super(x, y, direction, found, hitbox,corner);

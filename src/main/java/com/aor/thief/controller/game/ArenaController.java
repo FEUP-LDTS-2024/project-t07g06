@@ -12,12 +12,11 @@ import com.aor.thief.states.MenuState;
 import java.io.IOException;
 import java.util.List;
 
-public class ArenaController extends Controller {
+public class ArenaController extends Controller<Arena> {
     private final ThiefController thiefController;
     private final GuardController guardController;
     private final CopController copController;
     private final CameraStillController cameraStillController;
-
     private final CameraController cameraController;
     public ArenaController(Arena arena) {
         super(arena);

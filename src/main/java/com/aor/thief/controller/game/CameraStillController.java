@@ -23,6 +23,20 @@ public class CameraStillController extends GameController {
         }
         return false;
     }
+    public void caught(){
+        for (Guard guard : getModel().getGuards()) {
+            guard.setFound(true);
+        }
+        for (Cop cop : getModel().getCops()) {
+            cop.setFound(true);
+        }
+        for (Camera camera : getModel().getCamera()){
+            camera.setFound(true);
+        }
+        for (CameraStill still : getModel().getStillCameras()){
+            still.setFound(true);
+        }
+    }
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
         if(!getModel().getStillCameras().isEmpty()) {
@@ -36,18 +50,7 @@ public class CameraStillController extends GameController {
             }
             if (isCaught()) {
                 game.stopGameSound();game.playWantedSound();
-                for (Guard guard : getModel().getGuards()) {
-                    guard.setFound(true);
-                }
-                for (Cop cop : getModel().getCops()) {
-                    cop.setFound(true);
-                }
-                for (Camera camera : getModel().getCamera()){
-                    camera.setFound(true);
-                }
-                for (CameraStill still : getModel().getStillCameras()){
-                    still.setFound(true);
-                }
+                caught();
             }
         }
 

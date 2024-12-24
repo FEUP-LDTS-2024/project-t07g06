@@ -70,13 +70,6 @@ class PositionTest {
         assertEquals(y - 1, result.getY());
     }
 
-    @Property
-    void distance(@ForAll int x1, @ForAll int y1, @ForAll int x2, @ForAll int y2) {
-        Position p1 = new Position(x1, y1);
-        Position p2 = new Position(x2, y2);
-        int expectedDistance = Math.abs(x1 - x2) + Math.abs(y1 - y2);
-        assertEquals(expectedDistance, p1.distance(p2));
-    }
 
     @Property
     void updateHitbox(@ForAll int x, @ForAll int y) {
@@ -90,18 +83,6 @@ class PositionTest {
                 assertTrue(hitbox.contains(new Position(x-i,y-j)));
             }
         }
-    }
-
-    @Property
-    void getNeighbors(@ForAll int x, @ForAll int y) {
-        Position position = new Position(x, y);
-        List<Position> neighbors = position.getNeighbors();
-
-        assertEquals(4, neighbors.size());
-        assertTrue(neighbors.contains(new Position(x - 1, y)));
-        assertTrue(neighbors.contains(new Position(x + 1, y)));
-        assertTrue(neighbors.contains(new Position(x, y - 1)));
-        assertTrue(neighbors.contains(new Position(x, y + 1)));
     }
 
 }

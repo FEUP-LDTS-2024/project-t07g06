@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Thief extends OnlyFrontFov{
     int prize;
-    int direction;
     int feet;
     String draw;
 

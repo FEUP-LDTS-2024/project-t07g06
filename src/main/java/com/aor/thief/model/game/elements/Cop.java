@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Cop extends OFEnemy{
     boolean isDown=false;
-    int feet=0;
+    int feet;
     String draw;
     public Cop(int x, int y, int direction, boolean found, List<Position> hitbox, int feet,String draw) {
         super(x, y, direction, found,hitbox);
