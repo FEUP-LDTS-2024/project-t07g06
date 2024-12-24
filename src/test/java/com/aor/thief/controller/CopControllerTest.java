@@ -5,20 +5,25 @@ import com.aor.thief.gui.GUI;
 import com.aor.thief.model.Position;
 import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.Cop;
+import com.aor.thief.model.game.elements.Guard;
 import com.aor.thief.model.game.elements.Thief;
 import com.aor.thief.states.GameOverState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
 
-class CopControllerTest {
+public class CopControllerTest {
     private Arena arena;
     private CopController copController;
     private Cop moCop;
@@ -57,6 +62,15 @@ class CopControllerTest {
     }
 
     @Test
+    void testMovementDefault() {
+        Position startPos = new Position(5, 5);
+        Mockito.when(moCop.getPosition()).thenReturn(startPos);
+        Mockito.when(moCop.getDirection()).thenReturn(2);  // direction up
+        Position newPos = copController.movement(startPos, 2, 0);
+        assertEquals(new Position(5, 4), newPos);  // Moving up should decrease Y by 1
+    }
+
+    @Test
     void testMovementLeft() {
         Position startPos = new Position(5, 5);
         Mockito.when(moCop.getPosition()).thenReturn(startPos);
@@ -74,6 +88,7 @@ class CopControllerTest {
         assertEquals(new Position(6, 5), newPos);
     }
 
+
     @Test
     void testPursuitMoveLeft() {
         Mockito.when(moThief.getPosition()).thenReturn(new Position(5, 5));
@@ -89,4 +104,8 @@ class CopControllerTest {
         copController.pursuit(moCop, moThief, 0);
         assertEquals(0, moCop.getDirection());
     }
+
+
+
+
 }
