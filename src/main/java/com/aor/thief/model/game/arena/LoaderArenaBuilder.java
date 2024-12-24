@@ -32,7 +32,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected int getWidth() {
+    public int getWidth() {
         int width = 0;
         for (String line : lines)
             width = Math.max(width, line.length());
@@ -40,12 +40,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected int getHeight() {
+    public int getHeight() {
         return lines.size();
     }
 
     @Override
-    protected List<Wall> createWalls() {
+    public List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
 
         for (int y = 0; y < lines.size(); y++) {
@@ -67,12 +67,12 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected List<DeadBody> createDeads() {
+    public List<DeadBody> createDeads() {
         return new ArrayList<>();
     }
 
     @Override
-    protected List<Guard> createGuard() {
+    public List<Guard> createGuard() {
         List<Guard> guards = new ArrayList<>();
 
         for (int y = 0; y < lines.size(); y++) {
@@ -93,7 +93,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected Thief createThief() {
+    public Thief createThief() {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++)
@@ -111,7 +111,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         return null;
     }
     @Override
-    protected List<Prize> createPrize() {
+    public List<Prize> createPrize() {
         List<Prize> prize = new ArrayList<>();
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
@@ -130,7 +130,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected Door createDoor() {
+    public Door createDoor() {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++) {
@@ -149,7 +149,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
     }
 
     @Override
-    protected List<Camera> createCamera(){
+    public List<Camera> createCamera(){
         List<Camera> cam = new ArrayList<>();
 
         for (int y = 0; y < lines.size(); y++) {
@@ -171,7 +171,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
 
     }
     @Override
-    protected List<CameraStill> createStillCameras() {
+    public List<CameraStill> createStillCameras() {
         List<CameraStill> cam = new ArrayList<>();
 
         for (int y = 0; y < lines.size(); y++) {
@@ -192,7 +192,7 @@ public class LoaderArenaBuilder extends ArenaBuilder {
         return cam;
     }
     @Override
-    protected List<Cop> createCop() {
+    public List<Cop> createCop() {
         List<Cop> cop = new ArrayList<>();
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
