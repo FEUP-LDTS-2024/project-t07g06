@@ -26,7 +26,7 @@ public class CameraViewerTest {
     }
 
     @Test
-    void testDrawWithEmptyDrawAndFound() throws IOException {
+    void drawEmptyDrawAndFound() throws IOException {
         Mockito.when(camera.getDraw()).thenReturn("");
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(0, 10, 1));
         Mockito.when(camera.isFound()).thenReturn(true);
@@ -40,7 +40,7 @@ public class CameraViewerTest {
     }
 
     @Test
-    void testDrawWithNonEmptyDrawAndNotFound() throws IOException {
+    void drawNonEmptyDrawNotFound() throws IOException {
         Mockito.when(camera.getDraw()).thenReturn("down_left_mid.png");
         Mockito.when(camera.isFound()).thenReturn(false);
         Mockito.when(camera.getFov()).thenReturn(Arrays.asList(new Position(2, 2), new Position(3, 3)));
@@ -54,35 +54,35 @@ public class CameraViewerTest {
     }
 
     @Test
-    void testGetCornerUpRight() {
+    void getCornerUpRight() {
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(0, 10, 1));
         String result = cameraViewer.getCorner(camera);
         assertEquals("up_right", result);
     }
 
     @Test
-    void testGetCornerUpLeft() {
+    void getCornerUpLeft() {
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(0, 30, 3));
         String result = cameraViewer.getCorner(camera);
         assertEquals("up_left", result);
     }
 
     @Test
-    void testGetCornerDownLeft() {
+    void getCornerDownLeft() {
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(2, 32, 3));
         String result = cameraViewer.getCorner(camera);
         assertEquals("down_left", result);
     }
 
     @Test
-    void testGetCornerDownRight() {
+    void getCornerDownRight() {
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(2, 12, 1));
         String result = cameraViewer.getCorner(camera);
         assertEquals("down_right", result);
     }
 
     @Test
-    void testGetCornerEmpty() {
+    void getCornerEmpty() {
         Mockito.when(camera.getCorner()).thenReturn(Arrays.asList(0, 0, 0));
         String result = cameraViewer.getCorner(camera);
         assertEquals("", result);
