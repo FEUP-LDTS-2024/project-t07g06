@@ -1,0 +1,136 @@
+Bankrobber é um jogo 2D do gênero shoot'em up e estratégia onde o personagem principal, o ladrão, tem como objetivo roubar um objeto valioso.
+
+Para conseguir completar o jogo, o jogador tem de apanhar o objeto e sair pela porta que aparece mal apanha o tal objeto.
+
+Há vários guardas e câmeras espalhados pelo mapa que irão detetar o ladrão mal este entre no seu campo de visão, lançando um estado de alerta para notificar todos os guardas. Quando é lançado o estado de alerta, os guardas começam a perseguir o ladrão pelo mapa na tentativa de o apanhar.
+
+É possível completar o jogo sem ser visto, mas o jogador também tem a oportunidade de matar os guardas para escapar caso seja detetado.
+
+
+
+
+
+Controlos do jogo:
+
+
+
+Direções: setas ou wasd
+
+Q: quit
+
+E: entrar na porta
+
+Space: disparar
+
+
+
+
+
+
+
+Features:
+
+Main Menu screen:  tela inicial do jogo que permite ao jogador escolher entre começar o jogo, ver as instruções ou sair do jogo.
+
+
+
+Win screen:  aparece quando o jogador completa o jogo e permite-lhe escolher entre voltar ao menu ou recomeçar o jogo.
+
+
+
+
+
+Game Over screen:  aparece quando o jogador é apanhado e permite-lhe escolher entre voltar ao menu principal ou recomeçar o jogo.
+
+
+
+Menu Instruções:   tela que pode ser selecionada no main menu que informa o jogador dos controlos do jogo; permite ao jogador voltar ao menu principal ou começar o jogo diretamente.
+
+
+
+Movimentação do ladrãof:  o jogador pode mover o personagem nas setas ou com wasd.
+
+
+
+Disparo:  o jogador pode matar os guardas ao disparar com a tecla space.
+
+
+
+Câmeras:   há dois tipos de câmeras no jogo que podem revelar a localização do ladrão: estáticas (não movem o campo de visão) e rotativas (movem o campo de visão da esquerda para a direita, olhando também para o centro).
+
+
+
+Inimigos - Guardas e Policias:   há dois tipos de guardas que podem apanhar o ladrão e localizá-lo: guardas (apenas andam pelos cantos das salas) e polícias (movem –se em zig zag podendo entrar em salas diferentes).
+
+
+
+Collectible System:   o jogador coleta um item ao passar por cima dele, o que faz com que a porta de saída apareça.
+
+
+
+Escape:   após coletar o item o ladrão pode dirigir-se a uma porta para fugir da arena e completar o jogo.
+
+
+
+Pursuit:   ao ser visto por um dos inimigos ou câmeras, os inimigos são notificados do paradeiro do ladrão e perseguem-no pelo mapa.
+
+
+
+DrawImage:   classe que desenha imagens no jogo pixel a pixel, para cada elemento do mapa.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------Uml -----------------------------------------------
+
+
+
+Design Patterns ------------------------------------------------------------------------------
+
+
+
+---MVC(model-viewer-controller)---
+
+Utilizámos este padrão como maneira de organizar o código e separar as responsabilidades de cada componente.
+
+O Modelo trata dos dados, como, por exemplo, a posição do ladrão. O Viewer é responsável pela exibição do jogo a quem joga. Já o Controller processa o input dado pelo jogador, servindo de intermediário entre o jogador e o modelo.
+
+É benéfico usar este padrão pois separa as responsabilidades, fazendo com que cada parte do jogo seja independente e, por isso mesmo, facilita imenso a mudança de cada parte sem que as outras partes sejam muito prejudicadas.
+
+
+
+---State Pattern---
+
+Para lidar com os diferentes estados em que o jogo se pode encontrar (Game state, GameOver state, etc) usámos o state design pattern para podermos alterar o comportamento do jogo de acordo com o estado atual sem precisar usar if/else ou switches. O objeto principal mantém uma referência ao estado atual e atualiza o comportamento do jogo dependendo do estado em que se encontra. Cada um dos possíveis estados encontram-se em classes separadas que definem comportamentos específicos de cada estado.
+
+A utilização deste padrão é benéfica pois permite não só torna o código mais limpo como também promove uma boa organização e extensibilidade.
+
+
+
+---Factory Method---
+
+Para incorporar diferentes sons no jogo decidimos usar um sound factory para apenas termos de recorrer a uma única classe (SoundFactory) para criar e gerenciar os sons.
+
+Esta classe contém toda a lógica para carregar e criar diferentes sons o que permite evitar a duplicação de código ao instanciar sons.
+
+A fábrica possui vários métodos como, por exemplo, createBackgroundSound(), createFootStepSound(), etc...que fornecem sons específicos como instâncias prontas de objetos LoopedSoundPlayer ou objetos InstanceSound para uso das classes Game e Thief. As classes que utilizam estes sons não precisam de saber como os sons são carregados/configurados, apenas usam a instância que a classe fornece.
+
+O uso deste padrão promove uma boa organização do código pois centraliza a criação de sons. Para além disso, torna mais fácil acrescentar novos sons pois isso apenas exige alguns ajustes na fábrica.
+
+
+
