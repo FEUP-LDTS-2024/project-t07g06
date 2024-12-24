@@ -61,5 +61,75 @@ public class CameraStillControllerTest {
         boolean caught=controller.isCaught();
         assertFalse(caught);
     }
+
+    @Test
+    void testStepWhenCaught() throws IOException {
+        // Set up the scenario where the thief is caught by the camera
+        CameraStill camera = new CameraStill(10, 10, 0, false, new Position(10, 10).updatehitbox_(), List.of(2));
+        Thief thief = new Thief(10, 15, 0, 0, new Position(10, 15).updatehitbox_(), 0, "");
+
+        arena.setStillCameras(Arrays.asList(camera));
+        arena.setThief(thief);
+        arena.setGuards(new ArrayList<>());
+        arena.setCameras(new ArrayList<>());
+        arena.setCops(new ArrayList<>());
+
+        Game game = Mockito.mock(Game.class);
+
+
+        controller.step(game, GUI.ACTION.NONE, 0);
+
+
+        Mockito.verify(game).stopGameSound();
+        Mockito.verify(game).playWantedSound();
+
+
+        for (Guard guard : arena.getGuards()) {
+            assertTrue(guard.isFound());
+        }
+        for (Cop cop : arena.getCops()) {
+            assertTrue(cop.isFound());
+        }
+        for (Camera cameraInArena : arena.getCamera()) {
+            assertTrue(cameraInArena.isFound());
+        }
+        for (CameraStill stillCamera : arena.getStillCameras()) {
+            assertTrue(stillCamera.isFound());;
+        }
+    }
+
+    @Test
+    void testStepWhenNotCaught() throws IOException {
+
+        CameraStill camera = new CameraStill(10, 10, 0, false, new Position(10, 10).updatehitbox_(), List.of(2));
+        Thief thief = new Thief(10, 40, 0, 0, new Position(10, 40).updatehitbox_(), 0, "");
+
+        arena.setStillCameras(Arrays.asList(camera));
+        arena.setThief(thief);
+        arena.setGuards(new ArrayList<>());
+        arena.setCameras(new ArrayList<>());
+        arena.setCops(new ArrayList<>());
+        Game game = Mockito.mock(Game.class);
+
+
+        controller.step(game, GUI.ACTION.NONE, 0);
+
+
+        Mockito.verify(game, Mockito.never()).stopGameSound();
+        Mockito.verify(game, Mockito.never()).playWantedSound();
+        for (Guard guard : arena.getGuards()) {
+            assertFalse(guard.isFound());
+        }
+        for (Cop cop : arena.getCops()) {
+            assertFalse(cop.isFound());
+        }
+        for (Camera cameraInArena : arena.getCamera()) {
+            assertFalse(cameraInArena.isFound());
+        }
+        for (CameraStill stillCamera : arena.getStillCameras()) {
+            assertFalse(stillCamera.isFound());
+        }
+    }
+
 }
 
