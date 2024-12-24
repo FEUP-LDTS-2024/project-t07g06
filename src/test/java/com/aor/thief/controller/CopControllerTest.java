@@ -98,8 +98,8 @@ public class CopControllerTest {
     }
 
     @Test
-    void testPursuitMoveDown() {
-        Mockito.when(moThief.getPosition()).thenReturn(new Position(5, 4));
+    void testPursuitMoveNone() {
+        Mockito.when(moThief.getPosition()).thenReturn(new Position(5, 5));
         Mockito.when(moCop.getPosition()).thenReturn(new Position(5, 5));
         copController.pursuit(moCop, moThief, 0);
         assertEquals(0, moCop.getDirection());
@@ -107,5 +107,12 @@ public class CopControllerTest {
 
 
 
+    @Test
+    void testPursuitMoveDown() {
+        Mockito.when(moThief.getPosition()).thenReturn(new Position(5, 4));
+        Mockito.when(moCop.getPosition()).thenReturn(new Position(5, 5));
+        copController.pursuit(moCop, moThief, 0);
+        assertEquals(0, moCop.getDirection());
+    }
 
 }
