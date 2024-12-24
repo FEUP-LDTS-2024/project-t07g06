@@ -1,101 +1,88 @@
-
 # **BANKROBBER**
 
 ## Jogo
-O nosso jogo chama-se Bankrobber e tem como personagem um ladrão que está a tentar roubar objetos valiosos de diversos locais.
 
+Em Bankrobber, o jogador assume o papel de um ladrão habilidoso, determinado a executar o roubo perfeito. O objetivo central é apoderar-se de um objeto valioso, que está localizado numa área protegida, repleta de obstáculos e inimigos. O jogador irá encontrar câmeras de vigilância, guardas e polícias que patrulham a área para impedir o jogador. Assim que o ladrão obtém o objeto desejado, uma porta de saída surge na sua localização inicial. A única sáida.
 
-![Mock](docs/Mock.jpeg)
+Para alcançar o sucesso, o jogador deve equilibrar elementos de estratégia e ação.
+Os guardas e os polícias seguem atentos a qualquer movimento suspeito, enquanto as câmeras de segurança monitorizam áreas cruciais. Se o ladrão  entrar no campo de visão de um inimigo, os restantes oponentes são notificados da localização do ladrão e entram em modo de perseguição até capturá-lo.
+No entanto, é possível completar o jogo sem ser visto, mas o jogador também tem a oportunidade de matar os guardas para escapar.
 
+<p align="center">
+<img src="./docs/game/level.png"/>
+</p>
 
-O jogo tem um menu com duas opções, start e exit. Quando o jogador escolhe "start" o jogo passa a estar em estado de jogo, onde cria a arena e o jogo em si. A arena é constituída por: paredes; guardas que rondam a arena numa tentativa de detetar o jogador (game over); um prize (o objetivo é adquiri-lo e fugir da arena com ele); uma porta de saída (que abre depois de o jogador adquirir o prize, para que possa fugir e ganhar o jogo); Thief (o playable character que, para além de poder ganhar o jogo apenas fugindo dos guardas, também pode optar por matá-los). Esta arena é desenhada a partir de um ficheiro que contém cada objeto representado por um caracter a sí específico.
 
 
 
 
-Menu do jogo:
+Controlos do jogo:
 
 
-![Menu](docs/Menu.png)
 
+`setas ou wasd` : movimentar o jogador
 
+`Q`: quit
 
+`E`: entrar na porta
 
+`Space`: disparar
 
 
-Arena antes de adquirir o prémio:
 
 
-![Arena_antes](docs/Arena_antes.png)
+## Features:
 
+### Main Menu screen:
+Tela inicial do jogo que permite ao jogador escolher entre começar o jogo, ver as instruções ou sair do jogo.
 
-Arena depois de adquirir o prémio:
+<p align="center">
+<img src="./docs/game/menu.png"/>
+</p>
 
+### Win screen:
+Aparece quando o jogador completa o jogo e permite-lhe escolher entre voltar ao menu ou recomeçar o jogo.
 
-![Arena_depois](docs/Arena_depois.png)
+<p align="center">
+<img src="./docs/game/vitoria.png"/>
+</p>
 
 
-Ficheiro de crição de arena:G-Guarda,#-Parede,T-Ladrão, posteriormente Porta:
 
+### Game Over screen:
+Aparece quando o jogador é apanhado e permite-lhe escolher entre voltar ao menu principal ou recomeçar o jogo.
 
-![Nivel](docs/Nivel.png)
+<p align="center">
+<img src="./docs/game/perder.png"/>
+</p>
 
+### Menu Instruções:
+Tela que pode ser selecionada no main menu que informa o jogador dos controlos do jogo; permite ao jogador voltar ao menu principal ou começar o jogo diretamente.
 
-Queremos ainda acrescentar: câmeras (estáticas, móveis,etc); lazers (com timer); diferentes tipos de guardas (diferentes padrões de movimento/campos de visão); perseguição do jogador por parte dos guardas quando é detetado; itens de defesa para o jogador (ex:invisibilidade temporária); diferentes mapas; melhorar a aparência do mapa e personagens; uma função que diminui a velocidade do thief depois de apanhar o prize.
+<p align="center">
+<img src="./docs/game/instrucoes.png"/>
+</p>
 
+### Movimentação do ladrão:
+O jogador pode mover o personagem nas setas ou com wasd.
 
+Disparo:  o jogador pode matar os guardas ao disparar com a tecla space.
 
-## Testes
 
+Câmeras:   há dois tipos de câmeras no jogo que podem revelar a localização do ladrão: estáticas (não movem o campo de visão) e rotativas (movem o campo de visão da esquerda para a direita, olhando também para o centro).
 
 
-Criamos diversos testes para verificar a qualidade do nosso código.Criamos assim os seguintes testes:
 
+Inimigos - Guardas e Policias:   há dois tipos de guardas que podem apanhar o ladrão e localizá-lo: guardas (apenas andam pelos cantos das salas) e polícias (movem –se em zig zag podendo entrar em salas diferentes).
 
-ThiefViewerTest:
 
 
-![ThiefViewerTest](docs/ThiefViewerTest.png)
+Collectible System:   o jogador coleta um item ao passar por cima dele, o que faz com que a porta de saída apareça.
 
 
-ArenaViewerTest:
 
+Escape:   após coletar o item o ladrão pode dirigir-se a uma porta para fugir da arena e completar o jogo.
 
-![ArenaViewerTest](docs/ArenaViewerTest.png)
 
 
-LanternaGUITest:
-
-
-![LanternaGUITest](docs/LanternaGUITest.png)
-
-
-PositionTest:
-
-
-![PositionTest](docs/PositionTest.png)
-
-
-GuardControllerTest:
-
-
-![GuardControllerTest](docs/GuardControllerTest.png)
-
-
-ThiefControllerTest:
-
-
-![ThiefControllerTest](docs/ThiefControllerTest.png)
-
-
-
-## Design Patterns
-
-
-A UML abaixo representada, demonstra o design patterns no nosso projeto. Apesar de aplicarmos os princípios do SOLID como base para a estrutura do código, existem partes que podem não os seguir completamente. Isso acontece porque, neste momento, estamos focados em ter uma implementação funcional antes de refatorar e otimizar o código para seguir rigorosamente estes princípios. Este é um passo intencional no desenvolvimento para garantir que a lógica principal está operacional antes de fazer ajustes estruturais mais detalhados.
-
-UML:
-
-
-![UML](docs/UML.jpeg)
-
+Pursuit:   ao ser visto por um dos inimigos ou câmeras, os inimigos são notificados do paradeiro do ladrão e perseguem-no pelo mapa.
