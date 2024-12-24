@@ -6,6 +6,7 @@ import com.aor.thief.model.game.arena.Arena;
 import com.aor.thief.model.game.elements.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
