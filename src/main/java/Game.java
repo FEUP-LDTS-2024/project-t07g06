@@ -86,7 +86,7 @@ public class Game {
 
     private void start() throws IOException ,InterruptedException{
 
-        int FPS = 30;
+        int FPS = 60;
         int frameTime = 1000 / FPS;
         playGameSound();
         while (this.state != null) {
